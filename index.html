@@ -3,79 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Мобильный сайт с премаркетом монет</title>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
 </head>
 <body>
+
     <!-- Шапка сайта -->
-    <header class="site-header">
+    <header>
         <div class="logo">Логотип</div>
         <h1>Название сайта</h1>
-        <button class="menu-btn" onclick="toggleMenu()">☰ Меню</button>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     </header>
 
-    <!-- Боковая панель с категориями -->
-    <div id="sidebar" class="sidebar">
-        <button class="close-btn" onclick="toggleMenu()">×</button>
+    <!-- Боковое меню -->
+    <nav id="sideMenu" class="side-menu">
         <ul>
-            <li>Категория 1</li>
-            <li>Категория 2</li>
-            <li>Категория 3</li>
+            <li><a href="#">Категория 1</a></li>
+            <li><a href="#">Категория 2</a></li>
+            <li><a href="#">Категория 3</a></li>
         </ul>
-    </div>
+    </nav>
 
-    <!-- Основной контент сайта -->
+    <!-- Основной контент -->
     <main>
-        <section class="coin-list">
-            <h2>Монеты на премаркете</h2>
-            <!-- Пример монеты -->
-            <div class="coin-item">
-                <img src="coin-logo.png" alt="Лого монеты" class="coin-logo">
-                <div class="coin-info">
-                    <span>Название монеты</span>
-                    <span>Средняя цена: 1.25 USDT</span>
-                </div>
-                <div class="coin-actions">
-                    <button class="bot-icon">🤖 Бот</button>
-                    <button class="exchange-icon">💱 Биржи</button>
-                    <button class="social-icon">📱 Соц. сети</button>
-                    <button class="link-icon">🔗 Ссылка</button>
-                </div>
-            </div>
-            <!-- Добавить остальные монеты в таком формате -->
+        <section id="coinList">
+            <!-- Здесь будет список монет -->
         </section>
 
         <!-- Конвертер монет -->
-        <section class="coin-converter">
+        <section id="converter">
             <h2>Конвертер монет</h2>
-            <form>
-                <label for="coin-select">Выбрать монету:</label>
-                <select id="coin-select">
-                    <option value="coin1">Монета 1</option>
-                    <option value="coin2">Монета 2</option>
-                </select>
+            <label for="coin">Выберите монету:</label>
+            <select id="coin"></select>
 
-                <label for="exchange-select">Выбрать биржу:</label>
-                <select id="exchange-select">
-                    <option value="site">Мой сайт</option>
-                    <option value="exchange1">Биржа 1</option>
-                </select>
+            <label for="exchange">Выберите биржу:</label>
+            <select id="exchange">
+                <option value="average">Средняя цена</option>
+            </select>
 
-                <label for="amount">Количество монет:</label>
-                <input type="number" id="amount" placeholder="Введите количество">
+            <label for="amount">Количество монет:</label>
+            <input type="number" id="amount" value="1">
 
-                <button type="button" onclick="calculate()">Рассчитать</button>
-            </form>
+            <button onclick="calculate()">Рассчитать</button>
 
-            <div id="result">Итоговая сумма: 0 USDT</div>
+            <div id="result"></div>
         </section>
     </main>
 
-    <!-- Кнопка копирования ссылки -->
+    <!-- Футер с кнопкой копирования ссылки -->
     <footer>
-        <button onclick="copyLink()">Скопировать ссылку</button>
+        <button id="copyLink" onclick="copyLink()">Копировать ссылку</button>
     </footer>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
