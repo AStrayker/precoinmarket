@@ -1,60 +1,58 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мобильный сайт с премаркетом монет</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Сайт с монетами</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <!-- Шапка сайта -->
-    <header>
+    <header class="header">
         <div class="logo">Логотип</div>
         <h1>Название сайта</h1>
-        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
     </header>
 
-    <!-- Боковое меню -->
-    <nav id="sideMenu" class="side-menu">
+    <!-- Выдвижное меню с категориями -->
+    <nav id="side-menu" class="side-menu">
         <ul>
-            <li><a href="#">Категория 1</a></li>
-            <li><a href="#">Категория 2</a></li>
-            <li><a href="#">Категория 3</a></li>
+            <li>Категория 1</li>
+            <li>Категория 2</li>
+            <li>Категория 3</li>
         </ul>
     </nav>
 
     <!-- Основной контент -->
-    <main>
-        <section id="coinList">
-            <!-- Здесь будет список монет -->
-        </section>
+    <main class="main-content">
+        <h2>Монеты на премаркете</h2>
+        <div id="coins-list" class="coins-list">
+            <!-- Сюда будут добавляться монеты через JS -->
+        </div>
 
         <!-- Конвертер монет -->
-        <section id="converter">
-            <h2>Конвертер монет</h2>
-            <label for="coin">Выберите монету:</label>
-            <select id="coin"></select>
-
-            <label for="exchange">Выберите биржу:</label>
-            <select id="exchange">
-                <option value="average">Средняя цена</option>
-            </select>
-
-            <label for="amount">Количество монет:</label>
-            <input type="number" id="amount" value="1">
-
-            <button onclick="calculate()">Рассчитать</button>
-
+        <div class="converter">
+            <h3>Конвертер монет</h3>
+            <div class="converter-section">
+                <label for="coin-select">Выберите монету:</label>
+                <select id="coin-select">
+                    <option value="average">Средняя цена</option>
+                    <!-- Здесь будут монеты -->
+                </select>
+                <label for="exchange-select">Выберите биржу:</label>
+                <select id="exchange-select">
+                    <option value="average">Средняя цена</option>
+                    <!-- Здесь будут биржи -->
+                </select>
+            </div>
+            <div class="converter-section">
+                <input type="number" id="coin-amount" placeholder="Количество монет">
+                <button onclick="convert()">Рассчитать</button>
+            </div>
             <div id="result"></div>
-        </section>
+        </div>
     </main>
 
-    <!-- Футер с кнопкой копирования ссылки -->
-    <footer>
-        <button id="copyLink" onclick="copyLink()">Копировать ссылку</button>
-    </footer>
-
-    <script src="scripts.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

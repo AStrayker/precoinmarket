@@ -1,59 +1,74 @@
-// Открытие/закрытие бокового меню
+﻿// Функция для открытия и закрытия меню
 function toggleMenu() {
-    const menu = document.getElementById('sideMenu');
-    menu.classList.toggle('open');
+    const menu = document.getElementById('side-menu');
+    if (menu.style.left === '0px') {
+        menu.style.left = '-250px';
+    } else {
+        menu.style.left = '0';
+    }
 }
 
-// Копирование ссылки на сайт
-function copyLink() {
-    const dummy = document.createElement('textarea');
-    dummy.value = window.location.href;
-    document.body.appendChild(dummy);
-    dummy.select();
-    document.execCommand('copy');
-    document.body.removeChild(dummy);
-    alert('Ссылка скопирована!');
-}
-
-// Пример данных монет (вы можете позже заменить их на реальные данные)
+// Пример данных для монет
 const coins = [
-    {name: "Bitcoin", price: [40000, 40500, 41000], listingDate: "2024-10-10"},
-    {name: "Ethereum", price: [2500, 2600, 2550], listingDate: "2024-10-12"}
+    {
+        name: "Bitcoin",
+        logo: "btc-logo.png",
+        avgPrice: 40000,
+        bots: ["Bot 1", "Bot 2"],
+        exchanges: [
+            { name: "Binance", price: 39950 },
+            { name: "Coinbase", price: 40010 }
+        ],
+        socials: {
+            telegram: "https://t.me/bitcoin",
+            twitter: "https://twitter.com/bitcoin"
+        },
+        listingDate: "2024-10-10"
+    },
+    // Добавь другие монеты по аналогии
 ];
 
-// Загрузка списка монет
-function loadCoins() {
-    const coinList = document.getElementById('coinList');
+// Функция для отображения списка монет
+function displayCoins() {
+    const coinsList = document.getElementById('coins-list');
     coins.forEach(coin => {
-        const avgPrice = coin.price.reduce((a, b) => a + b) / coin.price.length;
-        const coinElement = `
-            <div class="coin">
-                <img src="logo.png" alt="Логотип монеты" />
-                <span>${coin.name}</span>
-                <span>Средняя цена: $${avgPrice.toFixed(2)}</span>
-                <span>Дата листинга: ${coin.listingDate}</span>
-            </div>
+        const coinItem = document.createElement('div');
+        coinItem.classList.add('coin-item');
+        coinItem.innerHTML = `
+            <img src="${coin.logo}" alt="${coin.name}" width="40">
+            <span>${coin.name}</span>
+            <span>Средняя цена: ${coin.avgPrice} USDT</span>
+            <button onclick="showBotInfo('${coin.name}')">Бот</button>
+            <button onclick="showExchangeInfo('${coin.name}')">Биржи</button>
+            <button onclick="showSocials('${coin.name}')">Соцсети</button>
+            <button onclick="copyLink('${coin.name}')">Скопировать ссылку</button>
         `;
-        coinList.innerHTML += coinElement;
+        coinsList.appendChild(coinItem);
     });
 }
 
-// Конвертер монет
-function calculate() {
-    const coin = document.getElementById('coin').value;
-    const exchange = document.getElementById('exchange').value;
-    const amount = document.getElementById('amount').value;
-
-    const coinData = coins.find(c => c.name === coin);
-    const price = exchange === 'average'
-        ? coinData.price.reduce((a, b) => a + b) / coinData.price.length
-        : coinData.price[0]; // Например, цена на конкретной бирже
-
-    const result = price * amount;
-    document.getElementById('result').innerText = `Стоимость: ${result.toFixed(2)} USDT`;
+function showBotInfo(coinName) {
+    alert(`Информация о ботах для ${coinName}`);
 }
 
-// Инициализация сайта
-window.onload = function() {
-    loadCoins();
-};
+function showExchangeInfo(coinName) {
+    alert(`Информация о биржах для ${coinName}`);
+}
+
+function showSocials(coinName) {
+    alert(`Соцсети для ${coinName}`);
+}
+
+function copyLink(coinName) {
+    alert(`Ссылка на ${coinName} скопирована!`);
+}
+
+// Функция для конвертации
+function convert() {
+    const amount = document.getElementById('coin-amount').value;
+    const result = amount * 40000; // Пример расчета
+    document.getElementById('result').innerText = `Стоимость: ${result} USDT`;
+}
+
+// Вызов функции отображения монет
+displayCoins();
