@@ -1,90 +1,59 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+// Открытие/закрытие бокового меню
+function toggleMenu() {
+    const menu = document.getElementById('sideMenu');
+    menu.classList.toggle('open');
 }
 
-body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background-color: #f4f4f4;
+// Копирование ссылки на сайт
+function copyLink() {
+    const dummy = document.createElement('textarea');
+    dummy.value = window.location.href;
+    document.body.appendChild(dummy);
+    dummy.select();
+    document.execCommand('copy');
+    document.body.removeChild(dummy);
+    alert('Ссылка скопирована!');
 }
 
-/* Шапка */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    padding: 15px;
+// Пример данных монет (вы можете позже заменить их на реальные данные)
+const coins = [
+    {name: "Bitcoin", price: [40000, 40500, 41000], listingDate: "2024-10-10"},
+    {name: "Ethereum", price: [2500, 2600, 2550], listingDate: "2024-10-12"}
+];
+
+// Загрузка списка монет
+function loadCoins() {
+    const coinList = document.getElementById('coinList');
+    coins.forEach(coin => {
+        const avgPrice = coin.price.reduce((a, b) => a + b) / coin.price.length;
+        const coinElement = `
+            <div class="coin">
+                <img src="logo.png" alt="Логотип монеты" />
+                <span>${coin.name}</span>
+                <span>Средняя цена: $${avgPrice.toFixed(2)}</span>
+                <span>Дата листинга: ${coin.listingDate}</span>
+            </div>
+        `;
+        coinList.innerHTML += coinElement;
+    });
 }
 
-.logo {
-    font-size: 1.5em;
+// Конвертер монет
+function calculate() {
+    const coin = document.getElementById('coin').value;
+    const exchange = document.getElementById('exchange').value;
+    const amount = document.getElementById('amount').value;
+
+    const coinData = coins.find(c => c.name === coin);
+    const price = exchange === 'average'
+        ? coinData.price.reduce((a, b) => a + b) / coinData.price.length
+        : coinData.price[0]; // Например, цена на конкретной бирже
+
+    const result = price * amount;
+    document.getElementById('result').innerText = `Стоимость: ${result.toFixed(2)} USDT`;
 }
 
-/* Боковое меню */
-.side-menu {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 250px;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    transition: left 0.3s ease;
-}
-
-.side-menu ul {
-    list-style: none;
-    padding: 20px;
-}
-
-.side-menu ul li {
-    margin-bottom: 15px;
-}
-
-.side-menu ul li a {
-    color: white;
-    text-decoration: none;
-}
-
-/* Основной контент */
-main {
-    margin-top: 20px;
-}
-
-#coinList {
-    margin-bottom: 20px;
-}
-
-/* Конвертер */
-#converter {
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 10px;
-}
-
-button {
-    padding: 10px 20px;
-    margin-top: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-/* Футер */
-footer {
-    text-align: center;
-    margin-top: 30px;
-}
-
-/* Анимация бокового меню */
-.side-menu.open {
-    left: 0;
-}
+// Инициализация сайта
+window.onload = function() {
+    loadCoins();
+};
