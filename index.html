@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Монеты</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Логотип</div>
+        <h1>Название сайта</h1>
+        <button id="menu-toggle">Меню</button>
+    </header>
+
+    <nav id="sidebar" class="sidebar">
+        <ul>
+            <li>Категория 1</li>
+            <li>Категория 2</li>
+            <li>Категория 3</li>
+        </ul>
+    </nav>
+
+    <main>
+        <h2>Список монет</h2>
+        <div id="coin-list"></div>
+
+        <div class="converter">
+            <h3>Конвертер монет</h3>
+            <select id="coin-selector"></select>
+            <input type="number" id="amount" placeholder="Количество монет">
+            <button id="calculate">Рассчитать</button>
+            <div id="result"></div>
+        </div>
+    </main>
+
+    <script src="scripts/script.js"></script>
+</body>
+</html>
