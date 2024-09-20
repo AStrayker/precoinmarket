@@ -3,76 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цена последней сделки</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-        }
-        .price-section {
-            margin-top: 50px;
-            padding: 20px;
-            background-color: white;
-            border: 1px solid #ddd;
-            display: inline-block;
-        }
-        .price-title {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .price-value {
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .price-change {
-            font-size: 16px;
-            color: #d9534f; /* Красный цвет для отрицательного изменения */
-        }
-    </style>
+    <title>Сайт с монетами</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="logo">Логотип</div>
+        <h1>Название сайта</h1>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </header>
 
-    <section class="price-section">
-        <div class="price-title">Цена последней сделки (USDT)</div>
-        <div id="price-value" class="price-value">Загрузка...</div>
-        <div id="price-change" class="price-change"></div>
-    </section>
+    <!-- Выдвижное меню с категориями -->
+    <nav id="side-menu" class="side-menu">
+        <ul>
+            <li>Категория 1</li>
+            <li>Категория 2</li>
+            <li>Категория 3</li>
+        </ul>
+    </nav>
 
-    <script>
-        // Функция для получения данных о последней сделке с Bybit API
-        async function fetchLastPrice() {
-            try {
-                // Запрос к API Bybit для CATI/USDT
-                const response = await fetch('https://api.bybit.com/spot/quote/v1/ticker/24hr?symbol=CATIUSDT');
-                const data = await response.json();
+    <!-- Основной контент -->
+    <main class="main-content">
+        <h2>Монеты на премаркете</h2>
+        <div class="coins-list">
+            <table border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Логотип</th>
+                        <th>Средняя цена</th>
+                        <th>Бот</th>
+                        <th>Список бирж</th>
+                        <th>Дата листинга</th>
+                        <th>Поделиться токеном</th>
+                        <th>Цена последней сделки (USDT)</th> <!-- Новый столбец -->
+                    </tr>
+                </thead>
+                <tbody id="coins-tbody">
+                    <!-- Сюда будут добавляться монеты через JavaScript -->
+                </tbody>
+            </table>
+        </div>
 
-                // Извлекаем цену последней сделки и процентное изменение
-                const lastPrice = data.result.lastPrice;
-                const priceChangePercent = data.result.priceChangePercent;
+        <!-- Конвертер монет -->
+        <div class="converter">
+            <h3>Конвертер монет</h3>
+            <div class="converter-section">
+                <label for="coin-select">Выберите монету:</label>
+                <select id="coin-select">
+                    <option value="average">Средняя цена</option>
+                    <!-- Здесь будут монеты -->
+                </select>
+                <label for="exchange-select">Выберите биржу:</label>
+                <select id="exchange-select">
+                    <option value="average">Средняя цена</option>
+                    <!-- Здесь будут биржи -->
+                </select>
+            </div>
+            <div class="converter-section">
+                <input type="number" id="coin-amount" placeholder="Количество монет">
+                <button onclick="convert()">Рассчитать</button>
+            </div>
+            <div id="result"></div>
+        </div>
 
-                // Обновляем данные на сайте
-                document.getElementById('price-value').innerText = `${lastPrice} USDT`;
-                document.getElementById('price-change').innerText = `(${priceChangePercent}%)`;
+        <!-- Раздел для отображения цены последней сделки -->
+        <section id="last-trade-price-section">
+            <div class="Traders_title__cEcA7">Цена последней сделки (USDT)</div>
+            <div class="Traders_val__y_m8Q">
+                <div id="last-trade-price">Загрузка...</div>
+            </div>
+        </section>
+    </main>
 
-                // Меняем цвет изменения цены в зависимости от значения
-                const priceChangeElement = document.getElementById('price-change');
-                if (parseFloat(priceChangePercent) < 0) {
-                    priceChangeElement.style.color = '#d9534f'; // Красный
-                } else {
-                    priceChangeElement.style.color = '#5cb85c'; // Зелёный
-                }
-            } catch (error) {
-                console.error('Ошибка при получении данных с API Bybit:', error);
-            }
-        }
-
-        // Обновляем цену каждые 5 секунд
-        setInterval(fetchLastPrice, 5000);
-
-        // Получаем данные при загрузке страницы
-        fetchLastPrice();
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
