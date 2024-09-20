@@ -1,90 +1,112 @@
-* {
+/* Основные стили */
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background-color: #f4f4f4;
-}
-
-/* Шапка */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.header {
     background-color: #333;
     color: white;
     padding: 15px;
+    text-align: center;
+    position: relative;
 }
 
 .logo {
-    font-size: 1.5em;
+    position: absolute;
+    left: 10px;
+    top: 15px;
 }
 
-/* Боковое меню */
+.menu-btn {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
 .side-menu {
     position: fixed;
+    left: -250px;
     top: 0;
-    left: -100%;
     width: 250px;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
-    transition: left 0.3s ease;
+    color: white;
+    padding: 20px;
+    transition: 0.3s;
 }
 
 .side-menu ul {
     list-style: none;
-    padding: 20px;
+    padding: 0;
 }
 
 .side-menu ul li {
-    margin-bottom: 15px;
+    padding: 10px 0;
 }
 
-.side-menu ul li a {
-    color: white;
-    text-decoration: none;
+.main-content {
+    padding: 20px;
 }
 
-/* Основной контент */
-main {
-    margin-top: 20px;
+.coins-list {
+    margin-bottom: 40px;
 }
 
-#coinList {
-    margin-bottom: 20px;
+.coins-list table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-/* Конвертер */
-#converter {
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 10px;
+.coins-list th, .coins-list td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
 }
 
-button {
-    padding: 10px 20px;
-    margin-top: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
+.coins-list th {
+    background-color: #f4f4f4;
+}
+
+.coins-list img {
+    width: 50px;
+    height: 50px;
+}
+
+.converter {
+    padding: 20px;
+    background-color: #f9f9f9;
     border-radius: 5px;
 }
 
-button:hover {
-    background-color: #0056b3;
+.converter-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
-/* Футер */
-footer {
-    text-align: center;
-    margin-top: 30px;
+/* Стили для раздела последней сделки */
+#last-trade-price-section {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #eef;
+    border-radius: 5px;
 }
 
-/* Анимация бокового меню */
-.side-menu.open {
-    left: 0;
+.Traders_title__cEcA7 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.Traders_val__y_m8Q div {
+    font-size: 1.5em;
+    font-weight: bold;
 }
