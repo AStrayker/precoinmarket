@@ -1,81 +1,38 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сайт с монетами</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мобильный сайт</title>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Шапка сайта -->
-    <header class="header">
-        <div class="logo">Логотип</div>
-        <h1>Название сайта</h1>
-        <button class="menu-btn" onclick="toggleMenu()">☰</button>
-    </header>
-
-    <!-- Выдвижное меню с категориями -->
-    <nav id="side-menu" class="side-menu">
-        <ul>
-            <li>Категория 1</li>
-            <li>Категория 2</li>
-            <li>Категория 3</li>
-        </ul>
+  <!-- Шторка меню -->
+  <div class="menu">
+    <nav>
+      <ul>
+        <li><a href="#">Премаркет монет</a></li>
+        <li><a href="#">Листинг монет</a></li>
+        <li><a href="#">Игры с дропами</a></li>
+        <li><a href="#">Активности от бирж</a></li>
+      </ul>
     </nav>
+    <div class="social-icons">
+      <a href="#"><img src="images/close.png" alt="Закрыть"></a>
+      <a href="https://t.me/твой_телеграм"><img src="images/telegram.png" alt="Telegram"></a>
+      <a href="https://www.tiktok.com/@твой_аккаунт"><img src="images/tiktok.png" alt="TikTok"></a>
+      <a href="mailto:твой_почтовый_адрес"><img src="images/email.png" alt="Email"></a>
+    </div>
+  </div>
 
-    <!-- Основной контент -->
-    <main class="main-content">
-        <h2>Монеты на премаркете</h2>
-        <div class="coins-list">
-            <table border="1" cellpadding="1" cellspacing="1" style="width: 100%;">
-                <thead>
-                    <tr>
-                        <th>Логотип</th>
-                        <th>Средняя цена</th>
-                        <th>Бот</th>
-                        <th>Список бирж</th>
-                        <th>Дата листинга</th>
-                        <th>Поделиться токеном</th>
-                        <th>Цена последней сделки (USDT)</th> <!-- Новый столбец -->
-                    </tr>
-                </thead>
-                <tbody id="coins-tbody">
-                    <!-- Сюда будут добавляться монеты через JavaScript -->
-                </tbody>
-            </table>
-        </div>
+  <!-- Контент -->
+  <div class="content">
+    <h1>Добро пожаловать на сайт</h1>
+    <p>Здесь будут отображаться ваши закладки и активные предложения.</p>
+    <button id="login">Войти/Регистрация</button>
+  </div>
 
-        <!-- Конвертер монет -->
-        <div class="converter">
-            <h3>Конвертер монет</h3>
-            <div class="converter-section">
-                <label for="coin-select">Выберите монету:</label>
-                <select id="coin-select">
-                    <option value="average">Средняя цена</option>
-                    <!-- Здесь будут монеты -->
-                </select>
-                <label for="exchange-select">Выберите биржу:</label>
-                <select id="exchange-select">
-                    <option value="average">Средняя цена</option>
-                    <!-- Здесь будут биржи -->
-                </select>
-            </div>
-            <div class="converter-section">
-                <input type="number" id="coin-amount" placeholder="Количество монет">
-                <button onclick="convert()">Рассчитать</button>
-            </div>
-            <div id="result"></div>
-        </div>
-
-        <!-- Раздел для отображения цены последней сделки -->
-        <section id="last-trade-price-section">
-            <div class="Traders_title__cEcA7">Цена последней сделки (USDT)</div>
-            <div class="Traders_val__y_m8Q">
-                <div id="last-trade-price">Загрузка...</div>
-            </div>
-        </section>
-    </main>
-
-    <script src="script.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
