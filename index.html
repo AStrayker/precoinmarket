@@ -1,38 +1,109 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Мобильный сайт</title>
-  <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица CATS</title>
+    <style>
+        /* Основной стиль таблицы */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            text-align: center;
+        }
+        th, td {
+            padding: 10px;
+            border: 2px solid black;
+        }
+        /* Стиль первой колонки с логотипом */
+        .logo-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100px; /* Ширина для логотипа */
+        }
+        .logo-cell img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        /* Стиль для логотипов бирж */
+        .exchange-logo img {
+            width: 40px;
+            height: 40px;
+        }
+        /* Стили для первой колонки (фиксированной) */
+        .sticky-col {
+            position: sticky;
+            left: 0;
+            background-color: white;
+            z-index: 2;
+        }
+        /* Стиль заголовков бирж (Name) */
+        .name-header {
+            font-weight: bold;
+        }
+        /* Стили для последней колонки (Листинг) */
+        .listing-date {
+            font-size: 18px;
+            color: gray;
+        }
+        /* Стили для мобильной версии */
+        @media (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            .sticky-col {
+                position: sticky;
+                left: 0;
+                background-color: white;
+                z-index: 1;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Шторка меню -->
-  <div class="menu">
-    <nav>
-      <ul>
-        <li><a href="#">Премаркет монет</a></li>
-        <li><a href="#">Листинг монет</a></li>
-        <li><a href="#">Игры с дропами</a></li>
-        <li><a href="#">Активности от бирж</a></li>
-      </ul>
-    </nav>
-    <div class="social-icons">
-      <a href="#"><img src="images/close.png" alt="Закрыть"></a>
-      <a href="https://t.me/твой_телеграм"><img src="images/telegram.png" alt="Telegram"></a>
-      <a href="https://www.tiktok.com/@твой_аккаунт"><img src="images/tiktok.png" alt="TikTok"></a>
-      <a href="mailto:твой_почтовый_адрес"><img src="images/email.png" alt="Email"></a>
-    </div>
-  </div>
+    <table>
+        <!-- Первая строка: заголовки -->
+        <tr>
+            <th class="sticky-col logo-cell">
+                <img src="https://img.bitgetimg.com/multiLang/web/fa5787e62bb2d77e8b317d3dccc8bc67.png" alt="CATS Logo">
+            </th>
+            <th class="exchange-logo">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlUGQUUmLIe0r9KDTAll4brPiQV-mX21l2jg&s" alt="Kucoin">
+                <div class="name-header">Kucoin</div>
+            </th>
+            <th class="exchange-logo">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeyp7hp8t305-pIdkUjmKQFp0h1BViiSxm3w&s" alt="Bybit">
+                <div class="name-header">Bybit</div>
+            </th>
+            <th class="exchange-logo">
+                <img src="https://www.gate.io/images/gate.io_logo.png" alt="Gate">
+                <div class="name-header">Gate</div>
+            </th>
+            <th class="exchange-logo">
+                <img src="https://s2.coinmarketcap.com/static/img/coins/200x200/11092.png" alt="CoinEx">
+                <div class="name-header">bitget</div>
+            </th>
+            <th class="listing-date">
+                Листинг <br>
+            </th>
+        </tr>
 
-  <!-- Контент -->
-  <div class="content">
-    <h1>Добро пожаловать на сайт</h1>
-    <p>Здесь будут отображаться ваши закладки и активные предложения.</p>
-    <button id="login">Войти/Регистрация</button>
-  </div>
-
-  <script src="js/firebase.js"></script>
-  <script src="js/app.js"></script>
+        <!-- Вторая строка: данные -->
+        <tr>
+            <td class="sticky-col logo-cell">CATS
+            </td>
+            <td>0,50</td>
+            <td>0,50</td>
+            <td>0,50</td>
+            <td>0,50</td>
+            <td>22 Октября 2024</td>
+        </tr>
+    </table>
 </body>
 </html>
