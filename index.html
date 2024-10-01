@@ -16,13 +16,18 @@
             padding: 10px;
             border: 2px solid black;
         }
-        /* Стиль первой колонки с логотипом */
+        /* Убираем отступы между колонками для ПК версии */
+        td, th {
+            margin: 0;
+            padding: 0;
+        }
+        /* Стиль первой колонки с логотипом монет */
         .logo-cell {
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            width: 100px;
+            width: 120px;
         }
         .logo-cell img {
             width: 50px;
@@ -49,6 +54,17 @@
         .listing-date {
             font-size: 18px;
             color: gray;
+        }
+        /* Добавляем стиль для иконок монет */
+        .coin-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+        }
+        .coin-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         /* Стили для мобильной версии */
         @media (max-width: 768px) {
@@ -108,9 +124,12 @@
             <th class="listing-date">Листинг</th>
         </tr>
 
-        <!-- Табличные данные для монет -->
+        <!-- Табличные данные для монет с иконками -->
         <tr>
-            <td class="sticky-col logo-cell">CATS</td>
+            <td class="sticky-col coin-cell">
+                <img class="coin-icon" src="https://img.bitgetimg.com/multiLang/web/fa5787e62bb2d77e8b317d3dccc8bc67.png" alt="CATS">
+                <span>CATS</span>
+            </td>
             <td>0,50</td>
             <td>0,50</td>
             <td>0,50</td>
@@ -122,7 +141,10 @@
             <td>22 Октября 2024</td>
         </tr>
         <tr>
-            <td class="sticky-col logo-cell">DOGS</td>
+            <td class="sticky-col coin-cell">
+                <img class="coin-icon" src="https://cryptologos.cc/logos/dogecoin-doge-logo.png" alt="DOGS">
+                <span>DOGS</span>
+            </td>
             <td>0,40</td>
             <td>0,40</td>
             <td>0,40</td>
@@ -134,7 +156,10 @@
             <td>23 Октября 2024</td>
         </tr>
         <tr>
-            <td class="sticky-col logo-cell">BIRDS</td>
+            <td class="sticky-col coin-cell">
+                <img class="coin-icon" src="https://cryptologos.cc/logos/cardano-ada-logo.png" alt="BIRDS">
+                <span>BIRDS</span>
+            </td>
             <td>0,30</td>
             <td>0,30</td>
             <td>0,30</td>
@@ -146,7 +171,10 @@
             <td>24 Октября 2024</td>
         </tr>
         <tr>
-            <td class="sticky-col logo-cell">FISH</td>
+            <td class="sticky-col coin-cell">
+                <img class="coin-icon" src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="FISH">
+                <span>FISH</span>
+            </td>
             <td>0,20</td>
             <td>0,20</td>
             <td>0,20</td>
@@ -158,7 +186,10 @@
             <td>25 Октября 2024</td>
         </tr>
         <tr>
-            <td class="sticky-col logo-cell">RABBITS</td>
+            <td class="sticky-col coin-cell">
+                <img class="coin-icon" src="https://cryptologos.cc/logos/ripple-xrp-logo.png" alt="RABBITS">
+                <span>RABBITS</span>
+            </td>
             <td>0,10</td>
             <td>0,10</td>
             <td>0,10</td>
@@ -170,7 +201,10 @@
             <td>26 Октября 2024</td>
         </tr>
         <tr>
-            <td class="sticky-col logo-cell">LIONS</td>
+            <td class="sticky-col coin-cell">
+                <img class="coin-icon" src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="LIONS">
+                <span>LIONS</span>
+            </td>
             <td>1,00</td>
             <td>1,00</td>
             <td>1,00</td>
@@ -182,15 +216,18 @@
             <td>27 Октября 2024</td>
         </tr>
         <tr>
-            <td class="sticky-col logo-cell">TIGERS</td>
-            <td>1,10</td>
-            <td>1,10</td>
-            <td>1,10</td>
-            <td>1,10</td>
-            <td>1,10</td>
-            <td>1,10</td>
-            <td>1,10</td>
-            <td>1,10</td>
+            <td class="sticky-col coin-cell">
+                <img class="coin-icon" src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="TIGERS">
+                <span>TIGERS</span>
+            </td>
+            <td>0,80</td>
+            <td>0,80</td>
+            <td>0,80</td>
+            <td>0,80</td>
+            <td>0,80</td>
+            <td>0,80</td>
+            <td>0,80</td>
+            <td>0,80</td>
             <td>28 Октября 2024</td>
         </tr>
     </table>
