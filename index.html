@@ -1,153 +1,45 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Конвертер монет</title>
-    <style>
-        /* Основной стиль для формы */
-        .converter-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 30px;
-        }
-        .converter-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 400px;
-            border: 2px solid #ccc;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .converter-form label {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-        /* Стили для логотипов */
-        .logo-small {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-        }
-        /* Поля ввода */
-        .converter-form select, .converter-form input {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #000;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        .converter-form input[type="number"] {
-            width: 100%;
-        }
-        /* Стиль для кнопки */
-        .converter-form button {
-            width: 100%;
-            padding: 10px;
-            font-size: 18px;
-            color: white;
-            background: linear-gradient(90deg, #4CAF50, #3b83eb);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        .converter-form button:hover {
-            background: linear-gradient(90deg, #3b83eb, #4CAF50);
-        }
-        /* Стили для результата */
-        #converter-result {
-            margin-top: 20px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-        }
-    </style>
-</head>
-<body>
-    <div class="converter-container">
-        <form class="converter-form" id="crypto-converter">
-            <label for="crypto-select">
-                <img id="crypto-logo" class="logo-small" src="https://img.bitgetimg.com/multiLang/web/fa5787e62bb2d77e8b317d3dccc8bc67.png" alt="CATS">
-                Выберите монету:
-                <select id="crypto-select">
-                    <option value="CATS" data-logo="https://img.bitgetimg.com/multiLang/web/fa5787e62bb2d77e8b317d3dccc8bc67.png">CATS</option>
-                    <option value="MEMEFI" data-logo="https://img.bitgetimg.com/multiLang/web/723a3fb83be49def12aa7befe34485e0.jpeg">MEMEFI</option>
-                    <option value="SCR" data-logo="https://img.bitgetimg.com/multiLang/web/b226c793a1767433b1654ae09f2024bb.jpeg">SCR</option>
-                    <option value="Major" data-logo="https://img.bitgetimg.com/multiLang/web/6103b9237e5d4398191608f38182b00d.png">Major</option>
-                    <option value="rabbits" data-logo="https://img.bitgetimg.com/multiLang/web/cbea713d6bf356f83030de969e22dc68.png">SWELL</option>
-                    <option value="OGC" data-logo="https://img.bitgetimg.com/multiLang/web/b9818ee83bf30e9dd864ddcc52db5956.jpeg">OGC</option>
-                </select>
-            </label>
-            <label for="exchange-select">
-                <img id="exchange-logo" class="logo-small" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlUGQUUmLIe0r9KDTAll4brPiQV-mX21l2jg&s" alt="Kucoin">
-                Выберите биржу:
-                <select id="exchange-select">
-                    <option value="kucoin" data-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlUGQUUmLIe0r9KDTAll4brPiQV-mX21l2jg&s">Kucoin</option>
-                    <option value="bybit" data-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeyp7hp8t305-pIdkUjmKQFp0h1BViiSxm3w&s">Bybit</option>
-                    <option value="gate" data-logo="https://www.gate.io/images/gate.io_logo.png">Gate</option>
-                    <option value="coinex" data-logo="https://s2.coinmarketcap.com/static/img/coins/200x200/11092.png">CoinEx</option>
-                    <option value="bitget" data-logo="https://img.bitgetimg.com/multiLang/web/fa5787e62bb2d77e8b317d3dccc8bc67.png">Bitget</option>
-                    <option value="binance" data-logo="https://static.binance.org/images/binance-logo.png">Binance</option>
-                    <option value="okx" data-logo="https://static.okx.com/cdn/assets/imgs/221/0x.png">OKX</option>
-                    <option value="huobi" data-logo="https://static.huobi.com/assets2/img/logo/global-nav/logo.png">Huobi</option>
-                </select>
-            </label>
-            <label for="amount-input">
-                Введите количество монет:
-                <input type="number" id="amount-input" placeholder="0.00">
-            </label>
-            <button type="button" id="calculate-btn">Рассчитать</button>
-        </form>
+<script>
+    document.getElementById('crypto-select').addEventListener('change', function () {
+        const selectedCrypto = this.options[this.selectedIndex];
+        const logoSrc = selectedCrypto.getAttribute('data-logo');
+        document.getElementById('crypto-logo').src = logoSrc;
+        document.getElementById('crypto-logo').alt = selectedCrypto.text;
+    });
 
-        <div id="converter-result"></div>
-    </div>
+    document.getElementById('exchange-select').addEventListener('change', function () {
+        const selectedExchange = this.options[this.selectedIndex];
+        const logoSrc = selectedExchange.getAttribute('data-logo');
+        document.getElementById('exchange-logo').src = logoSrc;
+        document.getElementById('exchange-logo').alt = selectedExchange.text;
+    });
 
-    <script>
-        document.getElementById('crypto-select').addEventListener('change', function () {
-            const selectedCrypto = this.options[this.selectedIndex];
-            const logoSrc = selectedCrypto.getAttribute('data-logo');
-            document.getElementById('crypto-logo').src = logoSrc;
-            document.getElementById('crypto-logo').alt = selectedCrypto.text;
-        });
+    document.getElementById('calculate-btn').addEventListener('click', function () {
+        const crypto = document.getElementById('crypto-select').value.toLowerCase(); // Приводим к нижнему регистру
+        const exchange = document.getElementById('exchange-select').value;
+        const amount = parseFloat(document.getElementById('amount-input').value);
+        
+        // Обновляем объект prices с правильными ключами
+        const prices = {
+            cats: 0.50,
+            memefi: 0.40,
+            scr: 0.30,
+            major: 0.20,
+            rabbits: 0.10,
+            ogc: 1.00
+        };
 
-        document.getElementById('exchange-select').addEventListener('change', function () {
-            const selectedExchange = this.options[this.selectedIndex];
-            const logoSrc = selectedExchange.getAttribute('data-logo');
-            document.getElementById('exchange-logo').src = logoSrc;
-            document.getElementById('exchange-logo').alt = selectedExchange.text;
-        });
+        if (!amount || amount <= 0) {
+            document.getElementById('converter-result').innerText = 'Введите корректное количество монет.';
+            return;
+        }
 
-        document.getElementById('calculate-btn').addEventListener('click', function () {
-            const crypto = document.getElementById('crypto-select').value;
-            const exchange = document.getElementById('exchange-select').value;
-            const amount = parseFloat(document.getElementById('amount-input').value);
-            const prices = {
-                cats: 0.50,
-                dogs: 0.40,
-                birds: 0.30,
-                fish: 0.20,
-                rabbits: 0.10,
-                lions: 1.00,
-                tigers: 1.10
-            };
-            if (!amount || amount <= 0) {
-                document.getElementById('converter-result').innerText = 'Введите корректное количество монет.';
-                return;
-            }
-            const totalCost = (prices[crypto] * amount).toFixed(2);
-            const resultText = `Стоимость ${amount} ${crypto.toUpperCase()} на ${exchange.toUpperCase()}: ${totalCost} USDT.`;
-            document.getElementById('converter-result').innerText = resultText;
-        });
-    </script>
-</body>
-</html>
+        if (!prices[crypto]) {
+            document.getElementById('converter-result').innerText = 'Выбранная криптовалюта не поддерживается.';
+            return;
+        }
+
+        const totalCost = (prices[crypto] * amount).toFixed(2);
+        const resultText = `Стоимость ${amount} ${crypto.toUpperCase()} на ${exchange.toUpperCase()}: ${totalCost} USDT.`;
+        document.getElementById('converter-result').innerText = resultText;
+    });
+</script>
