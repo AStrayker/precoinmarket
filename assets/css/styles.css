@@ -1,4 +1,4 @@
-﻿/* Основные стили */
+/* Основные стили */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -79,3 +79,40 @@ body {
     padding: 20px;
 }
 
+/* Запрет копирования через долгий клик */
+body {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Адаптация для ПК */
+@media (min-width: 1024px) {
+    /* Постоянное меню для ПК */
+    #menu {
+        left: 0;
+        width: 300px;
+        position: fixed;
+    }
+
+    /* Увеличиваем ширину контента для ПК */
+    #content {
+        margin-left: 320px;
+        padding: 40px;
+    }
+
+    /* Централизованные кнопки и соцсети внизу */
+    .menu-footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #333;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
