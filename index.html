@@ -1,191 +1,54 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Конвертер монет</title>
-    <style>
-        /* Основной стиль для формы */
-        .converter-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 30px;
-        }
-        .converter-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 400px;
-            border: 2px solid #ccc;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .converter-form label {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-        /* Стили для логотипов */
-        .logo-small {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-        }
-        /* Поля ввода */
-        .converter-form select, .converter-form input {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #000;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        .converter-form input[type="number"] {
-            width: 100%;
-        }
-        /* Стиль для кнопки */
-        .converter-form button {
-            width: 100%;
-            padding: 10px;
-            font-size: 18px;
-            color: white;
-            background: linear-gradient(90deg, #4CAF50, #3b83eb);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        .converter-form button:hover {
-            background: linear-gradient(90deg, #3b83eb, #4CAF50);
-        }
-        /* Стили для результата */
-        #converter-result {
-            margin-top: 20px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-        }
-        /* Стили для уведомления о ПК версии */
-        #pc-notice {
-            display: none;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #999;
-        }
-    </style>
+    <meta name="description" content="Precoinmarket: Премаркет криптовалют, конвертер, PlayToEarn игры, активности от бирж и многое другое!">
+    <meta property="og:title" content="Precoinmarket: Лучший источник для криптоинвесторов!">
+    <meta property="og:description" content="Премаркет, игры PlayToEarn, активности и многое другое">
+    <meta property="og:image" content="assets/images/banner.jpg">
+    <link rel="icon" href="assets/images/favicon.ico">
+    <title>Precoinmarket</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <div class="converter-container">
-        <form class="converter-form" id="crypto-converter">
-            <label for="crypto-select">
-                <img id="crypto-logo" class="logo-small" src="https://img.bitgetimg.com/multiLang/web/fa5787e62bb2d77e8b317d3dccc8bc67.png" alt="CATS">
-                Выберите монету:
-                <select id="crypto-select">
-                    <option value="CATS" data-logo="https://img.bitgetimg.com/multiLang/web/fa5787e62bb2d77e8b317d3dccc8bc67.png">CATS</option>
-                    <option value="MEMEFI" data-logo="https://img.bitgetimg.com/multiLang/web/723a3fb83be49def12aa7befe34485e0.jpeg">MEMEFI</option>
-                    <option value="SCR" data-logo="https://img.bitgetimg.com/multiLang/web/b226c793a1767433b1654ae09f2024bb.jpeg">SCR</option>
-                    <option value="Major" data-logo="https://img.bitgetimg.com/multiLang/web/6103b9237e5d4398191608f38182b00d.png">Major</option>
-                    <option value="SWELL" data-logo="https://img.bitgetimg.com/multiLang/web/cbea713d6bf356f83030de969e22dc68.png">SWELL</option>
-                    <option value="OGC" data-logo="https://img.bitgetimg.com/multiLang/web/b9818ee83bf30e9dd864ddcc52db5956.jpeg">OGC</option>
-                </select>
-            </label>
-            <label for="exchange-select">
-                <img id="exchange-logo" class="logo-small" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlUGQUUmLIe0r9KDTAll4brPiQV-mX21l2jg&s" alt="Kucoin">
-                Выберите биржу:
-                <select id="exchange-select">
-                    <option value="kucoin" data-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlUGQUUmLIe0r9KDTAll4brPiQV-mX21l2jg&s">Kucoin</option>
-                    <option value="bybit" data-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeyp7hp8t305-pIdkUjmKQFp0h1BViiSxm3w&s">Bybit</option>
-                    <option value="gate" data-logo="https://www.gate.io/images/gate.io_logo.png">Gate</option>
-                    <option value="coinex" data-logo="https://s2.coinmarketcap.com/static/img/coins/200x200/11092.png">CoinEx</option>
-                    <option value="bitget" data-logo="https://img.bitgetimg.com/multiLang/web/fa5787e62bb2d77e8b317d3dccc8bc67.png">Bitget</option>
-                    <option value="binance" data-logo="https://static.binance.org/images/binance-logo.png">Binance</option>
-                    <option value="okx" data-logo="https://static.okx.com/cdn/assets/imgs/221/0x.png">OKX</option>
-                    <option value="huobi" data-logo="https://static.huobi.com/assets2/img/logo/global-nav/logo.png">Huobi</option>
-                </select>
-            </label>
-            <label for="amount-input">
-                Введите количество монет:
-                <input type="number" id="amount-input" placeholder="0.00">
-            </label>
-            <button type="button" id="calculate-btn">Рассчитать</button>
-        </form>
 
-        <div id="converter-result"></div>
-        <div id="pc-notice">Используйте Enter для расчета или пробел для очистки формы.</div>
+    <!-- Баннер -->
+    <div id="banner">
+        <!-- Контент будет загружаться из banner.html -->
     </div>
 
-    <script>
-        document.getElementById('crypto-select').addEventListener('change', function () {
-            const selectedCrypto = this.options[this.selectedIndex];
-            const logoSrc = selectedCrypto.getAttribute('data-logo');
-            document.getElementById('crypto-logo').src = logoSrc;
-            document.getElementById('crypto-logo').alt = selectedCrypto.text;
-        });
+    <!-- Панель меню -->
+    <div id="menu">
+        <ul class="menu-items">
+            <li><a href="content/premarket.html">Премаркет</a></li>
+            <li><a href="content/preconverter.html">ПреКонвертёр</a></li>
+            <li><a href="#">Игры PlayToEarn</a></li>
+            <li><a href="#">Активности от бирж</a></li>
+            <li><a href="#">Крипто Академия</a></li>
+            <li><a href="#">Викторина (Скоро)</a></li>
+        </ul>
+        <!-- Соцсети -->
+        <div class="menu-footer">
+            <a href="#">Разработчикам</a>
+            <a href="#">Связь с менеджером</a>
+            <div class="social-icons">
+                <a href="#"><img src="assets/images/telegram.png" alt="Telegram"></a>
+                <a href="#"><img src="assets/images/instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="assets/images/facebook.png" alt="Facebook"></a>
+                <a href="#"><img src="assets/images/youtube.png" alt="YouTube"></a>
+                <a href="#"><img src="assets/images/discord.png" alt="Discord"></a>
+                <a href="#"><img src="assets/images/tiktok.png" alt="TikTok"></a>
+            </div>
+        </div>
+    </div>
 
-        document.getElementById('exchange-select').addEventListener('change', function () {
-            const selectedExchange = this.options[this.selectedIndex];
-            const logoSrc = selectedExchange.getAttribute('data-logo');
-            document.getElementById('exchange-logo').src = logoSrc;
-            document.getElementById('exchange-logo').alt = selectedExchange.text;
-        });
+    <!-- Контент основной страницы -->
+    <div id="content">
+        <h1>Добро пожаловать на Precoinmarket</h1>
+        <p>Ваш лучший помощник в мире криптовалют!</p>
+    </div>
 
-        document.getElementById('calculate-btn').addEventListener('click', function () {
-            calculateResult();
-        });
-
-        // Обработчик события клавиатуры
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter' || event.code === 'NumpadEnter') {
-        // Если нажата клавиша Enter или Enter на цифровой клавиатуре
-        calculate();
-    } else if (event.key === ' ') {
-        // Если нажата клавиша пробела
-        clearForm();
-    }
-});
-
-        function calculateResult() {
-            const crypto = document.getElementById('crypto-select').value;
-            const exchange = document.getElementById('exchange-select').value;
-            const amount = parseFloat(document.getElementById('amount-input').value);
-            const prices = {
-                CATS: 0.50,
-                MEMEFI: 0.40,
-                SCR: 0.30,
-                Major: 0.20,
-                SWELL: 0.10,
-                OGC: 1.00,
-            };
-            if (!amount || amount <= 0) {
-                document.getElementById('converter-result').innerText = 'Введите корректное количество монет.';
-                return;
-            }
-            const totalCost = (prices[crypto] * amount).toFixed(2);
-            const resultText = `Стоимость ${amount} ${crypto.toUpperCase()} на ${exchange.toUpperCase()}: ${totalCost} USDT.`;
-            document.getElementById('converter-result').innerText = resultText;
-        }
-
-        function clearForm() {
-            document.getElementById('crypto-select').selectedIndex = 0;
-            document.getElementById('exchange-select').selectedIndex = 0;
-            document.getElementById('amount-input').value = '';
-            document.getElementById('converter-result').innerText = '';
-        }
-
-        // Проверка, является ли устройство ПК
-        function isPC() {
-            return !/Mobi|Android/i.test(navigator.userAgent);
-        }
-
-        if (isPC()) {
-            document.getElementById('pc-notice').style.display = 'block';
-        }
-    </script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
