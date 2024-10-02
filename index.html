@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -71,6 +71,13 @@
             font-weight: bold;
             color: #333;
         }
+        /* Стили для уведомления о ПК версии */
+        #pc-notice {
+            display: none;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #999;
+        }
     </style>
 </head>
 <body>
@@ -110,6 +117,7 @@
         </form>
 
         <div id="converter-result"></div>
+        <div id="pc-notice">Используйте Enter для расчета или пробел для очистки формы.</div>
     </div>
 
     <script>
@@ -128,6 +136,20 @@
         });
 
         document.getElementById('calculate-btn').addEventListener('click', function () {
+            calculateResult();
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Enter') {
+                event.preventDefault();
+                calculateResult();
+            } else if (event.code === 'Space') {
+                event.preventDefault();
+                clearForm();
+            }
+        });
+
+        function calculateResult() {
             const crypto = document.getElementById('crypto-select').value;
             const exchange = document.getElementById('exchange-select').value;
             const amount = parseFloat(document.getElementById('amount-input').value);
@@ -146,7 +168,23 @@
             const totalCost = (prices[crypto] * amount).toFixed(2);
             const resultText = `Стоимость ${amount} ${crypto.toUpperCase()} на ${exchange.toUpperCase()}: ${totalCost} USDT.`;
             document.getElementById('converter-result').innerText = resultText;
-        });
+        }
+
+        function clearForm() {
+            document.getElementById('crypto-select').selectedIndex = 0;
+            document.getElementById('exchange-select').selectedIndex = 0;
+            document.getElementById('amount-input').value = '';
+            document.getElementById('converter-result').innerText = '';
+        }
+
+        // Проверка, является ли устройство ПК
+        function isPC() {
+            return !/Mobi|Android/i.test(navigator.userAgent);
+        }
+
+        if (isPC()) {
+            document.getElementById('pc-notice').style.display = 'block';
+        }
     </script>
 </body>
 </html>
