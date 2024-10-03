@@ -21,12 +21,12 @@ function toggleMenu() {
     menuOpen = !menuOpen;
 }
 
-// Запрет долгого нажатия для копирования контента (мобильные и ПК устройства)
+// Запрет долгого нажатия для копирования контента
 document.addEventListener('contextmenu', function(event) {
     event.preventDefault();
 });
 
-// Адаптация: Если экран шире 1024px, отключаем выдвижение меню (ПК версия)
+// Адаптация: Если экран шире 1024px, меню всегда видно
 function checkScreenWidth() {
     if (window.innerWidth >= 1024) {
         // Меню постоянно видно, отключаем скрытие
