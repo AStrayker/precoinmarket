@@ -2,66 +2,73 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
-
-/* Кнопка для открытия меню */
-#menu-button {
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
-    text-align: center;
-    font-size: 18px;
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 1100;
-    border-radius: 5px;
+    background-color: #2e2e2e;  /* Тёмный фон */
+    color: white;  /* Белый цвет текста для хорошего контраста */
 }
 
 /* Баннер */
 #banner {
-    background-color: #ffcc00;
+    background-color: #444;
     padding: 10px;
     text-align: center;
     font-size: 14px;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
 }
 
-/* Меню */
-#menu {
+/* Меню в стиле ВКонтакте */
+#sidebar {
     position: fixed;
     top: 0;
-    left: -250px; /* По умолчанию скрыто за экраном */
+    left: 0;
     width: 250px;
     height: 100%;
-    background-color: #333;
-    color: white;
-    overflow-y: auto;
-    transition: left 0.3s ease;
+    background-color: #1e1e1e;
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
 
 .menu-items {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .menu-items li {
-    padding: 10px;
+    padding: 15px;
+    margin: 10px 0;
 }
 
 .menu-items li a {
     color: white;
     text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
 }
 
+.menu-items li a img {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+    filter: invert(1); /* Иконки белого цвета */
+}
+
+.menu-items li:hover {
+    background-color: #333;
+}
+
+/* Соцсети и ссылки внизу */
 .menu-footer {
-    margin-top: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 250px;
     text-align: center;
+    background-color: #1e1e1e;
+    padding: 20px;
 }
 
 .menu-footer a {
@@ -71,7 +78,6 @@ body {
     margin-bottom: 10px;
 }
 
-/* Соцсети */
 .social-icons {
     display: flex;
     justify-content: center;
@@ -81,44 +87,18 @@ body {
 .social-icons img {
     width: 30px;
     height: 30px;
-    filter: grayscale(1);
+    filter: invert(1);
     transition: filter 0.3s ease;
 }
 
 .social-icons img:hover {
-    filter: grayscale(0);
+    filter: invert(0.5);
 }
 
 /* Контент страницы */
 #content {
-    padding: 20px;
-}
-
-/* Адаптация для ПК */
-@media (min-width: 1024px) {
-    /* Постоянное меню для ПК */
-    #menu {
-        left: 0;
-        width: 300px;
-        position: fixed;
-    }
-
-    /* Увеличиваем ширину контента для ПК */
-    #content {
-        margin-left: 320px; /* Отступ для меню */
-        padding: 40px;
-    }
-
-    /* Централизованные кнопки и соцсети внизу */
-    .menu-footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: #333;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+    margin-left: 270px; /* Отступ для контента */
+    padding: 40px;
+    background-color: #3a3a3a; /* Серый фон для контента */
+    border-radius: 10px;
 }
