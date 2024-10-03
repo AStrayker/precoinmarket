@@ -13,14 +13,11 @@
 </head>
 <body>
 
-    <!-- Кнопка для мобильного меню -->
-    <div id="menu-button" onclick="toggleMenu()">≡ Меню</div>
-
     <!-- Баннер -->
     <div id="banner"></div>
 
-    <!-- Панель меню -->
-    <div id="menu">
+    <!-- Горизонтальное меню для ПК -->
+    <nav id="nav-bar">
         <ul class="menu-items">
             <li><a href="content/premarket.html">Премаркет</a></li>
             <li><a href="content/preconverter.html">ПреКонвертёр</a></li>
@@ -29,7 +26,22 @@
             <li><a href="#">Крипто Академия</a></li>
             <li><a href="#">Викторина (Скоро)</a></li>
         </ul>
-        <!-- Соцсети и разработчики -->
+    </nav>
+
+    <!-- Кнопка для мобильного меню -->
+    <div id="menu-button" onclick="toggleMenu()">≡ Меню</div>
+
+    <!-- Выдвигающееся меню для мобильных -->
+    <div id="mobile-menu">
+        <ul class="menu-items">
+            <li><a href="content/premarket.html">Премаркет</a></li>
+            <li><a href="content/preconverter.html">ПреКонвертёр</a></li>
+            <li><a href="#">Игры PlayToEarn</a></li>
+            <li><a href="#">Активности от бирж</a></li>
+            <li><a href="#">Крипто Академия</a></li>
+            <li><a href="#">Викторина (Скоро)</a></li>
+        </ul>
+        <!-- Соцсети для мобильных -->
         <div class="menu-footer">
             <a href="#">Разработчикам</a>
             <a href="#">Связь с менеджером</a>
@@ -49,6 +61,22 @@
         <h1>Добро пожаловать на Precoinmarket</h1>
         <p>Ваш лучший помощник в мире криптовалют!</p>
     </div>
+
+    <!-- Футер с соцсетями и разработчиками для ПК -->
+    <footer id="footer">
+        <div class="footer-content">
+            <a href="#">Разработчикам</a> |
+            <a href="#">Связь с менеджером</a>
+            <div class="social-icons">
+                <a href="#"><img src="assets/images/telegram.png" alt="Telegram"></a>
+                <a href="#"><img src="assets/images/instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="assets/images/facebook.png" alt="Facebook"></a>
+                <a href="#"><img src="assets/images/youtube.png" alt="YouTube"></a>
+                <a href="#"><img src="assets/images/discord.png" alt="Discord"></a>
+                <a href="#"><img src="assets/images/tiktok.png" alt="TikTok"></a>
+            </div>
+        </div>
+    </footer>
 
     <script src="assets/js/main.js"></script>
 </body>
