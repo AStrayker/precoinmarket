@@ -11,8 +11,46 @@ body {
     background-color: white; /* Белый блок для контента */
     padding: 20px;
     border-radius: 10px;
-    margin: 20px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 1200px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Баннер */
+#banner {
+    background-color: #ffcc00;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    height: 100px; /* Высота баннера */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Горизонтальное меню для ПК */
+#nav-bar {
+    background-color: #333;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+#nav-bar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+#nav-bar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+#nav-bar ul li a:hover {
+    text-decoration: underline;
 }
 
 /* Кнопка для мобильного меню */
@@ -28,28 +66,15 @@ body {
     left: 10px;
     z-index: 1100;
     border-radius: 5px;
-    display: none; /* Скрыто по умолчанию для ПК */
+    display: none; /* Скрыто для ПК */
 }
 
-/* Баннер */
-#banner {
-    background-color: #ffcc00;
-    padding: 20px;
-    text-align: center;
-    font-size: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px; /* Уменьшенный баннер */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Меню для мобильной версии */
-#menu {
+/* Мобильное меню */
+#mobile-menu {
     position: fixed;
     top: 0;
-    left: -250px; /* Скрыто по умолчанию */
-    width: 200px; /* Уменьшенное меню */
+    left: -250px;
+    width: 250px;
     height: 100%;
     background-color: #222;
     color: white;
@@ -58,11 +83,9 @@ body {
     z-index: 1000;
 }
 
-/* Стили для пунктов меню */
 .menu-items {
     list-style: none;
     padding: 0;
-    margin: 0;
 }
 
 .menu-items li {
@@ -82,7 +105,7 @@ body {
     padding: 10px;
 }
 
-/* Соцсети и ссылки внизу меню */
+/* Соцсети для мобильных */
 .menu-footer {
     margin-top: 20px;
     text-align: center;
@@ -122,6 +145,28 @@ body {
     user-select: none;
 }
 
+/* Футер для ПК */
+#footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+#footer .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#footer .social-icons img {
+    width: 30px;
+    height: 30px;
+}
+
 /* Адаптация для ПК */
 @media (min-width: 1024px) {
     /* Скрываем кнопку для мобильного меню */
@@ -129,29 +174,15 @@ body {
         display: none;
     }
 
-    /* Постоянное меню как в ВКонтакте */
-    #menu {
-        left: 0;
-        width: 250px;
-        position: fixed;
-    }
-
-    /* Контент с отступом для меню */
-    #content {
-        margin-left: 270px; /* Отступ для меню */
-        padding: 40px;
-    }
-
-    /* Централизованные кнопки и соцсети внизу меню */
-    .menu-footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: #222;
-        padding: 10px;
+    /* Показываем горизонтальное меню */
+    #nav-bar {
         display: flex;
-        flex-direction: column;
-        align-items: center;
+    }
+
+    /* Футер внизу страницы */
+    #footer {
+        position: relative;
+        bottom: 0;
+        width: 100%;
     }
 }
