@@ -12,7 +12,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     margin: 20px auto;
-    width: 80%;
+    width: 90%;
     max-width: 1200px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -23,8 +23,11 @@ body {
     padding: 10px;
     text-align: center;
     font-size: 16px;
-    height: 100px; /* Высота баннера */
+    height: 80px; /* Уменьшенная высота баннера */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Горизонтальное меню для ПК */
@@ -33,6 +36,8 @@ body {
     padding: 10px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 #nav-bar ul {
@@ -40,17 +45,23 @@ body {
     padding: 0;
     margin: 0;
     display: flex;
-    gap: 20px;
+    gap: 15px;
+}
+
+#nav-bar ul li {
+    margin: 0;
 }
 
 #nav-bar ul li a {
     color: white;
     text-decoration: none;
     font-size: 18px;
+    padding: 10px;
 }
 
 #nav-bar ul li a:hover {
-    text-decoration: underline;
+    background-color: #444;
+    border-radius: 5px;
 }
 
 /* Кнопка для мобильного меню */
@@ -73,7 +84,7 @@ body {
 #mobile-menu {
     position: fixed;
     top: 0;
-    left: -250px;
+    left: -250px; /* По умолчанию скрыто */
     width: 250px;
     height: 100%;
     background-color: #222;
@@ -86,6 +97,7 @@ body {
 .menu-items {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .menu-items li {
@@ -101,7 +113,6 @@ body {
 .menu-items li a:hover {
     background-color: #444;
     border-radius: 5px;
-    display: block;
     padding: 10px;
 }
 
@@ -152,6 +163,7 @@ body {
     text-align: center;
     padding: 20px;
     margin-top: 20px;
+    width: 100%;
 }
 
 #footer .footer-content {
@@ -160,6 +172,16 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+#footer .footer-content a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+#footer .footer-content a:hover {
+    text-decoration: underline;
 }
 
 #footer .social-icons img {
