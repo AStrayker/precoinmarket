@@ -10,20 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
 // Выдвижение меню для мобильных устройств
 let menuOpen = false;
 const menu = document.getElementById('menu');
-const content = document.getElementById('content');
-
-document.addEventListener('click', function(event) {
-    if (!menuOpen && event.target.id !== 'menu' && event.target.id !== 'menu-button') {
-        menu.style.left = '-250px';
-        menuOpen = false;
-    }
-});
+const menuButton = document.getElementById('menu-button');
 
 function toggleMenu() {
     if (menuOpen) {
-        menu.style.left = '-250px';
+        menu.style.left = '-250px'; // Скрываем меню
     } else {
-        menu.style.left = '0';
+        menu.style.left = '0'; // Показываем меню
     }
     menuOpen = !menuOpen;
 }
@@ -36,15 +29,15 @@ document.addEventListener('contextmenu', function(event) {
 // Адаптация: Если экран шире 1024px, отключаем выдвижение меню (ПК версия)
 function checkScreenWidth() {
     if (window.innerWidth >= 1024) {
-        // Меню постоянно видно, выключаем возможность его скрытия
+        // Меню постоянно видно, отключаем скрытие
         menu.style.left = '0';
-        content.style.marginLeft = '320px';
         menuOpen = true;
+        menuButton.style.display = 'none'; // Прячем кнопку для ПК
     } else {
-        // В мобильной версии меню выдвигается/скрывается
+        // В мобильной версии меню скрывается
         menu.style.left = '-250px';
-        content.style.marginLeft = '0';
         menuOpen = false;
+        menuButton.style.display = 'block'; // Показываем кнопку для мобильных
     }
 }
 
