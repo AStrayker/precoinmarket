@@ -9,14 +9,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Выдвижение меню для мобильных устройств
 let menuOpen = false;
-const menu = document.getElementById('menu');
+const mobileMenu = document.getElementById('mobile-menu');
 const menuButton = document.getElementById('menu-button');
 
 function toggleMenu() {
     if (menuOpen) {
-        menu.style.left = '-250px'; // Скрываем меню
+        mobileMenu.style.left = '-250px'; // Скрываем меню
     } else {
-        menu.style.left = '0'; // Показываем меню
+        mobileMenu.style.left = '0'; // Показываем меню
     }
     menuOpen = !menuOpen;
 }
@@ -26,17 +26,13 @@ document.addEventListener('contextmenu', function(event) {
     event.preventDefault();
 });
 
-// Адаптация: Если экран шире 1024px, меню всегда видно
+// Адаптация: Если экран шире 1024px, показываем горизонтальное меню
 function checkScreenWidth() {
     if (window.innerWidth >= 1024) {
         // Меню постоянно видно, отключаем скрытие
-        menu.style.left = '0';
-        menuOpen = true;
+        mobileMenu.style.left = '-250px';
         menuButton.style.display = 'none'; // Прячем кнопку для ПК
     } else {
-        // В мобильной версии меню скрывается
-        menu.style.left = '-250px';
-        menuOpen = false;
         menuButton.style.display = 'block'; // Показываем кнопку для мобильных
     }
 }
