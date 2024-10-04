@@ -7,31 +7,27 @@ document.querySelector('.close-btn').addEventListener('click', function() {
     document.getElementById('modal').style.display = 'none';
 });
 
-// Загрузка контента в баннер
+// Анимация для выдвижения меню
+function toggleMenu() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+}
+
+// Загрузка контента для баннера
 fetch('banner.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('banner').innerHTML = data;
     });
 
-// Загрузка контента в модальное окно
+// Загрузка контента для модального окна
 fetch('modal-content.html')
     .then(response => response.text())
     .then(data => {
         document.querySelector('.modal-content').innerHTML += data;
     });
 
-// Функция для открытия и закрытия меню на мобильной версии
-function toggleMenu() {
-    const sidebar = document.getElementById('sidebar');
-    if (sidebar.style.left === '0px') {
-        sidebar.style.left = '-250px';
-    } else {
-        sidebar.style.left = '0px';
-    }
-}
-
-// Отключение долгого нажатия (копирование/вставка)
+// Отключение возможности долгого нажатия для контента
 document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
 });
