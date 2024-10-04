@@ -3,210 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Precoinmarket - Конвертер</title>
+    <title>Precoinmarket Mobile</title>
     <style>
-        /* Общие стили для всей страницы */
+        /* Общие стили для страницы */
         body {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             background-color: #f4f4f4;
+            overflow-x: hidden;
         }
 
-        /* Шапка сайта */
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        /* Меню в шапке */
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        nav ul li {
-            margin-left: 20px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-        /* Баннер */
+        /* Верхний баннер */
         .banner {
-            background-color: #4a90e2;
-            color: white;
-            text-align: center;
-            padding: 10px;
-        }
-
-        /* Основной блок сайта */
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Контейнер для конвертера */
-        .converter-container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .converter-container h2 {
-            font-size: 22px;
+            background-color: #fffa65;
             color: #333;
-            text-align: center;
-        }
-
-        .converter-container form label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 16px;
-            color: #555;
-        }
-
-        .converter-container form input, 
-        .converter-container form select {
-            width: 100%;
             padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 6px;
-            border: 1px solid #d1d9e6;
-            font-size: 16px;
+            text-align: center;
+            font-size: 14px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
 
-        .converter-container form button {
-            width: 100%;
-            padding: 12px;
-            background-color: #4a90e2;
+        /* Кнопка меню для мобильной версии */
+        .menu-btn {
+            background-color: #333;
             color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
+            padding: 15px;
+            position: fixed;
+            top: 40px;
+            left: 10px;
+            z-index: 1001;
+            border-radius: 50%;
             cursor: pointer;
         }
 
-        .converter-container form button:hover {
-            background-color: #3f7fc1;
-        }
-
-        /* Футер */
-        footer {
+        /* Выдвижное меню */
+        .side-menu {
+            position: fixed;
+            left: -250px;
+            top: 0;
+            width: 250px;
+            height: 100%;
             background-color: #333;
-            color: #fff;
-            text-align: center;
+            color: white;
+            overflow-y: auto;
+            transition: left 0.3s;
+            z-index: 999;
+        }
+
+        .side-menu ul {
+            list-style-type: none;
             padding: 20px;
-            margin-top: 30px;
         }
 
-        footer p {
-            margin: 0;
-            font-size: 14px;
+        .side-menu ul li {
+            margin: 10px 0;
         }
 
-        /* Мобильные стили */
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
+        .side-menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
 
-            .converter-container {
-                max-width: 100%;
-            }
+        /* Панель с кнопками внизу */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 1001;
+        }
 
-            header, footer {
-                flex-direction: column;
-            }
+        .bottom-nav button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
 
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
+        /* Всплывающее окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 10%;
+            width: 80%;
+            height: 50%;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 1002;
+            overflow: auto;
+        }
 
-            nav ul li {
-                margin-left: 0;
-                margin-bottom: 10px;
-            }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .modal-content {
+            padding: 20px;
+        }
+
+        .close-modal {
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Блокировка долгого нажатия */
+        body, img, input, textarea, button {
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- Шапка сайта -->
-    <header>
-        <h1>Precoinmarket</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Главная</a></li>
-                <li><a href="#">Конвертер</a></li>
-                <li><a href="#">О нас</a></li>
-            </ul>
-        </nav>
-    </header>
-
     <!-- Баннер -->
     <div class="banner">
-        <p>Добро пожаловать на Precoinmarket! Узнайте актуальные курсы валют прямо здесь!</p>
+        <!-- Здесь будет подгружен контент из отдельного файла -->
     </div>
 
-    <!-- Основной контент сайта -->
-    <div class="container">
-        <div class="converter-container">
-            <h2>Конвертер валют</h2>
-            <form id="converter-form">
-                <label for="currency">Выберите монету:</label>
-                <select id="currency" name="currency">
-                    <option value="cats">CATS</option>
-                    <option value="btc">Bitcoin</option>
-                    <option value="eth">Ethereum</option>
-                </select>
+    <!-- Кнопка меню -->
+    <div class="menu-btn" onclick="toggleMenu()">≡</div>
 
-                <label for="exchange">Выберите биржу:</label>
-                <select id="exchange" name="exchange">
-                    <option value="kucoin">KuCoin</option>
-                    <option value="binance">Binance</option>
-                    <option value="bitfinex">Bitfinex</option>
-                </select>
+    <!-- Выдвижное меню -->
+    <div class="side-menu" id="sideMenu">
+        <ul>
+            <li><a href="#">Премаркет</a></li>
+            <li><a href="#">ПреКонвертёр</a></li>
+            <li><a href="#">Игры PlayToEarn</a></li>
+            <li><a href="#">Активности от бирж</a></li>
+            <li><a href="#">Крипто Академия</a></li>
+            <li><a href="#">Викторина (Скоро)</a></li>
+            <li><a href="#">Разработчикам</a></li>
+            <li><a href="#">Связь с менеджером</a></li>
+        </ul>
 
-                <label for="amount">Введите количество монет:</label>
-                <input type="number" id="amount" name="amount" placeholder="0.00">
-
-                <button type="submit">Рассчитать</button>
-            </form>
+        <div class="social-icons">
+            <!-- Иконки соцсетей -->
+            <a href="#"><img src="telegram.png" alt="Telegram"></a>
+            <a href="#"><img src="instagram.png" alt="Instagram"></a>
+            <!-- и т.д. -->
         </div>
     </div>
 
-    <!-- Футер -->
-    <footer>
-        <p>&copy; 2024 Precoinmarket. Все права защищены.</p>
-    </footer>
+    <!-- Панель с кнопками внизу экрана -->
+    <div class="bottom-nav">
+        <button>🏠</button>
+        <button>📊</button>
+        <button onclick="openModal()">⧉</button>
+        <button>📰</button>
+        <button>⚙️</button>
+    </div>
+
+    <!-- Всплывающее окно -->
+    <div class="modal" id="infoModal">
+        <div class="modal-header">
+            <h3>Информация</h3>
+            <span class="close-modal" onclick="closeModal()">×</span>
+        </div>
+        <div class="modal-content">
+            <!-- Здесь будет подгружен контент из файла -->
+        </div>
+    </div>
 
     <script>
-        document.getElementById('converter-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('Рассчитываем...');
-        });
+        // Открытие/закрытие меню
+        function toggleMenu() {
+            const menu = document.getElementById('sideMenu');
+            if (menu.style.left === '0px') {
+                menu.style.left = '-250px';
+            } else {
+                menu.style.left = '0px';
+            }
+        }
+
+        // Открытие всплывающего окна
+        function openModal() {
+            document.getElementById('infoModal').style.display = 'block';
+            // Подгружаем данные из файла
+            fetch('info.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.querySelector('.modal-content').innerHTML = data;
+                });
+        }
+
+        // Закрытие всплывающего окна
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+
+        // Подгрузка баннера из файла
+        fetch('banner.html')
+            .then(response => response.text())
+            .then(data => {
+                document.querySelector('.banner').innerHTML = data;
+            });
     </script>
 
 </body>
