@@ -3,57 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Precoinmarket</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <title>ПК-версия сайта</title>
+    <!-- Подключаем стили -->
+    <link rel="stylesheet" href="css/styles-pc.css">
+    <!-- Подключаем скрипты -->
+    <script src="js/script-pc.js" defer></script>
 </head>
 <body>
-    <!-- Баннер -->
-    <header id="banner"></header>
-
-    <!-- Основное меню -->
-    <aside id="sidebar">
-        <ul id="menu-list">
-            <li><a href="#">Премаркет</a></li>
-            <li><a href="#">ПреКонвертёр</a></li>
-            <li><a href="#">Игры PlayToEarn</a></li>
-            <li><a href="#">Активности от бирж</a></li>
-            <li><a href="#">Крипто Академия</a></li>
-            <li><a href="#">Викторина (Скоро)</a></li>
-        </ul>
+    <!-- Боковое меню -->
+    <aside id="sidebar" class="sidebar-pc">
+        <a href="#" class="active">Главная</a>
+        <a href="#">Премаркет</a>
+        <a href="#">ПреКонвертер</a>
+        <a href="#">Игры PlayToEarn</a>
+        <a href="#">Активности от бирж</a>
+        <a href="#">Крипто Академия</a>
+        <a href="#">Викторина (Скоро)</a>
         <hr>
-        <ul>
-            <li><a href="#">Разработчикам</a></li>
-            <li><a href="#">Связь с менеджером</a></li>
-        </ul>
-        <div class="socials">
-            <a href="#"><img src="telegram-icon.png" alt="Telegram"></a>
-            <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
-            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
-            <a href="#"><img src="youtube-icon.png" alt="YouTube"></a>
-            <a href="#"><img src="discord-icon.png" alt="Discord"></a>
-            <a href="#"><img src="tiktok-icon.png" alt="TikTok"></a>
+        <a href="#">Разработчикам</a>
+        <a href="#">Связь с менеджером</a>
+        <div class="social-icons">
+            <a href="#"><img src="images/telegram.png" alt="Telegram"></a>
+            <a href="#"><img src="images/instagram.png" alt="Instagram"></a>
+            <a href="#"><img src="images/facebook.png" alt="Facebook"></a>
         </div>
     </aside>
 
-    <!-- Основное содержимое -->
-    <main id="content">
-        <h1>Добро пожаловать в Precoinmarket</h1>
-        <p>Здесь будет основной контент сайта.</p>
+    <!-- Основной контент -->
+    <main id="main-content">
+        <p>Тут будет контент, который загружается из отдельного файла</p>
     </main>
 
-    <!-- Кнопки снизу -->
-    <nav id="bottom-nav">
-        <a href="#"><img src="icon1.png" alt="Категория 1"></a>
-        <a href="#" id="open-modal"><img src="center-icon.png" alt="Центр"></a>
-        <a href="#"><img src="icon3.png" alt="Категория 3"></a>
-    </nav>
-
-    <!-- Модальное окно -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-        </div>
+    <!-- Баннер -->
+    <div id="banner-pc">
+        <p>Здесь рекламный баннер</p>
     </div>
 </body>
 </html>
