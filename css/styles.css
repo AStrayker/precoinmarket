@@ -1,45 +1,43 @@
-/* Основные стили */
+/* Общие стили */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
+    font-family: Arial, sans-serif;
     display: flex;
 }
 
-#main-content {
+main {
     flex-grow: 1;
     padding: 20px;
-    text-align: center;
-    margin-left: 250px; /* Учитываем ширину меню */
+    margin-left: 250px; /* Отступ для бокового меню в ПК версии */
 }
 
-#banner {
+.banner {
     position: fixed;
-    top: 10px;
+    top: 0;
     right: 10px;
-    background-color: #f4f4f4;
+    background: #f4f4f4;
     padding: 10px;
-    border-radius: 8px;
     border: 1px solid #ccc;
+    border-radius: 8px;
 }
 
-/* Стили для бокового меню */
+/* Стили для бокового меню в ПК версии */
 .sidebar {
     height: 100vh;
     width: 250px;
-    position: fixed;
     background-color: #111;
+    position: fixed;
+    top: 0;
+    left: 0;
     padding-top: 10px;
-    display: flex;
-    flex-direction: column;
-    z-index: 1;
+    z-index: 10;
 }
 
 .sidebar a {
+    display: block;
+    color: white;
     padding: 10px;
     text-decoration: none;
-    font-size: 18px;
-    color: white;
-    display: block;
 }
 
 .sidebar a:hover {
@@ -51,43 +49,62 @@ body {
 }
 
 .social-icons {
-    margin-top: auto;
     padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: auto;
+}
+
+/* Стили для мобильного меню */
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    width: 100%;
+    z-index: 10;
+}
+
+.menu-toggle {
+    padding: 10px;
+    color: white;
+    background-color: #111;
+    cursor: pointer;
     text-align: center;
 }
 
-.social-icons img {
-    width: 30px;
-    margin: 0 5px;
+.menu-content {
+    display: none;
+    flex-direction: column;
 }
 
-/* Адаптивные стили для мобильных устройств */
+.menu-content a {
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.menu-content a:hover {
+    background-color: #575757;
+}
+
+/* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
     body {
         flex-direction: column;
     }
 
     .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-        flex-direction: row;
-        justify-content: space-around;
+        display: none;
     }
 
-    #main-content {
+    .mobile-menu {
+        display: block;
+    }
+
+    main {
         margin-left: 0;
-        margin-top: 20px;
-    }
-
-    #banner {
-        position: relative;
-        top: auto;
-        right: auto;
-        margin-top: 10px;
-    }
-
-    .social-icons img {
-        width: 20px;
+        padding-top: 50px;
     }
 }
