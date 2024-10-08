@@ -1,0 +1,62 @@
+﻿/* Основные стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+}
+
+#main-content {
+    flex-grow: 1;
+    padding: 20px;
+    text-align: center;
+    margin-left: 250px; /* Учитываем ширину меню */
+}
+
+#banner-pc {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Стили для бокового меню */
+.sidebar-pc {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    background-color: #111;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.sidebar-pc a {
+    padding: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+}
+
+.sidebar-pc a:hover {
+    background-color: #575757;
+}
+
+.sidebar-pc a.active {
+    background-color: #4CAF50;
+}
+
+.social-icons {
+    margin-top: auto;
+    padding: 10px;
+    text-align: center;
+}
+
+.social-icons img {
+    width: 30px;
+    margin: 0 5px;
+}
