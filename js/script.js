@@ -1,20 +1,25 @@
-// Пример скрипта для динамической загрузки контента
-document.querySelectorAll('#sidebar a').forEach(link => {
-    link.addEventListener('click', function(event) {
-        event.preventDefault();
-        const category = this.textContent;
-        loadContent(category);
-    });
-});
-
-function loadContent(category) {
-    // Здесь можешь подгружать контент из других файлов (используй fetch)
-    document.querySelector('#main-content').innerHTML = `<p>Загружен контент для категории: ${category}</p>`;
+// Функция для открытия и закрытия мобильного меню
+function toggleMenu() {
+    const menuContent = document.getElementById('menu-content');
+    if (menuContent.style.display === 'flex') {
+        menuContent.style.display = 'none';
+    } else {
+        menuContent.style.display = 'flex';
+    }
 }
 
-// Пример подгрузки баннера
-fetch('banner.html')
+// Функция для загрузки контента с других страниц
+function loadPage(page) {
+    fetch('content/' + page)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('main-content').innerHTML = data;
+        });
+}
+
+// Загрузка баннера при старте
+fetch('content/banner.html')
     .then(response => response.text())
     .then(data => {
-        document.querySelector('#banner').innerHTML = data;
+        document.getElementById('banner').innerHTML = data;
     });
