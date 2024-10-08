@@ -6,13 +6,35 @@
     <title>Адаптивный сайт</title>
     <!-- Подключаем стили -->
     <link rel="stylesheet" href="css/styles.css">
-    <!-- Подключаем скрипты -->
+    <!-- Подключаем JavaScript -->
     <script src="js/script.js" defer></script>
 </head>
 <body>
-    <!-- Боковое меню -->
+    <!-- Мобильное меню -->
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="menu-toggle" onclick="toggleMenu()">☰ Меню</div>
+        <div id="menu-content" class="menu-content">
+            <a href="#" onclick="loadPage('home.html')">Главная</a>
+            <a href="#">Премаркет</a>
+            <a href="#">ПреКонвертер</a>
+            <a href="#">Игры PlayToEarn</a>
+            <a href="#">Активности от бирж</a>
+            <a href="#">Крипто Академия</a>
+            <a href="#">Викторина (Скоро)</a>
+            <hr>
+            <a href="#">Разработчикам</a>
+            <a href="#">Связь с менеджером</a>
+            <div class="social-icons">
+                <a href="#"><img src="images/telegram.png" alt="Telegram"></a>
+                <a href="#"><img src="images/instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="images/facebook.png" alt="Facebook"></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Боковое меню для ПК версии -->
     <aside id="sidebar" class="sidebar">
-        <a href="#" class="active">Главная</a>
+        <a href="#" class="active" onclick="loadPage('home.html')">Главная</a>
         <a href="#">Премаркет</a>
         <a href="#">ПреКонвертер</a>
         <a href="#">Игры PlayToEarn</a>
@@ -31,12 +53,12 @@
 
     <!-- Основной контент -->
     <main id="main-content">
-        <p>Тут будет контент, который загружается из отдельного файла</p>
+        <p>Тут будет контент, который загружается из отдельного файла.</p>
     </main>
 
     <!-- Баннер -->
-    <div id="banner">
-        <p>Здесь рекламный баннер</p>
+    <div id="banner" class="banner">
+        <p>Баннер загрузится здесь</p>
     </div>
 </body>
 </html>
