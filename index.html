@@ -3,62 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Адаптивный сайт</title>
-    <!-- Подключаем стили -->
-    <link rel="stylesheet" href="css/styles.css">
-    <!-- Подключаем JavaScript -->
-    <script src="js/script.js" defer></script>
+    <title>Мой сайт</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <!-- Мобильное меню -->
-    <div id="mobile-menu" class="mobile-menu">
-        <div class="menu-toggle" onclick="toggleMenu()">☰ Меню</div>
-        <div id="menu-content" class="menu-content">
-            <a href="#" onclick="loadPage('home.html')">Главная</a>
-            <a href="#">Премаркет</a>
-            <a href="#">ПреКонвертер</a>
-            <a href="#">Игры PlayToEarn</a>
-            <a href="#">Активности от бирж</a>
-            <a href="#">Крипто Академия</a>
-            <a href="#">Викторина (Скоро)</a>
-            <hr>
-            <a href="#">Разработчикам</a>
-            <a href="#">Связь с менеджером</a>
-            <div class="social-icons">
-                <a href="#"><img src="images/telegram.png" alt="Telegram"></a>
-                <a href="#"><img src="images/instagram.png" alt="Instagram"></a>
-                <a href="#"><img src="images/facebook.png" alt="Facebook"></a>
-            </div>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="logo">Мой Логотип</div>
+        <nav id="menu" class="menu">
+            <ul>
+                <li><a href="#">Примаркет</a></li>
+                <li><a href="#">Разработчикам</a></li>
+                <li><a href="#">Связь с менеджером</a></li>
+            </ul>
+        </nav>
+        <div class="social-icons">
+            <a href="#"><img src="telegram-icon.png" alt="Telegram"></a>
+            <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+            <a href="#"><img src="x-icon.png" alt="X"></a>
+            <a href="#"><img src="discord-icon.png" alt="Discord"></a>
         </div>
+    </header>
+
+    <!-- Бегущая строка -->
+    <div class="ticker">
+        <p>Курсы криптовалют: BTC: $30,000 | ETH: $2,000 | DOGE: $0.25</p>
     </div>
 
-    <!-- Боковое меню для ПК версии -->
-    <aside id="sidebar" class="sidebar">
-        <a href="#" class="active" onclick="loadPage('home.html')">Главная</a>
-        <a href="#">Премаркет</a>
-        <a href="#">ПреКонвертер</a>
-        <a href="#">Игры PlayToEarn</a>
-        <a href="#">Активности от бирж</a>
-        <a href="#">Крипто Академия</a>
-        <a href="#">Викторина (Скоро)</a>
-        <hr>
-        <a href="#">Разработчикам</a>
-        <a href="#">Связь с менеджером</a>
-        <div class="social-icons">
-            <a href="#"><img src="images/telegram.png" alt="Telegram"></a>
-            <a href="#"><img src="images/instagram.png" alt="Instagram"></a>
-            <a href="#"><img src="images/facebook.png" alt="Facebook"></a>
-        </div>
-    </aside>
-
-    <!-- Основной контент -->
-    <main id="main-content">
-        <p>Тут будет контент, который загружается из отдельного файла.</p>
+    <!-- Контент сайта -->
+    <main>
+        <section id="content">
+            <h1>Заголовок раздела</h1>
+            <p>Контент этого раздела загружается из файла.</p>
+        </section>
     </main>
 
-    <!-- Баннер -->
-    <div id="banner" class="banner">
-        <p>Баннер загрузится здесь</p>
-    </div>
+    <!-- Кнопка вверх -->
+    <button id="scrollTopBtn" onclick="scrollToTop()">Вверх</button>
+
+    <!-- Подвал сайта -->
+    <footer>
+        <ul>
+            <li><a href="#">Разработчикам</a></li>
+            <li><a href="#">Связь с менеджером</a></li>
+        </ul>
+    </footer>
+
 </body>
 </html>
