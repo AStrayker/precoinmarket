@@ -1,33 +1,17 @@
-// Открытие и закрытие модального окна
-document.getElementById('open-modal').addEventListener('click', function() {
-    document.getElementById('modal').style.display = 'block';
-});
+// Отключаем контекстное меню
+document.addEventListener('contextmenu', event => event.preventDefault());
 
-document.querySelector('.close-btn').addEventListener('click', function() {
-    document.getElementById('modal').style.display = 'none';
-});
-
-// Анимация для выдвижения меню
-function toggleMenu() {
-    const sidebar = document.getElementById('sidebar');
-    sidebar.classList.toggle('open');
+// Плавная прокрутка вверх
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Загрузка контента для баннера
-fetch('banner.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('banner').innerHTML = data;
-    });
-
-// Загрузка контента для модального окна
-fetch('modal-content.html')
-    .then(response => response.text())
-    .then(data => {
-        document.querySelector('.modal-content').innerHTML += data;
-    });
-
-// Отключение возможности долгого нажатия для контента
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
+// Показ кнопки вверх при прокрутке вниз
+window.onscroll = function() {
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        scrollTopBtn.style.display = "block";
+    } else {
+        scrollTopBtn.style.display = "none";
+    }
+};
