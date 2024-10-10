@@ -3,216 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Precoinmarket Mobile</title>
-    <style>
-        /* Общие стили для страницы */
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background-color: #f4f4f4;
-            overflow-x: hidden;
-        }
-
-        /* Верхний баннер */
-        .banner {
-            background-color: #fffa65;
-            color: #333;
-            padding: 10px;
-            text-align: center;
-            font-size: 14px;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        /* Кнопка меню для мобильной версии */
-        .menu-btn {
-            background-color: #333;
-            color: white;
-            padding: 15px;
-            position: fixed;
-            top: 40px;
-            left: 10px;
-            z-index: 1001;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        /* Выдвижное меню */
-        .side-menu {
-            position: fixed;
-            left: -250px;
-            top: 0;
-            width: 250px;
-            height: 100%;
-            background-color: #333;
-            color: white;
-            overflow-y: auto;
-            transition: left 0.3s;
-            z-index: 999;
-        }
-
-        .side-menu ul {
-            list-style-type: none;
-            padding: 20px;
-        }
-
-        .side-menu ul li {
-            margin: 10px 0;
-        }
-
-        .side-menu ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-        }
-
-        /* Панель с кнопками внизу */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #333;
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            z-index: 1001;
-        }
-
-        .bottom-nav button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        /* Всплывающее окно */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 20%;
-            left: 10%;
-            width: 80%;
-            height: 50%;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            z-index: 1002;
-            overflow: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            background-color: #f1f1f1;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .modal-content {
-            padding: 20px;
-        }
-
-        .close-modal {
-            cursor: pointer;
-            font-size: 24px;
-        }
-
-        /* Блокировка долгого нажатия */
-        body, img, input, textarea, button {
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
-        }
-    </style>
+    <title>Мой Новый Сайт</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
+    <header>
+        <div class="logo">Логотип</div>
+        <nav class="main-menu">
+            <ul>
+                <li><a href="#">Примаркет</a></li>
+                <li><a href="#">Разработчикам</a></li>
+                <li><a href="#">Связь с менеджером</a></li>
+            </ul>
+        </nav>
+        <div class="social-icons">
+            <a href="#"><img src="telegram-icon.png" alt="Telegram"></a>
+            <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+            <a href="#"><img src="x-icon.png" alt="X"></a>
+            <a href="#"><img src="discord-icon.png" alt="Discord"></a>
+        </div>
+    </header>
 
-    <!-- Баннер -->
-    <div class="banner">
-        <!-- Здесь будет подгружен контент из отдельного файла -->
+    <div class="ticker">
+        <p>Курсы криптовалют: BTC $30,000 | ETH $2,000 | DOGE $0.25</p>
     </div>
 
-    <!-- Кнопка меню -->
-    <div class="menu-btn" onclick="toggleMenu()">≡</div>
+    <main>
+        <section>
+            <h1>Привет!</h1>
+            <p>Это мой новый сайт. Контент загружается из внешних файлов!</p>
+        </section>
+    </main>
 
-    <!-- Выдвижное меню -->
-    <div class="side-menu" id="sideMenu">
+    <footer>
         <ul>
-            <li><a href="#">Премаркет</a></li>
-            <li><a href="#">ПреКонвертёр</a></li>
-            <li><a href="#">Игры PlayToEarn</a></li>
-            <li><a href="#">Активности от бирж</a></li>
-            <li><a href="#">Крипто Академия</a></li>
-            <li><a href="#">Викторина (Скоро)</a></li>
             <li><a href="#">Разработчикам</a></li>
             <li><a href="#">Связь с менеджером</a></li>
         </ul>
+    </footer>
 
-        <div class="social-icons">
-            <!-- Иконки соцсетей -->
-            <a href="#"><img src="telegram.png" alt="Telegram"></a>
-            <a href="#"><img src="instagram.png" alt="Instagram"></a>
-            <!-- и т.д. -->
-        </div>
-    </div>
-
-    <!-- Панель с кнопками внизу экрана -->
-    <div class="bottom-nav">
-        <button>🏠</button>
-        <button>📊</button>
-        <button onclick="openModal()">⧉</button>
-        <button>📰</button>
-        <button>⚙️</button>
-    </div>
-
-    <!-- Всплывающее окно -->
-    <div class="modal" id="infoModal">
-        <div class="modal-header">
-            <h3>Информация</h3>
-            <span class="close-modal" onclick="closeModal()">×</span>
-        </div>
-        <div class="modal-content">
-            <!-- Здесь будет подгружен контент из файла -->
-        </div>
-    </div>
-
-    <script>
-        // Открытие/закрытие меню
-        function toggleMenu() {
-            const menu = document.getElementById('sideMenu');
-            if (menu.style.left === '0px') {
-                menu.style.left = '-250px';
-            } else {
-                menu.style.left = '0px';
-            }
-        }
-
-        // Открытие всплывающего окна
-        function openModal() {
-            document.getElementById('infoModal').style.display = 'block';
-            // Подгружаем данные из файла
-            fetch('info.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.querySelector('.modal-content').innerHTML = data;
-                });
-        }
-
-        // Закрытие всплывающего окна
-        function closeModal() {
-            document.getElementById('infoModal').style.display = 'none';
-        }
-
-        // Подгрузка баннера из файла
-        fetch('banner.html')
-            .then(response => response.text())
-            .then(data => {
-                document.querySelector('.banner').innerHTML = data;
-            });
-    </script>
-
+    <button id="backToTopBtn" onclick="scrollToTop()">Наверх</button>
 </body>
 </html>
