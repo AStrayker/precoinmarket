@@ -1,17 +1,17 @@
-// Убираем контекстное меню
+// Отключаем контекстное меню
 document.addEventListener('contextmenu', event => event.preventDefault());
 
-// Прокрутка вверх
+// Плавная прокрутка вверх
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Показ кнопки "Наверх"
+// Показ кнопки вверх при прокрутке вниз
 window.onscroll = function() {
-    const backToTopBtn = document.getElementById('backToTopBtn');
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
     if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        backToTopBtn.style.display = "block";
+        scrollTopBtn.style.display = "block";
     } else {
-        backToTopBtn.style.display = "none";
+        scrollTopBtn.style.display = "none";
     }
 };
