@@ -2,14 +2,14 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #1a1a1a;
-    color: white;
+    background-color: white;  /* Фон белого цвета */
+    color: #333;  /* Цвет текста */
 }
 
 header {
     text-align: center;
     padding: 20px;
-    background-color: #333;
+    background-color: #333;  /* Темная шапка */
 }
 
 #logo {
@@ -17,7 +17,7 @@ header {
 }
 
 h1 {
-    color: orange;
+    color: orange;  /* Заголовок оранжевого цвета */
 }
 
 /* Меню для ПК */
@@ -27,8 +27,9 @@ h1 {
     top: 0;
     width: 250px;
     height: 100%;
-    background-color: #333;
+    background-color: #333;  /* Темное меню */
     padding: 20px;
+    color: white;  /* Цвет текста в меню */
 }
 
 .desktop-menu ul {
@@ -41,7 +42,7 @@ h1 {
 }
 
 .desktop-menu a {
-    color: orange;
+    color: orange;  /* Оранжевый цвет текста в меню */
     text-decoration: none;
     font-size: 18px;
 }
@@ -52,7 +53,7 @@ h1 {
 }
 
 #menu-toggle {
-    background-color: #333;
+    background-color: #333;  /* Темная кнопка меню */
     color: white;
     padding: 10px;
     border: none;
@@ -66,8 +67,9 @@ h1 {
     top: 0;
     width: 250px;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: #333;  /* Полностью темный фон */
     padding: 20px;
+    color: white;
 }
 
 .mobile-menu ul {
@@ -80,7 +82,7 @@ h1 {
 }
 
 .mobile-menu a {
-    color: orange;
+    color: orange;  /* Оранжевый текст для мобильного меню */
     text-decoration: none;
     font-size: 18px;
 }
