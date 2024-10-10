@@ -3,48 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Платформа для PreМаркет монет, PlayToEarn игр, активностей от бирж и рейтингов">
-    <title>Платформа для PreМаркет и PlayToEarn</title>
-    <link rel="icon" href="assets/favicon.ico">
+    <meta name="description" content="Интерфейс аккаунта пользователя с балансами и категориями">
+    <title>Мой Аккаунт</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <header>
-        <img src="assets/logo.png" alt="Логотип" id="logo">
-        <h1>Платформа для PreМаркет монет и PlayToEarn игр</h1>
-    </header>
-    
-    <nav id="sidebar" class="desktop-menu">
-        <ul>
-            <li><a href="#" data-category="upcoming-listings">Скоро листинг</a></li>
-            <li><a href="#" data-category="premarket-coins">PreМаркет монет</a></li>
-            <li><a href="#" data-category="preconverter-coins">PreКонверьёр монет</a></li>
-            <li><a href="#" data-category="play-to-earn">Игры PlayToEarn</a></li>
-            <li><a href="#" data-category="exchange-activities">Активности от бирж</a></li>
-            <li><a href="#" data-category="exchange-rating">Рейтинг Бирж</a></li>
-        </ul>
-    </nav>
-
-    <div id="mobile-menu" class="mobile-menu">
-        <button id="menu-toggle">Меню</button>
-        <nav id="mobile-sidebar">
+    <div class="container">
+        <!-- Боковая панель -->
+        <nav class="sidebar">
             <ul>
-                <li><a href="#" data-category="upcoming-listings">Скоро листинг</a></li>
-                <li><a href="#" data-category="premarket-coins">PreМаркет монет</a></li>
-                <li><a href="#" data-category="preconverter-coins">PreКонверьёр монет</a></li>
-                <li><a href="#" data-category="play-to-earn">Игры PlayToEarn</a></li>
-                <li><a href="#" data-category="exchange-activities">Активности от бирж</a></li>
-                <li><a href="#" data-category="exchange-rating">Рейтинг Бирж</a></li>
+                <li><a href="#"><i class="icon-home"></i> Home</a></li>
+                <li><a href="#"><i class="icon-profile"></i> Profile</a></li>
+                <li><a href="#"><i class="icon-wallet"></i> L2 Wallet</a></li>
+                <li><a href="#"><i class="icon-notification"></i> Notification</a></li>
+                <li><a href="#"><i class="icon-bookmark"></i> Bookmarks</a></li>
+                <li><a href="#"><i class="icon-group"></i> Group</a></li>
+                <li><a href="#"><i class="icon-credit"></i> Credit</a></li>
+                <li><a href="#"><i class="icon-language"></i> Languages</a></li>
+                <li><a href="#"><i class="icon-more"></i> More</a></li>
             </ul>
         </nav>
-    </div>
 
-    <main>
-        <section id="content">
-            <h2>Выберите категорию</h2>
-            <p>Контент появится здесь...</p>
-        </section>
-    </main>
+        <!-- Основная часть контента -->
+        <main class="content">
+            <h1>Мой Аккаунт</h1>
+            <div class="balance-table">
+                <table>
+                    <tr>
+                        <th>Монета</th>
+                        <th>Баланс</th>
+                        <th>Стоимость</th>
+                    </tr>
+                    <tr>
+                        <td>BNB</td>
+                        <td>0.0002815</td>
+                        <td>$0.17</td>
+                    </tr>
+                </table>
+            </div>
+        </main>
+    </div>
 
     <script src="js/script.js"></script>
 </body>
