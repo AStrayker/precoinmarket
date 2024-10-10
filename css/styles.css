@@ -1,103 +1,82 @@
-/* Основные стили */
-body {
+/* Сброс базовых стилей */
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
     font-family: Arial, sans-serif;
-    background-color: white;  /* Фон белого цвета */
-    color: #333;  /* Цвет текста */
+    background-color: white;
+    color: #333;
 }
 
-header {
-    text-align: center;
+/* Основная контейнерная структура */
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Боковая панель */
+.sidebar {
+    width: 250px;
+    background-color: #f7f7f7;
     padding: 20px;
-    background-color: #333;  /* Темная шапка */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-#logo {
-    max-width: 150px;
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar a i {
+    margin-right: 10px;
+    font-size: 22px;
+}
+
+/* Основной контент */
+.content {
+    flex-grow: 1;
+    padding: 40px;
 }
 
 h1 {
-    color: orange;  /* Заголовок оранжевого цвета */
+    font-size: 28px;
+    margin-bottom: 20px;
 }
 
-/* Меню для ПК */
-.desktop-menu {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 250px;
-    height: 100%;
-    background-color: #333;  /* Темное меню */
-    padding: 20px;
-    color: white;  /* Цвет текста в меню */
+/* Таблица балансов */
+.balance-table {
+    margin-top: 30px;
 }
 
-.desktop-menu ul {
-    list-style-type: none;
-    padding: 0;
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.desktop-menu li {
-    margin: 15px 0;
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
-.desktop-menu a {
-    color: orange;  /* Оранжевый цвет текста в меню */
-    text-decoration: none;
-    font-size: 18px;
+table th {
+    background-color: #f7f7f7;
 }
 
-/* Мобильное меню */
-#mobile-menu {
-    display: none;
-}
-
-#menu-toggle {
-    background-color: #333;  /* Темная кнопка меню */
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-}
-
-#mobile-sidebar {
-    display: none;
-    position: fixed;
-    left: -250px;
-    top: 0;
-    width: 250px;
-    height: 100%;
-    background-color: #333;  /* Полностью темный фон */
-    padding: 20px;
-    color: white;
-}
-
-.mobile-menu ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.mobile-menu li {
-    margin: 15px 0;
-}
-
-.mobile-menu a {
-    color: orange;  /* Оранжевый текст для мобильного меню */
-    text-decoration: none;
-    font-size: 18px;
-}
-
-/* Анимация для мобильного меню */
-#mobile-sidebar.open {
-    left: 0;
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-    .desktop-menu {
-        display: none;
-    }
-    #mobile-menu {
-        display: block;
-    }
+table tr:hover {
+    background-color: #f1f1f1;
 }
