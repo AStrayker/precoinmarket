@@ -1,25 +1,28 @@
-// Функция для открытия и закрытия мобильного меню
-function toggleMenu() {
-    const menuContent = document.getElementById('menu-content');
-    if (menuContent.style.display === 'flex') {
-        menuContent.style.display = 'none';
-    } else {
-        menuContent.style.display = 'flex';
-    }
-}
+// Открытие/закрытие мобильного меню
+document.getElementById('menu-toggle').addEventListener('click', function() {
+    var sidebar = document.getElementById('mobile-sidebar');
+    sidebar.classList.toggle('open');
+});
 
-// Функция для загрузки контента с других страниц
-function loadPage(page) {
-    fetch('content/' + page)
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('main-content').innerHTML = data;
-        });
-}
-
-// Загрузка баннера при старте
-fetch('content/banner.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('banner').innerHTML = data;
+// Загрузка контента из JSON файлов
+document.querySelectorAll('a[data-category]').forEach(link => {
+    link.addEventListener('click', function() {
+        let category = this.getAttribute('data-category');
+        fetch(`data/${category}.json`)
+            .then(response => response.json())
+            .then(data => {
+                let contentSection = document.getElementById('content');
+                contentSection.innerHTML = `<h2>${data.title}</h2><p>${data.content}</p>`;
+            })
+            .catch(error => console.error('Ошибка загрузки данных:', error));
     });
+});
+
+// Блокировка долгого нажатия на мобильных устройствах
+document.addEventListener('contextmenu', function(event) {
+    event.preventDefault();
+});
+
+document.addEventListener('touchstart', function(event) {
+    event.preventDefault();
+});
