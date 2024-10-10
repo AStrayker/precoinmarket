@@ -1,20 +1,19 @@
-/* Основные стили для всего сайта */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: white;
-    color: black;
+    color: blue;
     user-select: none; /* Защита от копирования */
 }
 
 header {
-    background-color: #0044cc;
+    background-color: #007bff;
     color: white;
-    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px;
 }
 
 .logo {
@@ -22,18 +21,18 @@ header {
     font-weight: bold;
 }
 
-.main-menu ul {
+.menu ul {
     list-style: none;
-    margin: 0;
     padding: 0;
+    margin: 0;
     display: flex;
 }
 
-.main-menu ul li {
+.menu ul li {
     margin-right: 20px;
 }
 
-.main-menu ul li a {
+.menu ul li a {
     color: white;
     text-decoration: none;
 }
@@ -47,49 +46,22 @@ header {
 .ticker {
     background-color: #f0f0f0;
     padding: 10px;
-    text-align: center;
+    margin-top: 10px;
 }
 
-main {
-    padding: 20px;
-    text-align: center;
-}
-
-footer {
-    background-color: #0044cc;
-    color: white;
-    padding: 10px;
-    text-align: center;
-}
-
-footer ul {
-    list-style: none;
-    padding: 0;
-}
-
-footer ul li {
-    display: inline;
-    margin-right: 15px;
-}
-
-footer ul li a {
-    color: white;
-    text-decoration: none;
-}
-
-#backToTopBtn {
+#scrollTopBtn {
     position: fixed;
     bottom: 20px;
     right: 20px;
     display: none;
-    background-color: #0044cc;
+    background-color: #007bff;
     color: white;
-    padding: 10px;
     border: none;
+    padding: 10px;
     cursor: pointer;
 }
 
-/* Убираем вибрацию и контекстное меню */
+/* Защита от вибрации и выделения текста */
 body, html {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
