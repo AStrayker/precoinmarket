@@ -1,0 +1,101 @@
+/* Основные стили */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: white;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+}
+
+#logo {
+    max-width: 150px;
+}
+
+h1 {
+    color: orange;
+}
+
+/* Меню для ПК */
+.desktop-menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    padding: 20px;
+}
+
+.desktop-menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.desktop-menu li {
+    margin: 15px 0;
+}
+
+.desktop-menu a {
+    color: orange;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Мобильное меню */
+#mobile-menu {
+    display: none;
+}
+
+#menu-toggle {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+#mobile-sidebar {
+    display: none;
+    position: fixed;
+    left: -250px;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+}
+
+.mobile-menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.mobile-menu li {
+    margin: 15px 0;
+}
+
+.mobile-menu a {
+    color: orange;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Анимация для мобильного меню */
+#mobile-sidebar.open {
+    left: 0;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .desktop-menu {
+        display: none;
+    }
+    #mobile-menu {
+        display: block;
+    }
+}
