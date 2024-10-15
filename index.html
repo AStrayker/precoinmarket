@@ -1,49 +1,38 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Интерфейс аккаунта пользователя с балансами и категориями">
-    <title>Мой Аккаунт</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <div class="container">
-        <!-- Боковая панель -->
-        <nav class="sidebar">
-            <ul>
-                <li><a href="#"><i class="icon-home"></i> Home</a></li>
-                <li><a href="#"><i class="icon-profile"></i> Profile</a></li>
-                <li><a href="#"><i class="icon-wallet"></i> L2 Wallet</a></li>
-                <li><a href="#"><i class="icon-notification"></i> Notification</a></li>
-                <li><a href="#"><i class="icon-bookmark"></i> Bookmarks</a></li>
-                <li><a href="#"><i class="icon-group"></i> Group</a></li>
-                <li><a href="#"><i class="icon-credit"></i> Credit</a></li>
-                <li><a href="#"><i class="icon-language"></i> Languages</a></li>
-                <li><a href="#"><i class="icon-more"></i> More</a></li>
-            </ul>
-        </nav>
+<!-- Кнопка для открытия бокового меню -->
+<button class="menu-toggle">☰ Меню</button>
 
-        <!-- Основная часть контента -->
-        <main class="content">
-            <h1>Мой Аккаунт</h1>
-            <div class="balance-table">
-                <table>
-                    <tr>
-                        <th>Монета</th>
-                        <th>Баланс</th>
-                        <th>Стоимость</th>
-                    </tr>
-                    <tr>
-                        <td>BNB</td>
-                        <td>0.0002815</td>
-                        <td>$0.17</td>
-                    </tr>
-                </table>
-            </div>
-        </main>
-    </div>
+<div class="container">
+    <!-- Боковая панель (обновление не требуется) -->
+    <nav class="sidebar">
+        <ul>
+            <li><a href="#"><i class="icon-home"></i> Home</a></li>
+            <li><a href="#"><i class="icon-profile"></i> Profile</a></li>
+            <li><a href="#"><i class="icon-wallet"></i> L2 Wallet</a></li>
+            <li><a href="#"><i class="icon-notification"></i> Notification</a></li>
+            <li><a href="#"><i class="icon-bookmark"></i> Bookmarks</a></li>
+            <li><a href="#"><i class="icon-group"></i> Group</a></li>
+            <li><a href="#"><i class="icon-credit"></i> Credit</a></li>
+            <li><a href="#"><i class="icon-language"></i> Languages</a></li>
+            <li><a href="#"><i class="icon-more"></i> More</a></li>
+        </ul>
+    </nav>
 
-    <script src="js/script.js"></script>
-</body>
-</html>
+    <!-- Основной контент (обновление не требуется) -->
+    <main class="content">
+        <h1>Мой Аккаунт</h1>
+        <div class="balance-table">
+            <table>
+                <tr>
+                    <th>Монета</th>
+                    <th>Баланс</th>
+                    <th>Стоимость</th>
+                </tr>
+                <tr>
+                    <td>BNB</td>
+                    <td>0.0002815</td>
+                    <td>$0.17</td>
+                </tr>
+            </table>
+        </div>
+    </main>
+</div>
