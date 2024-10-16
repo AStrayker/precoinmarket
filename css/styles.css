@@ -1,21 +1,28 @@
-/* Основной стиль для всего сайта */
+/* Основные стили для сайта */
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
     margin: 0;
     padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
 }
 
-/* Боковое меню (для ПК) */
+/* Логотип */
+.logo img {
+    width: 150px;
+    margin: 20px;
+}
+
+/* Стили для бокового меню */
 .sidebar {
     width: 250px;
-    background-color: #333;
-    color: #fff;
     height: 100vh;
+    background-color: #ffffff;
     position: fixed;
     left: 0;
     top: 0;
-    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding-top: 50px;
 }
 
 .sidebar ul {
@@ -24,52 +31,55 @@ body {
 }
 
 .sidebar ul li {
-    margin: 15px 0;
+    margin: 20px 0;
 }
 
 .sidebar ul li a {
-    color: #FFA500;
+    color: #333;
     text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    font-weight: bold;
 }
 
 .sidebar ul li a:hover {
-    text-decoration: underline;
+    background-color: #e8e8e8;
+    border-radius: 8px;
 }
 
 /* Основной контент */
 .content {
-    margin-left: 270px; /* Отступ для бокового меню */
+    margin-left: 270px;
     padding: 20px;
+}
+
+/* Заголовки и текст */
+header {
+    padding: 20px;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+header h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+header p {
+    font-size: 16px;
+    color: #666;
 }
 
 /* Мобильная версия */
 @media (max-width: 768px) {
     .sidebar {
-        position: fixed;
-        left: -250px;
-        transition: left 0.3s ease;
+        width: 80px;
     }
 
-    .sidebar.open {
-        left: 0;
+    .sidebar ul li a {
+        padding: 10px;
     }
 
     .content {
-        margin-left: 0;
-        padding: 20px;
-    }
-
-    /* Кнопка для открытия меню */
-    .menu-toggle {
-        display: block;
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        background-color: #333;
-        color: #fff;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-        z-index: 1000;
+        margin-left: 100px;
     }
 }
