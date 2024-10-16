@@ -1,4 +1,4 @@
-// Скрипт для открытия/закрытия боковой панели в мобильной версии
+// Открытие/закрытие бокового меню на мобильных устройствах
 document.querySelector('.menu-toggle').addEventListener('click', function() {
     document.querySelector('.sidebar').classList.toggle('open');
 });
