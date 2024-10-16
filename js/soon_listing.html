@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица CATS и других монет</title>
+    <style>
+        /* Основной стиль таблицы */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            text-align: center;
+        }
+        th, td {
+            padding: 10px;
+            border: 2px solid black;
+        }
+        /* Убираем отступы между колонками для ПК версии */
+        td, th {
+            margin: 0;
+            padding: 0;
+        }
+        /* Стиль первой колонки с логотипом монет */
+        .logo-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 120px;
+        }
+        .logo-cell img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        /* Стиль для логотипов бирж */
+        .exchange-logo img {
+            width: 40px;
+            height: 40px;
+        }
+        /* Стили для первой колонки (фиксированной) */
+        .sticky-col {
+            position: sticky;
+            left: 0;
+            background-color: white;
+            z-index: 2;
+        }
+        /* Стиль заголовков бирж */
+        .name-header {
+            font-weight: bold;
+        }
+        /* Стили для последней колонки (Листинг) */
+        .listing-date {
+            font-size: 18px;
+            color: gray;
+        }
+        /* Добавляем стиль для иконок монет */
+        .coin-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+        }
+        .coin-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /* Стили для мобильной версии */
+        @media (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            .sticky-col {
+                position: sticky;
+                left: 0;
+                background-color: white;
+                z-index: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Список криптовалютных монет и бирж</h1>
+    <table>
+        <!-- Первая строка: заголовки -->
+        <tr>
+            <th class="sticky-col logo-cell">
+                <img src="https://img.bitgetimg.com/multiLang/web/fa5787e62bb2d77e8b317d3dccc8bc67.png" alt="CATS Logo">
+            </th>
+            <th class="exchange-logo">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlUGQUUmLIe0r9KDTAll4brPiQV-mX21l2jg&s" alt="Kucoin">
+                <div class="name-header">Kucoin</div>
+            </th>
+            <th class="exchange-logo">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeyp7hp8t305-pIdkUjmKQFp0h1BViiSxm3w&s" alt="Bybit">
+                <div class="name-header">Bybit</div>
+            </th>
+            <th class="exchange-logo">
+                <img src="https://www.gate.io/images/gate.io_logo.png" alt="Gate">
+                <div class="name-header">Gate</div>
+            </th>
+            <th class="exchange-logo">
+                <img src="https://s2.coinmarketcap.com/static/img/coins/200x200/11092.png" alt="CoinEx">
+                <div class="name-header">CoinEx</div>
+            </th>
+            <th class="exchange-logo">
+                <img src="https://img.bitgetimg.com/multiLang/web/fa5787e62bb2d77e8b317d3dccc8bc67.png" alt="Bitget">
+                <div class="name-header">Bitget</div>
+            </th>
+            <th class="exchange-logo">
+                <img src="https://static.binance.org/images/binance-logo.png" alt="Binance">
+                <div class="name-header">Binance</div>
+            </th>
+            <th class="exchange-logo">
+                <img src="https://static.okx.com/cdn/assets/imgs/221/0x.png" alt="OKX">
+                <div class="name-header">OKX</div>
+            </th>
+            <th class="exchange-logo">
+                <img src="https://static.huobi.com/assets2/img/logo/global-nav/logo.png" alt="Huobi">
+                <div class="name-header">Huobi</div>
+            </th>
+            <th class="listing-date">Листинг</th>
+        </tr>
+
+        <!-- Табличные данные для монет с иконками -->
+        <tr>
+            <td class="sticky-col coin-cell">
+                <img class="coin-icon" src="https://img.bitgetimg.com/multiLang/web/fa5787e62bb2d77e8b317d3dccc8bc67.png" alt="CATS">
+                <span>CATS</span>
+            </td>
+            <td>0,50</td>
+            <td>0,50</td>
+            <td>0,50</td>
+            <td>0,50</td>
+            <td>0,50</td>
+            <td>0,50</td>
+            <td>0,50</td>
+            <td>0,50</td>
+            <td>22 Октября 2024</td>
+        </tr>
+        <tr>
+            <td class="sticky-col coin-cell">
+                <img class="coin-icon" src="https://cryptologos.cc/logos/dogecoin-doge-logo.png" alt="DOGS">
+                <span>DOGS</span>
+            </td>
+            <td>0,40</td>
+            <td>0,40</td>
+            <td>0,40</td>
+            <td>0,40</td>
+            <td>0,40</td>
+            <td>0,40</td>
+            <td>0,40</td>
+            <td>0,40</td>
+            <td>23 Октября 2024</td>
+        </tr>
+        <tr>
+            <td class="sticky-col coin-cell">
+                <img class="coin-icon" src="https://cryptologos.cc/logos/cardano-ada-logo.png" alt="BIRDS">
+                <span>BIRDS</span>
+            </td>
+            <td>0,30</td>
+            <td>0,30</td>
+            <td>0,30</td>
+            <td>0,30</td>
+            <td>0,30</td>
+            <td>0,30</td>
+            <td>0,30</td>
+            <td>0,30</td>
+            <td>24 Октября 2024</td>
+        </tr>
+        <tr>
+            <td class="sticky-col coin-cell">
+                <img class="coin-icon" src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="FISH">
+                <span>FISH</span>
+            </td>
+            <td>0,20</td>
+            <td>0,20</td>
+            <td>0,20</td>
+            <td>0,20</td>
+            <td>0,20</td>
+            <td>0,20</td>
+            <td>0,20</td>
+            <td>0,20</td>
+            <td>25 Октября 2024</td>
+        </tr>
+        <tr>
+            <td class="sticky-col coin-cell">
+                <img class="coin-icon" src="https://cryptologos.cc/logos/ripple-xrp-logo.png" alt="RABBITS">
+                <span>RABBITS</span>
+            </td>
+            <td>0,10</td>
+            <td>0,10</td>
+            <td>0,10</td>
+            <td>0,10</td>
+            <td>0,10</td>
+            <td>0,10</td>
+            <td>0,10</td>
+            <td>0,10</td>
+            <td>26 Октября 2024</td>
+        </tr>
+        <tr>
+            <td class="sticky-col coin-cell">
+                <img class="coin-icon" src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="LIONS">
+                <span>LIONS</span>
+            </td>
+            <td>0,05</td>
+            <td>0,05</td>
+            <td>0,05</td>
+            <td>0,05</td>
+            <td>0,05</td>
+            <td>0,05</td>
+            <td>0,05</td>
+            <td>0,05</td>
+            <td>27 Октября 2024</td>
+        </tr>
+    </table>
+</body>
+</html>
