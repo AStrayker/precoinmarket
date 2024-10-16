@@ -19,10 +19,14 @@ body {
     height: 100vh;
     background-color: #ffffff;
     position: fixed;
-    left: 0;
+    left: -250px; /* Скрытое положение для мобильной версии */
     top: 0;
+    transition: 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding-top: 50px;
+}
+
+.sidebar.open {
+    left: 0; /* Меню появляется при открытии */
 }
 
 .sidebar ul {
@@ -49,7 +53,7 @@ body {
 
 /* Основной контент */
 .content {
-    margin-left: 270px;
+    margin-left: 20px;
     padding: 20px;
 }
 
@@ -70,16 +74,31 @@ header p {
 }
 
 /* Мобильная версия */
-@media (max-width: 768px) {
+.menu-toggle {
+    display: block;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    margin: 5px 0;
+}
+
+@media (min-width: 769px) {
     .sidebar {
-        width: 80px;
+        left: 0; /* Открытое положение для ПК версии */
     }
-
-    .sidebar ul li a {
-        padding: 10px;
+    .menu-toggle {
+        display: none; /* Кнопка меню скрыта на ПК */
     }
-
     .content {
-        margin-left: 100px;
+        margin-left: 270px; /* Смещение контента для бокового меню */
     }
 }
