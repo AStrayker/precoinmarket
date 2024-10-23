@@ -6,131 +6,23 @@
     <title>Крипто-сайт</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" href="assets/icon.ico">
-    <style>
-        /* Основные стили для меню и кнопок */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        .menu-toggle {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        .menu-toggle span {
-            display: block;
-            width: 30px;
-            height: 4px;
-            background-color: black;
-        }
-
-        /* Стили для бокового меню */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -300px;
-            width: 300px;
-            height: 100%;
-            background-color: #2c3e50;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-            transition: left 0.3s ease;
-            z-index: 10;
-        }
-
-        .sidebar.open {
-            left: 0;
-        }
-
-        .sidebar .logo img {
-            width: 100%;
-            height: auto;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            margin-bottom: 15px;
-        }
-
-        .sidebar ul li a {
-            text-decoration: none;
-            color: white;
-            font-size: 18px;
-            display: block;
-        }
-
-        /* Закрытие меню */
-        .menu-close {
-            display: none;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 25px;
-            color: white;
-            cursor: pointer;
-        }
-
-        .sidebar.open .menu-close {
-            display: block;
-        }
-
-        /* Фон для области за меню */
-        .menu-backdrop {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 5;
-        }
-
-        .menu-backdrop.active {
-            display: block;
-        }
-
-        /* Основной контент */
-        .content {
-            margin-left: 20px;
-            padding: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .content {
-                margin-left: 0;
-            }
-        }
-    </style>
 </head>
 <body>
-    <!-- Кнопка для открытия мобильного меню -->
-    <div class="menu-toggle">
+    <!-- Кнопка для открытия/закрытия мобильного меню -->
+    <div class="menu-toggle" id="menu-toggle">
         <span></span>
         <span></span>
         <span></span>
     </div>
 
-    <!-- Фон за пределами меню для кликов -->
-    <div class="menu-backdrop"></div>
+    <!-- Полупрозрачный фон для клика вне меню -->
+    <div class="menu-overlay" id="menu-overlay"></div>
 
     <!-- Левое боковое меню -->
-    <nav class="sidebar">
+    <nav class="sidebar" id="sidebar">
         <div class="logo">
             <img src="assets/logo.png" alt="Logo">
         </div>
-        <span class="menu-close">&times;</span> <!-- Кнопка для закрытия меню -->
         <ul>
             <li><a href="soon_listing.html">Скоро листинг</a></li>
             <li><a href="content/premarket_coins.html">PreМаркет монет</a></li>
