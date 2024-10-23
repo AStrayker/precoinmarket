@@ -1,69 +1,67 @@
+/* Основные стили */
+
 body {
+    margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: white;
-    color: blue;
-    user-select: none; /* Защита от копирования */
 }
 
-header {
-    background-color: #007bff;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
-
-.menu ul li {
-    margin-right: 20px;
-}
-
-.menu ul li a {
-    color: white;
-    text-decoration: none;
-}
-
-.social-icons img {
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
-}
-
-.ticker {
-    background-color: #f0f0f0;
-    padding: 10px;
-    margin-top: 10px;
-}
-
-#scrollTopBtn {
+.sidebar {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: none;
-    background-color: #007bff;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #333;
     color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+    transition: left 0.3s;
+    z-index: 1000;
 }
 
-/* Защита от вибрации и выделения текста */
-body, html {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -webkit-tap-highlight-color: transparent;
+.menu-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 30px;
+    height: 4px;
+    margin: 5px;
+    background-color: black;
+    transition: background-color 0.3s;
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+
+.menu-open .sidebar {
+    left: 0;
+}
+
+.menu-open .menu-overlay {
+    display: block;
+}
+
+/* Контент */
+.content {
+    padding: 20px;
+    transition: margin-left 0.3s;
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+    }
 }
