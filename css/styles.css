@@ -23,11 +23,6 @@
     font-size: 30px;
     color: white;
     cursor: pointer;
-    display: none; /* Скрыто по умолчанию */
-}
-
-.sidebar.open .menu-close {
-    display: block;
 }
 
 /* Стиль для фона, который закрывает меню при клике */
@@ -62,21 +57,17 @@
     height: 3px;
     margin: 5px 0;
     background-color: #333;
-    transition: all 0.3s ease;
-}
-
-/* Когда меню открыто, прячем кнопку открытия */
-.sidebar.open ~ .menu-toggle {
-    display: none;
 }
 
 /* Мобильная адаптация */
 @media (max-width: 768px) {
     .menu-toggle {
         display: block;
+        z-index: 20; /* Убедитесь, что кнопка выше других элементов */
     }
 
     .sidebar {
         width: 80%;
+        transition: left 0.3s ease; /* Анимация для мобильного меню */
     }
 }
