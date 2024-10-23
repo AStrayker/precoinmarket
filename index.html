@@ -6,183 +6,42 @@
     <title>Крипто-сайт</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" href="assets/icon.ico">
-    <style>
-        /* Основные стили таблицы */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        th, td {
-            padding: 10px;
-            border: 2px solid black;
-            vertical-align: middle;
-        }
-
-        /* Стиль для первой колонки (фиксированной) */
-        .sticky-col {
-            position: sticky;
-            left: 0;
-            background-color: white;
-            z-index: 2;
-        }
-
-        /* Стиль для заголовков бирж */
-        .exchange-logo img {
-            width: 40px;
-            height: 40px;
-        }
-
-        .exchange-logo .name-header {
-            font-weight: bold;
-        }
-
-        /* Стили для ячеек с логотипами монет */
-        .coin-cell {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .coin-icon {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-        }
-
-        /* Мобильная адаптация */
-        @media (max-width: 768px) {
-            table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-
-            .sticky-col {
-                position: -webkit-sticky;
-                position: sticky;
-                left: 0;
-                z-index: 1;
-                background-color: white;
-            }
-        }
-    </style>
 </head>
 <body>
+    <!-- Кнопка для открытия/закрытия мобильного меню -->
+    <div class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Левое боковое меню -->
+    <nav class="sidebar">
+        <div class="logo">
+            <img src="assets/logo.png" alt="Logo">
+        </div>
+        <ul>
+            <li><a href="soon_listing.html">Скоро листинг</a></li>
+            <li><a href="content/premarket_coins.html">PreМаркет монет</a></li>
+            <li><a href="content/pre_converter.html">PreКонверьёр монет</a></li>
+            <li><a href="content/play_to_earn.html">Игры PlayToEarn</a></li>
+            <li><a href="#">Активности от бирж</a></li>
+            <li><a href="#">Рейтинг Бирж</a></li>
+        </ul>
+    </nav>
+
+    <!-- Основной контент -->
     <div class="content">
         <header>
             <h1>Добро пожаловать в Крипто-сайт</h1>
             <p>Исследуйте мир криптовалют!</p>
         </header>
-
         <main>
-            <!-- Оптимизированная таблица -->
-            <table>
-                <thead>
-                    <tr>
-                        <!-- Фиксированная колонка -->
-                        <th class="sticky-col">Монета</th>
-                        <th class="exchange-logo">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlUGQUUmLIe0r9KDTAll4brPiQV-mX21l2jg&s" alt="Kucoin">
-                            <div class="name-header">Kucoin</div>
-                        </th>
-                        <th class="exchange-logo">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeyp7hp8t305-pIdkUjmKQFp0h1BViiSxm3w&s" alt="Bybit">
-                            <div class="name-header">Bybit</div>
-                        </th>
-                        <th class="exchange-logo">
-                            <img src="https://www.gate.io/images/gate.io_logo.png" alt="Gate">
-                            <div class="name-header">Gate</div>
-                        </th>
-                        <th class="exchange-logo">
-                            <img src="https://s2.coinmarketcap.com/static/img/coins/200x200/11092.png" alt="CoinEx">
-                            <div class="name-header">CoinEx</div>
-                        </th>
-                        <th class="exchange-logo">
-                            <img src="https://img.bitgetimg.com/multiLang/web/fa5787e62bb2d77e8b317d3dccc8bc67.png" alt="Bitget">
-                            <div class="name-header">Bitget</div>
-                        </th>
-                        <th class="exchange-logo">
-                            <img src="https://static.binance.org/images/binance-logo.png" alt="Binance">
-                            <div class="name-header">Binance</div>
-                        </th>
-                        <th class="exchange-logo">
-                            <img src="https://static.okx.com/cdn/assets/imgs/221/0x.png" alt="OKX">
-                            <div class="name-header">OKX</div>
-                        </th>
-                        <th class="exchange-logo">
-                            <img src="https://static.huobi.com/assets2/img/logo/global-nav/logo.png" alt="Huobi">
-                            <div class="name-header">Huobi</div>
-                        </th>
-                        <th>Листинг</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="sticky-col coin-cell">
-                            <img class="coin-icon" src="https://img.bitgetimg.com/multiLang/web/fa5787e62bb2d77e8b317d3dccc8bc67.png" alt="CATS">
-                            <span>CATS</span>
-                        </td>
-                        <td>0,50</td>
-                        <td>0,50</td>
-                        <td>0,50</td>
-                        <td>0,50</td>
-                        <td>0,50</td>
-                        <td>0,50</td>
-                        <td>0,50</td>
-                        <td>0,50</td>
-                        <td>22 Октября 2024</td>
-                    </tr>
-                    <tr>
-                        <td class="sticky-col coin-cell">
-                            <img class="coin-icon" src="https://cryptologos.cc/logos/dogecoin-doge-logo.png" alt="DOGS">
-                            <span>DOGS</span>
-                        </td>
-                        <td>0,40</td>
-                        <td>0,40</td>
-                        <td>0,40</td>
-                        <td>0,40</td>
-                        <td>0,40</td>
-                        <td>0,40</td>
-                        <td>0,40</td>
-                        <td>23 Октября 2024</td>
-                    </tr>
-                    <tr>
-                        <td class="sticky-col coin-cell">
-                            <img class="coin-icon" src="https://cryptologos.cc/logos/cardano-ada-logo.png" alt="BIRDS">
-                            <span>BIRDS</span>
-                        </td>
-                        <td>0,30</td>
-                        <td>0,30</td>
-                        <td>0,30</td>
-                        <td>0,30</td>
-                        <td>0,30</td>
-                        <td>0,30</td>
-                        <td>0,30</td>
-                        <td>24 Октября 2024</td>
-                    </tr>
-                    <tr>
-                        <td class="sticky-col coin-cell">
-                            <img class="coin-icon" src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="FISH">
-                            <span>FISH</span>
-                        </td>
-                        <td>0,20</td>
-                        <td>0,20</td>
-                        <td>0,20</td>
-                        <td>0,20</td>
-                        <td>0,20</td>
-                        <td>0,20</td>
-                        <td>0,20</td>
-                        <td>25 Октября 2024</td>
-                    </tr>
-                </tbody>
-            </table>
+            <p>Контент сайта появится здесь.</p>
         </main>
     </div>
 
-    <!-- Скрипты -->
-    <script src="js/menu.js"></script>
+    <!-- Скрипт для меню -->
+    <script src="js/script.js"></script>
 </body>
 </html>
