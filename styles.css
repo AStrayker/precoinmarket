@@ -13,8 +13,9 @@ body {
     height: 100%;
     background-color: #333;
     color: white;
-    transition: left 0.3s;
+    transition: left 0.3s ease-in-out;
     z-index: 1000;
+    overflow: auto;
 }
 
 .menu-toggle {
@@ -43,6 +44,7 @@ body {
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
     display: none;
+    transition: display 0.3s ease-in-out;
 }
 
 .menu-open .sidebar {
