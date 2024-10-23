@@ -1,88 +1,82 @@
-/* Основные стили */
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
+/* Стиль для бокового меню */
 .sidebar {
     position: fixed;
-    left: -250px;
+    top: 0;
+    left: -250px; /* Изначально скрыто */
     width: 250px;
     height: 100%;
     background-color: #333;
+    transition: left 0.3s ease;
+    z-index: 10;
+}
+
+/* Когда меню открыто */
+.sidebar.open {
+    left: 0;
+}
+
+/* Кнопка закрытия меню */
+.menu-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
     color: white;
-    transition: left 0.3s ease-in-out;
-    z-index: 1000;
-    overflow: auto;
-}
-
-.menu-toggle {
-    position: fixed;
-    top: 15px;
-    left: 15px;
     cursor: pointer;
-    z-index: 1100;
+    display: none; /* Скрыто по умолчанию */
 }
 
-.menu-toggle span {
+.sidebar.open .menu-close {
     display: block;
-    width: 30px;
-    height: 4px;
-    margin: 5px;
-    background-color: black;
-    transition: background-color 0.3s;
 }
 
+/* Стиль для фона, который закрывает меню при клике */
 .menu-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    display: none;
-    transition: display 0.3s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* По умолчанию скрыто */
+    z-index: 5;
 }
 
-/* Кнопка для закрытия меню */
-.close-btn {
+/* Показывать overlay, когда меню открыто */
+.sidebar.open + .menu-overlay {
     display: block;
-    margin: 20px;
-    padding: 10px;
-    background-color: #ff0000;
-    color: white;
-    border: none;
+}
+
+/* Анимация для кнопки открытия меню */
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
     cursor: pointer;
+    z-index: 15;
 }
 
-.menu-open .sidebar {
-    left: 0;
-}
-
-.menu-open .menu-overlay {
+.menu-toggle span {
     display: block;
+    width: 30px;
+    height: 3px;
+    margin: 5px 0;
+    background-color: #333;
+    transition: all 0.3s ease;
 }
 
-/* Запрет контекстного меню для мобильных устройств */
-body {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+/* Когда меню открыто, прячем кнопку открытия */
+.sidebar.open ~ .menu-toggle {
+    display: none;
 }
 
-.content {
-    padding: 20px;
-    transition: margin-left 0.3s;
-}
-
-/* Адаптация для мобильных устройств */
+/* Мобильная адаптация */
 @media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
     .sidebar {
-        width: 100%;
+        width: 80%;
     }
 }
