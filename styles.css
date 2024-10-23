@@ -1,82 +1,117 @@
-/* Стиль для бокового меню */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Боковое меню */
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: -250px; /* Изначально скрыто */
-    width: 250px;
-    height: 100%;
-    background-color: #333;
-    transition: left 0.3s ease;
-    z-index: 10;
+    width: 200px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Когда меню открыто */
-.sidebar.open {
-    left: 0;
-}
-
-/* Кнопка закрытия меню */
-.menu-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 30px;
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+    background-color: #F37021;
     color: white;
-    cursor: pointer;
-    display: none; /* Скрыто по умолчанию */
 }
 
-.sidebar.open .menu-close {
+.menu {
+    list-style: none;
+    padding: 20px 0;
+}
+
+.menu li {
+    padding: 10px 20px;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
     display: block;
 }
 
-/* Стиль для фона, который закрывает меню при клике */
-.menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none; /* По умолчанию скрыто */
-    z-index: 5;
+.menu li a:hover {
+    background-color: #f0f0f0;
 }
 
-/* Показывать overlay, когда меню открыто */
-.sidebar.open + .menu-overlay {
-    display: block;
+/* Основной контент */
+.content {
+    flex: 1;
+    padding: 20px;
 }
 
-/* Анимация для кнопки открытия меню */
-.menu-toggle {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    cursor: pointer;
-    z-index: 15;
+.header {
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
-.menu-toggle span {
-    display: block;
-    width: 30px;
-    height: 3px;
-    margin: 5px 0;
-    background-color: #333;
-    transition: all 0.3s ease;
+.content-area {
+    background-color: white;
+    border: 1px solid #000;
+    padding: 20px;
+    min-height: 80vh;
 }
 
-/* Когда меню открыто, прячем кнопку открытия */
-.sidebar.open ~ .menu-toggle {
-    display: none;
-}
-
-/* Мобильная адаптация */
+/* Адаптивный дизайн для мобильных устройств */
 @media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
+    .sidebar {
+        width: 60px;
+        overflow: hidden;
     }
 
+    .sidebar:hover {
+        width: 200px;
+    }
+
+    .menu li a {
+        padding-left: 10px;
+    }
+
+    /* Выдвижное меню */
     .sidebar {
-        width: 80%;
+        position: fixed;
+        left: -200px;
+        transition: all 0.3s;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .content {
+        margin-left: 60px;
+    }
+
+    /* Кнопка для открытия меню */
+    .menu-toggle {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        cursor: pointer;
+        font-size: 30px;
+        display: block;
+        z-index: 1000;
     }
 }
