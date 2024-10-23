@@ -14,13 +14,13 @@
     <div id="price">Загрузка...</div>
 
     <script>
-        const tokenSymbol = 'BTCUSDT'; // Замените на нужный токен
+        const tokenSymbol = 'BTCUSD'; // Замените на нужный токен
 
         async function fetchPrice() {
-            const response = await fetch(`https://api.bybit.com/v2/public/tickers?symbol=${tokenSymbol}`);
+            const response = await fetch(`https://api.bybit.com/v2/public/tickers?symbol=${BTCUSD}`);
             const data = await response.json();
             if (data.result && data.result.length > 0) {
-                document.getElementById('price').innerText = `Цена ${tokenSymbol}: ${data.result[0].last_price}`;
+                document.getElementById('price').innerText = `Цена ${BTCUSD}: ${data.result[0].last_price}`;
             } else {
                 document.getElementById('price').innerText = 'Ошибка получения данных';
             }
