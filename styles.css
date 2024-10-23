@@ -47,6 +47,17 @@ body {
     transition: display 0.3s ease-in-out;
 }
 
+/* Кнопка для закрытия меню */
+.close-btn {
+    display: block;
+    margin: 20px;
+    padding: 10px;
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
 .menu-open .sidebar {
     left: 0;
 }
@@ -55,7 +66,15 @@ body {
     display: block;
 }
 
-/* Контент */
+/* Запрет контекстного меню для мобильных устройств */
+body {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .content {
     padding: 20px;
     transition: margin-left 0.3s;
