@@ -8,21 +8,23 @@
     <link rel="icon" href="assets/icon.ico">
 </head>
 <body>
-    <!-- Кнопка для открытия мобильного меню -->
-    <div class="menu-toggle" id="menu-toggle">
+    <!-- Кнопка для открытия/закрытия мобильного меню -->
+    <div class="menu-toggle">
         <span></span>
         <span></span>
         <span></span>
     </div>
 
-    <!-- Полупрозрачный фон для клика вне меню -->
-    <div class="menu-overlay" id="menu-overlay"></div>
+    <!-- Фоновый элемент для закрытия меню по клику -->
+    <div class="menu-overlay"></div>
 
     <!-- Левое боковое меню -->
-    <nav class="sidebar" id="sidebar">
+    <nav class="sidebar">
         <div class="logo">
             <img src="assets/logo.png" alt="Logo">
         </div>
+        <!-- Кнопка для закрытия меню -->
+        <div class="menu-close">&times;</div>
         <ul>
             <li><a href="soon_listing.html">Скоро листинг</a></li>
             <li><a href="content/premarket_coins.html">PreМаркет монет</a></li>
@@ -31,9 +33,6 @@
             <li><a href="#">Активности от бирж</a></li>
             <li><a href="#">Рейтинг Бирж</a></li>
         </ul>
-
-        <!-- Кнопка для закрытия меню -->
-        <button class="close-btn" id="close-btn">Закрыть</button>
     </nav>
 
     <!-- Основной контент -->
@@ -43,7 +42,7 @@
             <p>Исследуйте мир криптовалют!</p>
         </header>
         <main>
-            <p>Контент сайта появится здесь5.</p>
+            <p>Контент сайта появится здесь.</p>
         </main>
     </div>
 
