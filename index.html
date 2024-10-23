@@ -63,6 +63,27 @@
         .menu-open .content {
             margin-left: 250px;
         }
+
+        /* Стиль кнопки закрытия для мобильной версии */
+        .close-btn {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* Показываем кнопку закрытия в мобильной версии */
+        @media (max-width: 768px) {
+            .close-btn {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
@@ -75,6 +96,7 @@
 
     <!-- Левое боковое меню -->
     <nav class="sidebar" id="sidebar">
+        <button class="close-btn" id="close-btn">Закрыть</button>
         <div class="logo">
             <img src="assets/logo.png" alt="Logo">
         </div>
@@ -104,12 +126,17 @@
         // Получаем элементы
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
+        const closeButton = document.getElementById('close-btn');
         const body = document.body;
 
-        // Добавляем событие на клик
+        // Открытие меню
         menuToggle.addEventListener('click', () => {
-            // Переключаем класс, который открывает/закрывает меню
             body.classList.toggle('menu-open');
+        });
+
+        // Закрытие меню при нажатии на кнопку закрытия
+        closeButton.addEventListener('click', () => {
+            body.classList.remove('menu-open');
         });
     </script>
 </body>
