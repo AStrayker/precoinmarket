@@ -1,27 +1,24 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.getElementById('menu-toggle');
-    const closeBtn = document.getElementById('close-btn');
-    const sidebar = document.getElementById('sidebar');
-    const menuOverlay = document.getElementById('menu-overlay');
-    const body = document.body;
+document.addEventListener('DOMContentLoaded', function () {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const menuClose = document.querySelector('.menu-close');
+    const menuOverlay = document.querySelector('.menu-overlay');
 
-    // Открытие меню
-    menuToggle.addEventListener('click', function() {
-        body.classList.add('menu-open');
+    // Открыть меню
+    menuToggle.addEventListener('click', function () {
+        sidebar.classList.add('open');
+        menuOverlay.style.display = 'block';
     });
 
-    // Закрытие меню по клику на кнопку "Закрыть"
-    closeBtn.addEventListener('click', function() {
-        body.classList.remove('menu-open');
+    // Закрыть меню при клике на кнопку закрытия
+    menuClose.addEventListener('click', function () {
+        sidebar.classList.remove('open');
+        menuOverlay.style.display = 'none';
     });
 
-    // Закрытие меню по клику на overlay
-    menuOverlay.addEventListener('click', function() {
-        body.classList.remove('menu-open');
-    });
-
-    // Запрет контекстного меню на мобильных устройствах
-    document.addEventListener('contextmenu', function(event) {
-        event.preventDefault();
+    // Закрыть меню при клике на overlay
+    menuOverlay.addEventListener('click', function () {
+        sidebar.classList.remove('open');
+        menuOverlay.style.display = 'none';
     });
 });
