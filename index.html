@@ -6,97 +6,17 @@
     <title>Крипто-сайт</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" href="assets/icon.ico">
-    <style>
-        /* Основные стили для бокового меню */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -250px; /* Прячем меню за экраном */
-            width: 250px;
-            height: 100%;
-            background-color: #2c3e50;
-            padding-top: 20px;
-            transition: left 0.3s ease;
-            z-index: 1000;
-        }
-
-        .menu-open .sidebar {
-            left: 0; /* Открываем меню */
-        }
-
-        /* Кнопка для открытия/закрытия меню */
-        .menu-toggle {
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            width: 30px;
-            height: 30px;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 2000;
-        }
-
-        .menu-toggle span {
-            width: 100%;
-            height: 3px;
-            background-color: black;
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-
-        /* Анимация для кнопки при открытом меню */
-        .menu-open .menu-toggle span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .menu-open .menu-toggle span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-open .menu-toggle span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        /* Контент отступает при открытом меню */
-        .menu-open .content {
-            margin-left: 250px;
-        }
-
-        /* Стиль кнопки закрытия для мобильной версии */
-        .close-btn {
-            display: none;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 10px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        /* Показываем кнопку закрытия в мобильной версии */
-        @media (max-width: 768px) {
-            .close-btn {
-                display: block;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Кнопка для открытия/закрытия мобильного меню -->
-    <div class="menu-toggle" id="menu-toggle">
+    <div class="menu-toggle">
         <span></span>
         <span></span>
         <span></span>
     </div>
 
     <!-- Левое боковое меню -->
-    <nav class="sidebar" id="sidebar">
-        <button class="close-btn" id="close-btn">Закрыть</button>
+    <nav class="sidebar">
         <div class="logo">
             <img src="assets/logo.png" alt="Logo">
         </div>
@@ -122,22 +42,6 @@
     </div>
 
     <!-- Скрипт для меню -->
-    <script>
-        // Получаем элементы
-        const menuToggle = document.getElementById('menu-toggle');
-        const sidebar = document.getElementById('sidebar');
-        const closeButton = document.getElementById('close-btn');
-        const body = document.body;
-
-        // Открытие меню
-        menuToggle.addEventListener('click', () => {
-            body.classList.toggle('menu-open');
-        });
-
-        // Закрытие меню при нажатии на кнопку закрытия
-        closeButton.addEventListener('click', () => {
-            body.classList.remove('menu-open');
-        });
-    </script>
+    <script src="js/script.js"></script>
 </body>
 </html>
