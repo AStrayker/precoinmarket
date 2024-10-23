@@ -1,24 +1,23 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const sidebar = document.querySelector('.sidebar');
-    const menuClose = document.querySelector('.menu-close');
-    const menuOverlay = document.querySelector('.menu-overlay');
+// Элементы DOM
+const menuToggle = document.querySelector('.menu-toggle');
+const menuClose = document.querySelector('.menu-close');
+const sidebar = document.querySelector('.sidebar');
+const backdrop = document.querySelector('.menu-backdrop');
 
-    // Открыть меню
-    menuToggle.addEventListener('click', function () {
-        sidebar.classList.add('open');
-        menuOverlay.style.display = 'block';
-    });
+// Открытие меню
+menuToggle.addEventListener('click', () => {
+    sidebar.classList.add('open');
+    backdrop.classList.add('active');
+});
 
-    // Закрыть меню при клике на кнопку закрытия
-    menuClose.addEventListener('click', function () {
-        sidebar.classList.remove('open');
-        menuOverlay.style.display = 'none';
-    });
+// Закрытие меню по кнопке
+menuClose.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    backdrop.classList.remove('active');
+});
 
-    // Закрыть меню при клике на overlay
-    menuOverlay.addEventListener('click', function () {
-        sidebar.classList.remove('open');
-        menuOverlay.style.display = 'none';
-    });
+// Закрытие меню при клике на фон за пределами меню
+backdrop.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    backdrop.classList.remove('active');
 });
