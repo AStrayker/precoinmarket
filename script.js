@@ -6,7 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Открытие/закрытие меню по клику на кнопку
     menuToggle.addEventListener('click', function() {
-        body.classList.toggle('menu-open');
+        if (body.classList.contains('menu-open')) {
+            body.classList.remove('menu-open');
+        } else {
+            body.classList.add('menu-open');
+        }
     });
 
     // Закрытие меню при клике на overlay
