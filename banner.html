@@ -1,1 +1,19 @@
-<p>🔥 Самые актуальные новости крипторынка! Узнай больше на Precoinmarket!</p>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цена токена Bybit</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #price { font-size: 24px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Текущая цена токена</h1>
+    <div id="price">Загрузка...</div>
+
+    <script>
+        const tokenSymbol = 'BTCUSDT'; // Замените на нужный токен
+
+        async function fetchPrice() {
