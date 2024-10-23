@@ -3,34 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeBank</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Крипто-сайт</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="assets/icon.ico">
 </head>
 <body>
-    <div class="container">
-        <!-- Боковое меню -->
-        <nav class="sidebar">
-            <div class="logo">DeBank</div>
-            <ul class="menu">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">L2 Wallet</a></li>
-                <li><a href="#">Notification</a></li>
-                <li><a href="#">Bookmarks</a></li>
-            </ul>
-        </nav>
-
-        <!-- Основной контент -->
-        <div class="content">
-            <div class="header">My Account</div>
-            <div class="content-area" id="content-area">
-                <!-- Сюда будет подгружаться динамическая информация -->
-                <p>Контент будет загружаться здесь.</p>
-            </div>
-        </div>
+    <!-- Кнопка для открытия/закрытия мобильного меню -->
+    <div class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
 
-    <!-- Скрипт для мобильного меню -->
-    <script src="script.js"></script>
+    <!-- Фоновый элемент для закрытия меню по клику -->
+    <div class="menu-overlay"></div>
+
+    <!-- Левое боковое меню -->
+    <nav class="sidebar">
+        <div class="logo">
+            <img src="assets/logo.png" alt="Logo">
+        </div>
+        <!-- Кнопка для закрытия меню -->
+        <div class="menu-close">&times;</div>
+        <ul>
+            <li><a href="soon_listing.html">Скоро листинг</a></li>
+            <li><a href="content/premarket_coins.html">PreМаркет монет</a></li>
+            <li><a href="content/pre_converter.html">PreКонверьёр монет</a></li>
+            <li><a href="content/play_to_earn.html">Игры PlayToEarn</a></li>
+            <li><a href="#">Активности от бирж</a></li>
+            <li><a href="#">Рейтинг Бирж</a></li>
+        </ul>
+    </nav>
+
+    <!-- Основной контент -->
+    <div class="content">
+        <header>
+            <h1>Добро пожаловать в Крипто-сайт</h1>
+            <p>Исследуйте мир криптовалют!</p>
+        </header>
+        <main>
+            <p>Контент сайта появится здесь.</p>
+        </main>
+    </div>
+
+    <!-- Скрипт для меню -->
+    <script src="js/script.js"></script>
 </body>
 </html>
