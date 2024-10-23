@@ -1,24 +1,12 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const menuToggle = document.querySelector('.menu-toggle');
+// Открытие и закрытие бокового меню на мобильных устройствах
+document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.querySelector('.sidebar');
-    const menuClose = document.querySelector('.menu-close');
-    const menuOverlay = document.querySelector('.menu-overlay');
+    const toggleButton = document.createElement('div');
+    toggleButton.classList.add('menu-toggle');
+    toggleButton.innerHTML = '☰';
+    document.body.appendChild(toggleButton);
 
-    // Открыть меню
-    menuToggle.addEventListener('click', function () {
-        sidebar.classList.add('open');
-        menuOverlay.style.display = 'block';
-    });
-
-    // Закрыть меню при клике на кнопку закрытия
-    menuClose.addEventListener('click', function () {
-        sidebar.classList.remove('open');
-        menuOverlay.style.display = 'none';
-    });
-
-    // Закрыть меню при клике на overlay
-    menuOverlay.addEventListener('click', function () {
-        sidebar.classList.remove('open');
-        menuOverlay.style.display = 'none';
+    toggleButton.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
     });
 });
