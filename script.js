@@ -24,4 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebar.classList.remove('active');
         toggleButton.style.display = 'block';  // Показываем кнопку открытия
     });
+
+    // Закрытие меню при клике вне меню (клик по overlay)
+    document.addEventListener('click', function(e) {
+        if (!sidebar.contains(e.target) && !toggleButton.contains(e.target)) {
+            sidebar.classList.remove('active');
+            toggleButton.style.display = 'block';  // Показываем кнопку открытия
+        }
+    });
 });
