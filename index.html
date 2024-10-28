@@ -3,45 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Крипто-сайт</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" href="assets/icon.ico">
+    <title>Название вашего сайта</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico">
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <!-- Кнопка для открытия/закрытия мобильного меню -->
-    <div class="menu-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
+    <header>
+        <div class="logo">Ваш Логотип</div>
+        <nav>
+            <ul>
+                <li><a href="#">Главная</a></li>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Услуги</a></li>
+                <li><a href="#">Контакты</a></li>
+            </ul>
+            <button class="menu-toggle">☰</button>
+        </nav>
+    </header>
+    
+    <main id="main-content">
+        <!-- Сюда будет загружен текст из файла main.txt -->
+    </main>
+    
+    <footer id="footer">
+        <!-- Сюда будет загружен текст из файла footer.txt -->
+    </footer>
 
-    <!-- Левое боковое меню -->
-    <nav class="sidebar">
-        <div class="logo">
-            <img src="assets/logo.png" alt="Logo">
-        </div>
-        <ul>
-            <li><a href="soon_listing.html">Скоро листинг</a></li>
-            <li><a href="content/premarket_coins.html">PreМаркет монет</a></li>
-            <li><a href="content/pre_converter.html">PreКонверьёр монет</a></li>
-            <li><a href="content/play_to_earn.html">Игры PlayToEarn</a></li>
-            <li><a href="#">Активности от бирж</a></li>
-            <li><a href="#">Рейтинг Бирж</a></li>
-        </ul>
-    </nav>
-
-    <!-- Основной контент -->
-    <div class="content">
-        <header>
-            <h1>Добро пожаловать в Крипто-сайт</h1>
-            <p>Исследуйте мир криптовалют!</p>
-        </header>
-        <main>
-            <p>Контент сайта появится здесь1.</p>
-        </main>
-    </div>
-
-    <!-- Скрипт для меню -->
-    <script src="js/script.js"></script>
+    <div class="overlay" onclick="toggleMenu(false)"></div>
 </body>
 </html>
