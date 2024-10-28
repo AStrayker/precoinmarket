@@ -1,44 +1,86 @@
-/* Кнопка открытия меню */
-.menu-toggle {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    font-size: 30px;
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333333;
+}
+
+/* Защита от копирования */
+body, header, main, footer {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Стили для хедера */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.logo {
+    font-size: 1.5em;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li a {
+    text-decoration: none;
     color: #333;
-    cursor: pointer;
-    z-index: 100;
-    display: block;
+    padding: 10px;
 }
 
-/* Кнопка закрытия меню */
-.menu-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-    z-index: 101;
+nav ul li a:hover {
+    color: #555;
+    background-color: #f2f2f2;
 }
 
-/* Основные стили для бокового меню */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: -250px; /* Скрыто по умолчанию */
-    width: 250px;
-    height: 100%;
-    background-color: #333;
-    transition: left 0.3s ease;
-    z-index: 10;
-}
-
-.sidebar.active {
-    left: 0; /* Показ меню */
+/* Стили для мобильного меню */
+.menu-toggle {
+    display: none;
 }
 
 @media (max-width: 768px) {
-    .sidebar {
-        width: 80%;
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background-color: #fff;
+        width: 250px;
+        padding-top: 60px;
+        box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
+        z-index: 100;
+    }
+    .menu-toggle {
+        display: block;
+    }
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 50;
+    }
+    .overlay.active, nav ul.active {
+        display: block;
     }
 }
