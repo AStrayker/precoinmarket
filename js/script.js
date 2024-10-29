@@ -1,45 +1,24 @@
-/* Кнопка открытия меню */
-.menu-toggle {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    font-size: 30px;
-    color: #333;
-    cursor: pointer;
-    z-index: 100;
-    display: block;
-}
+document.addEventListener('DOMContentLoaded', function () {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const menuClose = document.querySelector('.menu-close');
+    const menuOverlay = document.querySelector('.menu-overlay');
 
-/* Кнопка закрытия меню */
-.menu-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-    z-index: 101;
-    display: none; /* По умолчанию скрыта, отображаем только при открытии меню */
-}
+    // Открыть меню
+    menuToggle.addEventListener('click', function () {
+        sidebar.classList.add('open');
+        menuOverlay.style.display = 'block';
+    });
 
-/* Основные стили для бокового меню */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: -250px; /* Скрыто по умолчанию */
-    width: 250px;
-    height: 100%;
-    background-color: #333;
-    transition: left 0.3s ease;
-    z-index: 10;
-}
+    // Закрыть меню при клике на кнопку закрытия
+    menuClose.addEventListener('click', function () {
+        sidebar.classList.remove('open');
+        menuOverlay.style.display = 'none';
+    });
 
-.sidebar.active {
-    left: 0; /* Показ меню */
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        width: 80%;
-    }
-}
+    // Закрыть меню при клике на overlay
+    menuOverlay.addEventListener('click', function () {
+        sidebar.classList.remove('open');
+        menuOverlay.style.display = 'none';
+    });
+});
