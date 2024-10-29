@@ -3,59 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Название вашего сайта</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico">
-    <script defer src="script.js"></script>
+    <title>Крипто-сайт</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="assets/icon.ico">
 </head>
 <body>
+    <!-- Кнопка для открытия/закрытия мобильного меню -->
+    <div class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 
-    <!-- Шапка с логотипом и навигационным меню -->
-    <header>
-        <div class="logo">Ваш Логотип</div>
-        <nav>
-            <!-- Основное меню -->
-            <ul>
-                <li><a href="#home">Главная</a></li>
-                <li><a href="#about">О нас</a></li>
-                <li><a href="#services">Услуги</a></li>
-                <li><a href="#contact">Контакты</a></li>
-            </ul>
-            <!-- Кнопка для выдвижного меню на мобильных устройствах -->
-            <button class="menu-toggle">☰</button>
-        </nav>
-    </header>
-    
-    <!-- Основной контент страницы -->
-    <main>
-        <section id="home">
-            <h1>Добро пожаловать на наш сайт</h1>
-            <p>Здесь будет основной контент вашей страницы.</p>
-        </section>
-        
-        <section id="about">
-            <h2>О нас</h2>
-            <p>Информация о вашей компании или проекте.</p>
-        </section>
-        
-        <section id="services">
-            <h2>Наши услуги</h2>
-            <p>Описание услуг или продуктов, которые вы предлагаете.</p>
-        </section>
-        
-        <section id="contact">
-            <h2>Контакты</h2>
-            <p>Контактная информация, адрес и форма обратной связи.</p>
-        </section>
-    </main>
-    
-    <!-- Нижний колонтитул сайта -->
-    <footer>
-        <p>&copy; 2023 Ваш сайт. Все права защищены.</p>
-    </footer>
+    <!-- Фоновый элемент для закрытия меню по клику -->
+    <div class="menu-overlay"></div>
 
-    <!-- Затемнение фона при открытом выдвижном меню -->
-    <div class="overlay" onclick="toggleMenu(false)"></div>
+    <!-- Левое боковое меню -->
+    <nav class="sidebar">
+        <div class="logo">
+            <img src="assets/logo.png" alt="Logo">
+        </div>
+        <!-- Кнопка для закрытия меню -->
+        <div class="menu-close">&times;</div>
+        <ul>
+            <li><a href="soon_listing.html">Скоро листинг</a></li>
+            <li><a href="content/premarket_coins.html">PreМаркет монет</a></li>
+            <li><a href="content/pre_converter.html">PreКонверьёр монет</a></li>
+            <li><a href="content/play_to_earn.html">Игры PlayToEarn</a></li>
+            <li><a href="#">Активности от бирж</a></li>
+            <li><a href="#">Рейтинг Бирж</a></li>
+        </ul>
+    </nav>
 
+    <!-- Основной контент -->
+    <div class="content">
+        <header>
+            <h1>Добро пожаловать в Крипто-сайт</h1>
+            <p>Исследуйте мир криптовалют!</p>
+        </header>
+        <main>
+            <p>Контент сайта появится здесь.</p>
+        </main>
+    </div>
+
+    <!-- Скрипт для меню -->
+    <script src="js/script.js"></script>
 </body>
 </html>
