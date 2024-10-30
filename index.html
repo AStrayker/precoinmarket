@@ -3,36 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeBank</title>
+    <title>Мой DeBank Сайт</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <!-- Кнопка для мобильного меню -->
-    <div class="menu-toggle" id="menu-toggle">☰</div>
-    
-    <div class="container">
-        <!-- Боковое меню -->
-        <nav class="sidebar" id="sidebar">
-            <div class="logo">DeBank</div>
-            <ul class="menu">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">L2 Wallet</a></li>
-                <li><a href="#">Notification</a></li>
-                <li><a href="#">Bookmarks</a></li>
-            </ul>
-        </nav>
-
-        <!-- Основной контент -->
-        <div class="content">
-            <div class="header">My Account</div>
-            <div class="content-area" id="content-area">
-                <!-- Сюда будет подгружаться динамическая информация -->
-                <p>Контент будет загружаться здесь.</p>
-            </div>
-        </div>
+    <div class="sidebar">
+        <div class="logo">Мой DeBank</div>
+        <ul>
+            <li onclick="loadContent('pages/home.html')">Главная</li>
+            <li onclick="loadContent('pages/profile.html')">Профиль</li>
+            <li onclick="loadContent('pages/wallet.html')">Кошелек</li>
+            <li onclick="loadContent('pages/notifications.html')">Уведомления</li>
+            <li onclick="loadContent('pages/bookmarks.html')">Закладки</li>
+        </ul>
     </div>
-
+    <div class="content" id="content">
+        <!-- Контент страниц будет подгружаться сюда -->
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
