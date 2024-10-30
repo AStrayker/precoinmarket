@@ -1,12 +1,12 @@
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('.menu-toggle').addEventListener('click', () => {
-        toggleMenu(true);
+// Открытие и закрытие бокового меню на мобильных устройствах
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.querySelector('.sidebar');
+    const toggleButton = document.createElement('div');
+    toggleButton.classList.add('menu-toggle');
+    toggleButton.innerHTML = '☰';
+    document.body.appendChild(toggleButton);
+
+    toggleButton.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
     });
 });
-
-function toggleMenu(show) {
-    const nav = document.querySelector('nav ul');
-    const overlay = document.querySelector('.overlay');
-    nav.classList.toggle('active', show);
-    overlay.classList.toggle('active', show);
-}
