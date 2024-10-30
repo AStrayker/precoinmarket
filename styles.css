@@ -21,6 +21,8 @@ body {
     border-right: 1px solid #ddd;
     display: flex;
     flex-direction: column;
+    transition: all 0.3s;
+    z-index: 1000;
 }
 
 .logo {
@@ -56,6 +58,7 @@ body {
 .content {
     flex: 1;
     padding: 20px;
+    overflow-y: auto;
 }
 
 .header {
@@ -74,15 +77,14 @@ body {
 @media (max-width: 768px) {
     .sidebar {
         width: 60px;
-        overflow: hidden;
     }
 
-    .sidebar:hover {
-        width: 200px;
+    .container {
+        flex-direction: row;
     }
 
-    .menu li a {
-        padding-left: 10px;
+    .content {
+        margin-left: 60px;
     }
 
     /* Выдвижное меню */
@@ -96,22 +98,13 @@ body {
         left: 0;
     }
 
-    .container {
-        flex-direction: column;
-    }
-
-    .content {
-        margin-left: 60px;
-    }
-
     /* Кнопка для открытия меню */
     .menu-toggle {
-        position: absolute;
+        position: fixed;
         left: 10px;
         top: 10px;
         cursor: pointer;
         font-size: 30px;
-        display: block;
         z-index: 1000;
     }
 }
