@@ -12,6 +12,7 @@ body {
 .container {
     display: flex;
     height: 100vh;
+    overflow: hidden;
 }
 
 /* Боковое меню */
@@ -21,6 +22,13 @@ body {
     border-right: 1px solid #ddd;
     display: flex;
     flex-direction: column;
+    position: fixed;
+    left: -200px;
+    transition: 0.3s;
+}
+
+.sidebar.active {
+    left: 0;
 }
 
 .logo {
@@ -56,6 +64,8 @@ body {
 .content {
     flex: 1;
     padding: 20px;
+    margin-left: 200px;
+    transition: margin-left 0.3s;
 }
 
 .header {
@@ -70,48 +80,30 @@ body {
     min-height: 80vh;
 }
 
-/* Адаптивный дизайн для мобильных устройств */
+/* Кнопка для открытия меню */
+.menu-toggle {
+    font-size: 30px;
+    padding: 10px;
+    cursor: pointer;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    display: none;
+}
+
+/* Мобильная адаптация */
 @media (max-width: 768px) {
     .sidebar {
-        width: 60px;
-        overflow: hidden;
-    }
-
-    .sidebar:hover {
         width: 200px;
-    }
-
-    .menu li a {
-        padding-left: 10px;
-    }
-
-    /* Выдвижное меню */
-    .sidebar {
-        position: fixed;
         left: -200px;
-        transition: all 0.3s;
-    }
-
-    .sidebar.active {
-        left: 0;
-    }
-
-    .container {
-        flex-direction: column;
     }
 
     .content {
-        margin-left: 60px;
+        margin-left: 0;
     }
 
-    /* Кнопка для открытия меню */
     .menu-toggle {
-        position: absolute;
-        left: 10px;
-        top: 10px;
-        cursor: pointer;
-        font-size: 30px;
         display: block;
-        z-index: 1000;
     }
 }
