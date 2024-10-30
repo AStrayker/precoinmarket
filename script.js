@@ -1,12 +1,13 @@
-// Открытие и закрытие бокового меню на мобильных устройствах
-document.addEventListener('DOMContentLoaded', function() {
-    const sidebar = document.querySelector('.sidebar');
-    const toggleButton = document.createElement('div');
-    toggleButton.classList.add('menu-toggle');
-    toggleButton.innerHTML = '☰';
-    document.body.appendChild(toggleButton);
+function loadContent(page) {
+    fetch(page)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('content').innerHTML = data;
+        })
+        .catch(error => console.error('Ошибка загрузки страницы:', error));
+}
 
-    toggleButton.addEventListener('click', function() {
-        sidebar.classList.toggle('active');
-    });
+// Загрузка домашней страницы при загрузке сайта
+document.addEventListener("DOMContentLoaded", function() {
+    loadContent('pages/home.html');
 });
