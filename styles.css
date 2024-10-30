@@ -5,73 +5,113 @@
 }
 
 body {
-    display: flex;
     font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
 }
 
-.sidebar {
-    width: 250px;
-    background-color: #2d2d2d;
-    color: #fff;
+.container {
+    display: flex;
     height: 100vh;
-    position: fixed;
+}
+
+/* Боковое меню */
+.sidebar {
+    width: 200px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
 }
 
-.sidebar .logo {
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+    background-color: #F37021;
+    color: white;
+}
+
+.menu {
+    list-style: none;
+    padding: 20px 0;
+}
+
+.menu li {
+    padding: 10px 20px;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    display: block;
+}
+
+.menu li a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Основной контент */
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+.header {
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-.sidebar ul {
-    list-style: none;
-    width: 100%;
-    padding: 0;
-}
-
-.sidebar ul li {
-    padding: 15px;
-    text-align: center;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.sidebar ul li:hover {
-    background-color: #444;
-}
-
-.content {
-    margin-left: 250px;
+.content-area {
+    background-color: white;
+    border: 1px solid #000;
     padding: 20px;
-    width: calc(100% - 250px);
+    min-height: 80vh;
 }
 
+/* Адаптивный дизайн для мобильных устройств */
 @media (max-width: 768px) {
     .sidebar {
+        width: 60px;
+        overflow: hidden;
+    }
+
+    .sidebar:hover {
         width: 200px;
     }
 
-    .content {
-        margin-left: 200px;
-        width: calc(100% - 200px);
+    .menu li a {
+        padding-left: 10px;
     }
-}
 
-@media (max-width: 480px) {
+    /* Выдвижное меню */
     .sidebar {
-        width: 100px;
+        position: fixed;
+        left: -200px;
+        transition: all 0.3s;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .container {
+        flex-direction: column;
     }
 
     .content {
-        margin-left: 100px;
-        width: calc(100% - 100px);
+        margin-left: 60px;
     }
 
-    .sidebar ul li {
-        font-size: 12px;
-        padding: 10px;
+    /* Кнопка для открытия меню */
+    .menu-toggle {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        cursor: pointer;
+        font-size: 30px;
+        display: block;
+        z-index: 1000;
     }
 }
