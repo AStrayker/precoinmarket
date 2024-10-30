@@ -3,24 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой Сайт</title>
+    <title>DeBank</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <div class="sidebar">
-        <div class="logo">My Site</div>
-        <ul>
-            <li onclick="loadContent('pages/home.html')">Home</li>
-            <li onclick="loadContent('pages/profile.html')">Profile</li>
-            <li onclick="loadContent('pages/wallet.html')">Wallet</li>
-            <li onclick="loadContent('pages/notifications.html')">Notifications</li>
-            <li onclick="loadContent('pages/bookmarks.html')">Bookmarks</li>
-        </ul>
+    <div class="container">
+        <!-- Боковое меню -->
+        <nav class="sidebar">
+            <div class="logo">DeBank</div>
+            <ul class="menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">L2 Wallet</a></li>
+                <li><a href="#">Notification</a></li>
+                <li><a href="#">Bookmarks</a></li>
+            </ul>
+        </nav>
+
+        <!-- Основной контент -->
+        <div class="content">
+            <div class="header">My Account</div>
+            <div class="content-area" id="content-area">
+                <!-- Сюда будет подгружаться динамическая информация -->
+                <p>Контент будет загружаться здесь.</p>
+            </div>
+        </div>
     </div>
-    <div class="content" id="content">
-        <!-- Контент страниц будет подгружаться сюда -->
-    </div>
+
+    <!-- Скрипт для мобильного меню -->
     <script src="script.js"></script>
 </body>
 </html>
