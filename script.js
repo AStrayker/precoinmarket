@@ -10,3 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebar.classList.toggle('active');
     });
 });
+
+// Функция для подгрузки контента
+function loadContent(page) {
+    const contentArea = document.getElementById('content-area');
+    // Пример загрузки контента (здесь нужно будет добавить серверные функции или хранить HTML в виде отдельных файлов)
+    contentArea.innerHTML = `<p>Загружен контент для страницы: ${page}</p>`;
+}
