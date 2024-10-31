@@ -34,7 +34,14 @@
             height: 100%;
             z-index: 1000;
             transition: transform 0.3s ease;
-            transform: translateX(-100%);
+            transform: translateX(0); /* Show menu by default on desktop */
+        }
+
+        /* Hide sidebar on mobile by default */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
         }
 
         .sidebar.active {
