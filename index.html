@@ -4,7 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeBank</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Вставьте сюда CSS-код из style.css */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Боковое меню */
+        .sidebar {
+            width: 200px;
+            background-color: #fff;
+            border-right: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 20px;
+            text-align: center;
+            background-color: #F37021;
+            color: white;
+        }
+
+        .menu {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .menu li {
+            padding: 10px 20px;
+        }
+
+        .menu li a {
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            display: block;
+        }
+
+        .menu li a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Основной контент */
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .header {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .content-area {
+            background-color: white;
+            border: 1px solid #000;
+            padding: 20px;
+            min-height: 80vh;
+        }
+
+        /* Адаптивный дизайн для мобильных устройств */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+            }
+
+            .container {
+                flex-direction: row;
+            }
+
+            .content {
+                margin-left: 60px;
+            }
+
+            /* Выдвижное меню */
+            .sidebar {
+                position: fixed;
+                left: -200px;
+                transition: all 0.3s;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            /* Кнопка для открытия меню */
+            .menu-toggle {
+                position: fixed;
+                left: 10px;
+                top: 10px;
+                cursor: pointer;
+                font-size: 30px;
+                z-index: 1000;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
