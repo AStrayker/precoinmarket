@@ -81,41 +81,53 @@
             min-height: 80vh;
         }
 
-        /* Адаптивный дизайн для мобильных устройств */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 60px;
-            }
+/* Адаптивный дизайн для мобильных устройств */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 60px;
+        overflow: hidden;
+        background-color: #fff; /* Непрозрачный фон для мобильной версии */
+    }
 
-            .container {
-                flex-direction: row;
-            }
+    .sidebar:hover {
+        width: 200px;
+    }
 
-            .content {
-                margin-left: 60px;
-            }
+    .menu li a {
+        padding-left: 10px;
+    }
 
-            /* Выдвижное меню */
-            .sidebar {
-                position: fixed;
-                left: -200px;
-                transition: all 0.3s;
-            }
+    /* Выдвижное меню */
+    .sidebar {
+        position: fixed;
+        left: -200px;
+        transition: all 0.3s;
+        background-color: #ffffff; /* Непрозрачный фон при открытии */
+    }
 
-            .sidebar.active {
-                left: 0;
-            }
+    .sidebar.active {
+        left: 0;
+    }
 
-            /* Кнопка для открытия меню */
-            .menu-toggle {
-                position: fixed;
-                left: 10px;
-                top: 10px;
-                cursor: pointer;
-                font-size: 30px;
-                z-index: 1000;
-            }
-        }
+    .container {
+        flex-direction: column;
+    }
+
+    .content {
+        margin-left: 60px;
+    }
+
+    /* Кнопка для открытия меню */
+    .menu-toggle {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        cursor: pointer;
+        font-size: 30px;
+        display: block;
+        z-index: 1000;
+    }
+}
     </style>
 </head>
 <body>
