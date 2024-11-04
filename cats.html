@@ -25,10 +25,12 @@
         /* Стили бокового меню */
         .sidebar {
             width: 200px;
-            background-color: #fff;
+            background-color: #f9f9f9; /* Светлый фон для меню */
             border-right: 1px solid #ddd;
             display: flex;
             flex-direction: column;
+            height: 100vh; /* Высота на весь экран */
+            overflow-y: auto;
         }
         .logo {
             font-size: 24px;
@@ -52,7 +54,7 @@
             display: block;
         }
         .menu li a:hover {
-            background-color: #f0f0f0;
+            background-color: #e0e0e0;
         }
         
         /* Основной контент */
@@ -144,12 +146,8 @@
         <!-- Боковое меню -->
         <nav class="sidebar">
             <div class="logo">DeBank</div>
-            <ul class="menu">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">L2 Wallet</a></li>
-                <li><a href="#">Notification</a></li>
-                <li><a href="#">Bookmarks</a></li>
+            <ul class="menu" id="menu-list">
+                <!-- Элементы списка будут загружены из внешнего файла -->
             </ul>
         </nav>
 
@@ -190,23 +188,32 @@
         // Загрузка внешнего контента в ".content-area"
         function loadExternalContent() {
             fetch("https://astrayker.github.io/precoinmarket/converter.html")
-                .then(response => {
-                    if (response.ok) {
-                        return response.text();
-                    } else {
-                        throw new Error("Не удалось загрузить контент");
-                    }
-                })
+                .then(response => response.text())
                 .then(data => {
                     document.getElementById("content-area").innerHTML = data;
                 })
                 .catch(error => {
-                    document.getElementById("content-area").innerHTML = `<p>${error.message}</p>`;
+                    document.getElementById("content-area").innerHTML = `<p>Ошибка загрузки контента: ${error.message}</p>`;
                 });
         }
         
         // Вызов функции загрузки контента при загрузке страницы
-        document.addEventListener("DOMContentLoaded", loadExternalContent);
+        document.addEventListener("DOMContentLoaded", () => {
+            loadExternalContent();
+            loadMenuItems();
+        });
+
+        // Загрузка элементов меню из файла
+        function loadMenuItems() {
+            fetch("https://astrayker.github.io/precoinmarket/menu-items.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("menu-list").innerHTML = data;
+                })
+                .catch(error => {
+                    document.getElementById("menu-list").innerHTML = `<li>Ошибка загрузки меню: ${error.message}</li>`;
+                });
+        }
 
         // Поисковая подсказка
         const search = document.getElementById('search');
