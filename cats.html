@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeBank</title>
+    <!-- Иконка для страницы -->
+    <link rel="icon" href="https://example.com/favicon.ico" type="image/x-icon">
     <style>
         /* Основные стили */
         * {
@@ -75,7 +77,8 @@
         .search-container {
             display: flex;
             align-items: center;
-            margin-top: 10px;
+            margin-left: auto; /* Перенос поиска вправо */
+            position: relative;
         }
         .search-bar {
             padding: 8px;
@@ -89,6 +92,7 @@
             background: white;
             position: absolute;
             width: 200px;
+            top: 38px;
             display: none;
         }
         .suggestions div {
@@ -154,10 +158,10 @@
             <div class="header">
                 My Account
                 <a href="#">/ Категории</a>
-            </div>
-            <div class="search-container">
-                <input type="text" id="search" class="search-bar" placeholder="Поиск на странице">
-                <div class="suggestions" id="suggestions"></div>
+                <div class="search-container">
+                    <input type="text" id="search" class="search-bar" placeholder="Поиск на странице">
+                    <div class="suggestions" id="suggestions"></div>
+                </div>
             </div>
             <div class="content-area" id="content-area">
                 <p>Контент будет загружаться здесь.</p>
