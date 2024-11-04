@@ -164,7 +164,7 @@
                 </div>
             </div>
             <div class="content-area" id="content-area">
-                <p>https://astrayker.github.io/precoinmarket/converter.html</p>
+                <p>Контент загружается...</p>
             </div>
         </div>
     </div>
@@ -186,6 +186,27 @@
             sidebar.classList.remove('active');
             overlay.classList.remove('active');
         });
+
+        // Загрузка внешнего контента в ".content-area"
+        function loadExternalContent() {
+            fetch("https://astrayker.github.io/precoinmarket/converter.html")
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        throw new Error("Не удалось загрузить контент");
+                    }
+                })
+                .then(data => {
+                    document.getElementById("content-area").innerHTML = data;
+                })
+                .catch(error => {
+                    document.getElementById("content-area").innerHTML = `<p>${error.message}</p>`;
+                });
+        }
+        
+        // Вызов функции загрузки контента при загрузке страницы
+        document.addEventListener("DOMContentLoaded", loadExternalContent);
 
         // Поисковая подсказка
         const search = document.getElementById('search');
