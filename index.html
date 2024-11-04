@@ -25,10 +25,13 @@
         /* Стили бокового меню */
         .sidebar {
             width: 200px;
-            background-color: #fff;
+            background-color: #ffffff; /* Светлый фон для меню */
             border-right: 1px solid #ddd;
             display: flex;
             flex-direction: column;
+            height: 100vh; /* Высота на весь экран */
+            overflow-y: auto;
+            z-index: 1000; /* Поверх затемняющего фона */
         }
         .logo {
             font-size: 24px;
@@ -52,13 +55,15 @@
             display: block;
         }
         .menu li a:hover {
-            background-color: #f0f0f0;
+            background-color: #e0e0e0;
         }
         
         /* Основной контент */
         .content {
             flex: 1;
             padding: 20px;
+            position: relative;
+            z-index: 1; /* Под затемняющим фоном */
         }
         .header {
             font-size: 24px;
@@ -120,16 +125,18 @@
                 top: 10px;
                 cursor: pointer;
                 font-size: 30px;
+                z-index: 1100; /* Поверх затемняющего слоя */
             }
+            /* Затемняющий фон */
             .overlay {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(0, 0, 0, 0.5);
+                background: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
                 display: none;
-                z-index: 999;
+                z-index: 999; /* Под меню */
             }
             .overlay.active {
                 display: block;
@@ -144,12 +151,8 @@
         <!-- Боковое меню -->
         <nav class="sidebar">
             <div class="logo">DeBank</div>
-            <ul class="menu">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">L2 Wallet</a></li>
-                <li><a href="#">Notification</a></li>
-                <li><a href="#">Bookmarks</a></li>
+            <ul class="menu" id="menu-list">
+                <!-- Элементы списка будут загружены из внешнего файла -->
             </ul>
         </nav>
 
@@ -164,7 +167,7 @@
                 </div>
             </div>
             <div class="content-area" id="content-area">
-                <p>Контент будет загружаться здесь.</p>
+                <p>Контент загружается...</p>
             </div>
         </div>
     </div>
@@ -186,6 +189,36 @@
             sidebar.classList.remove('active');
             overlay.classList.remove('active');
         });
+
+        // Загрузка внешнего контента в ".content-area"
+        function loadExternalContent() {
+            fetch("home.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("content-area").innerHTML = data;
+                })
+                .catch(error => {
+                    document.getElementById("content-area").innerHTML = `<p>Ошибка загрузки контента: ${error.message}</p>`;
+                });
+        }
+        
+        // Вызов функции загрузки контента при загрузке страницы
+        document.addEventListener("DOMContentLoaded", () => {
+            loadExternalContent();
+            loadMenuItems();
+        });
+
+        // Загрузка элементов меню из файла
+        function loadMenuItems() {
+            fetch("home.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("menu-list").innerHTML = data;
+                })
+                .catch(error => {
+                    document.getElementById("menu-list").innerHTML = `<li>Ошибка загрузки меню: ${error.message}</li>`;
+                });
+        }
 
         // Поисковая подсказка
         const search = document.getElementById('search');
