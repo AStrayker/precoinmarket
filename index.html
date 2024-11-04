@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PreCoinMarket</title>
+    <title>DeBank</title>
     <style>
         * {
             margin: 0;
@@ -34,14 +34,7 @@
             height: 100%;
             z-index: 1000;
             transition: transform 0.3s ease;
-            transform: translateX(0); /* Show menu by default on desktop */
-        }
-
-        /* Hide sidebar on mobile by default */
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
+            transform: translateX(-100%);
         }
 
         .sidebar.active {
@@ -143,15 +136,13 @@
     <div class="container">
         <!-- Боковое меню -->
         <nav class="sidebar" id="sidebar">
-            <div class="logo">PreCoinMarket</div>
+            <div class="logo">DeBank</div>
             <ul class="menu">
-                <li><a href="#">Глвная</a></li>
-                <li><a href="#">ProMarket</a></li>
-                <li><a href="#">PreConverter</a></li>
-                <li><a href="#">Игры GameToEarn</a></li>
-                <li><a href="#">Активности от бирж</a></li>
-                <li><a href="#"Рейтинг Бирж</a></li>
-                <li><a href="#"Конверёр валют</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">L2 Wallet</a></li>
+                <li><a href="#">Notification</a></li>
+                <li><a href="#">Bookmarks</a></li>
             </ul>
         </nav>
 
