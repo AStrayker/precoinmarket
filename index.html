@@ -210,7 +210,7 @@
 
         // Загрузка элементов меню из файла
         function loadMenuItems() {
-            fetch("home.html")
+            fetch("https://astrayker.github.io/precoinmarket/menu-items.html")
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById("menu-list").innerHTML = data;
