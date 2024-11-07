@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PreCoinMarket</title>
     <!-- Иконка для страницы -->
-    <link rel="icon" href="https://example.com/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
         /* Основные стили */
         * {
@@ -226,7 +226,7 @@
 
         // Загрузка элементов меню из файла
         function loadMenuItems() {
-            fetch("https://astrayker.github.io/precoinmarket/menu-items.html")
+            fetch("menu-items.html")
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById("menu-list").innerHTML = data;
