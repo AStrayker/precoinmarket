@@ -172,7 +172,35 @@
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCd-Kf5smC-xTCksRRFSOBQmpKsegX6lPQ",
+            authDomain: "precoinmarket-8af8e.firebaseapp.com",
+            databaseURL: "https://precoinmarket-8af8e-default-rtdb.firebaseio.com",
+            projectId: "precoinmarket-8af8e",
+            storageBucket: "precoinmarket-8af8e.appspot.com",
+            messagingSenderId: "11819212336",
+            appId: "1:11819212336:web:0ea96456065f66ecca17f5",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Функция для загрузки текста без кнопок
+        async function loadTextContent() {
+            const contentRef = ref(database, 'content');
+            const snapshot = await get(contentRef);
+            const data = snapshot.val();
+            if (data && data.text) {
+                document.getElementById('content-area').innerHTML = data.text;
+            } else {
+                document.getElementById('content-area').innerHTML = "<p>Контент недоступен.</p>";
+            }
+        }
+
         // Открытие/закрытие бокового меню на мобильных устройствах
         const sidebar = document.querySelector('.sidebar');
         const overlay = document.querySelector('.overlay');
@@ -190,21 +218,9 @@
             overlay.classList.remove('active');
         });
 
-        // Загрузка внешнего контента в ".content-area"
-        function loadExternalContent() {
-            fetch("home.html")
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("content-area").innerHTML = data;
-                })
-                .catch(error => {
-                    document.getElementById("content-area").innerHTML = `<p>Ошибка загрузки контента: ${error.message}</p>`;
-                });
-        }
-        
-        // Вызов функции загрузки контента при загрузке страницы
+        // Загрузка внешнего контента и меню при загрузке страницы
         document.addEventListener("DOMContentLoaded", () => {
-            loadExternalContent();
+            loadTextContent();
             loadMenuItems();
         });
 
@@ -223,9 +239,8 @@
         // Поисковая подсказка
         const search = document.getElementById('search');
         const suggestions = document.getElementById('suggestions');
-
         const contentData = ["Bitcoin", "Ethereum", "Coin", "Wallet", "DeBank"];
-        
+
         search.addEventListener('input', function () {
             const query = this.value.toLowerCase();
             const matches = contentData.filter(item => item.toLowerCase().includes(query));
@@ -245,11 +260,8 @@
                 suggestions.style.display = 'none';
             }
         });
-
-        document.addEventListener('click', function(e) {
-            if (!search.contains(e.target) && !suggestions.contains(e.target)) {
-                suggestions.style.display = 'none';
-            }
+        search.addEventListener('blur', () => {
+            setTimeout(() => suggestions.style.display = 'none', 100);
         });
     </script>
 </body>
