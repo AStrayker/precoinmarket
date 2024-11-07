@@ -18,11 +18,9 @@
             appId: "1:11819212336:web:0ea96456065f66ecca17f5",
         };
 
-        // Инициализация Firebase
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        // Функция загрузки контента
         async function loadContent() {
             const contentRef = ref(database, 'content');
             const snapshot = await get(contentRef);
@@ -30,7 +28,6 @@
             document.getElementById('contentDisplay').innerHTML = data ? data.text : '';
         }
 
-        // Функция сохранения контента
         async function saveContent() {
             const newContent = document.getElementById('contentEditable').innerHTML;
             const contentRef = ref(database, 'content');
@@ -39,7 +36,6 @@
             toggleEdit(false);
         }
 
-        // Показать поле редактирования после авторизации
         function authorizeEdit() {
             const password = prompt("Введите пароль для редактирования:");
             if (password === "09101998") {
@@ -49,15 +45,14 @@
             }
         }
 
-        // Переключение между режимами просмотра и редактирования
         function toggleEdit(isEditing) {
             document.getElementById('contentDisplay').style.display = isEditing ? 'none' : 'block';
             document.getElementById('contentEditable').style.display = isEditing ? 'block' : 'none';
+            document.getElementById('toolbar').style.display = isEditing ? 'block' : 'none';
             document.getElementById('editIcon').style.display = isEditing ? 'none' : 'inline';
             document.getElementById('saveIcon').style.display = isEditing ? 'inline' : 'none';
         }
 
-        // Вставка форматирования в текст
         function applyFormatting(command, value = null) {
             document.execCommand(command, false, value);
         }
@@ -69,21 +64,36 @@
     </script>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
-        .content { margin-bottom: 20px; }
-        #contentEditable {
-            display: none;
-            border: 1px solid #ccc;
+        #contentDisplay {
             padding: 10px;
+            border: 1px solid #ddd;
             min-height: 200px;
         }
+        #contentEditable {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ccc;
+            min-height: 200px;
+            outline: none;
+        }
+        #toolbar {
+            display: none;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
         #toolbar button {
-            background: #f0f0f0;
+            background: transparent;
             border: none;
             cursor: pointer;
-            margin: 0 5px;
+            margin: 0 3px;
             padding: 5px;
+            font-size: 18px;
         }
-        #toolbar button:hover { background: #ddd; }
+        #toolbar button:hover {
+            background: #ddd;
+        }
         #editIcon, #saveIcon {
             cursor: pointer;
             font-size: 18px;
@@ -97,12 +107,12 @@
     <div id="contentEditable" contenteditable="true"></div>
 
     <div id="toolbar">
-        <button onclick="applyFormatting('insertImage', prompt('Введите URL изображения'))">🖼️ Картинка</button>
-        <button onclick="applyFormatting('bold')">B</button>
-        <button onclick="applyFormatting('italic')">I</button>
-        <button onclick="applyFormatting('underline')">U</button>
-        <button onclick="applyFormatting('strikeThrough')">S</button>
-        <button onclick="applyFormatting('createLink', prompt('Введите URL ссылки'))">🔗 Ссылка</button>
+        <button onclick="applyFormatting('bold')"><b>B</b></button>
+        <button onclick="applyFormatting('italic')"><i>I</i></button>
+        <button onclick="applyFormatting('underline')"><u>U</u></button>
+        <button onclick="applyFormatting('strikeThrough')"><s>S</s></button>
+        <button onclick="applyFormatting('insertImage', prompt('Введите URL изображения'))">🖼️</button>
+        <button onclick="applyFormatting('createLink', prompt('Введите URL ссылки'))">🔗</button>
     </div>
 
     <div>
