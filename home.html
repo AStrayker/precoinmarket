@@ -1,1 +1,59 @@
-Инфр
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование контента</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .content { margin-bottom: 20px; }
+        button { padding: 10px 20px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Редактирование контента</h1>
+    <div class="content">
+        <textarea id="contentText" rows="10" cols="50"></textarea><br>
+        <button onclick="saveContent()">Сохранить</button>
+    </div>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCd-Kf5smC-xTCksRRFSOBQmpKsegX6lPQ",
+            authDomain: "precoinmarket-8af8e.firebaseapp.com",
+            databaseURL: "precoinmarket-8af8e",
+            projectId: "precoinmarket-8af8e.firebasestorage.app",
+            storageBucket: "11819212336",
+            messagingSenderId: "1:11819212336:web:0ea96456065f66ecca17f5",
+            appId: "G-398KTMS331"
+        };
+
+        // Инициализация Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Ссылка на контент в базе данных
+        const contentRef = database.ref('content');
+
+        // Функция для загрузки данных
+        function loadContent() {
+            contentRef.once('value').then((snapshot) => {
+                const data = snapshot.val();
+                document.getElementById('contentText').value = data ? data.text : '';
+            });
+        }
+
+        // Функция для сохранения данных
+        function saveContent() {
+            const newContent = document.getElementById('contentText').value;
+            contentRef.set({ text: newContent })
+                .then(() => alert('Контент сохранен!'))
+                .catch((error) => alert('Ошибка сохранения: ' + error));
+        }
+
+        // Загрузить контент при загрузке страницы
+        loadContent();
+    </script>
+</body>
+</html>
