@@ -16,17 +16,18 @@
     <h1>Редактирование контента</h1>
     <div class="content">
         <textarea id="contentText" rows="10" cols="50"></textarea><br>
-        <button onclick="saveContent()">Сохранить</button>
+        <button onclick="saveContent()">Сохранить1</button>
     </div>
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyCd-Kf5smC-xTCksRRFSOBQmpKsegX6lPQ",
             authDomain: "precoinmarket-8af8e.firebaseapp.com",
-            databaseURL: "precoinmarket-8af8e",
-            projectId: "precoinmarket-8af8e.firebasestorage.app",
-            storageBucket: "11819212336",
-            messagingSenderId: "1:11819212336:web:0ea96456065f66ecca17f5",
-            appId: "G-398KTMS331"
+            databaseURL: "https://precoinmarket-8af8e-default-rtdb.firebaseio.com/",
+            projectId: "precoinmarket-8af8e",
+            storageBucket: "precoinmarket-8af8e.appspot.com",
+            messagingSenderId: "11819212336",
+            appId: "1:11819212336:web:0ea96456065f66ecca17f5",
+            measurementId: "G-398KTMS331"
         };
 
         // Инициализация Firebase
@@ -40,14 +41,14 @@
         function loadContent() {
             contentRef.once('value').then((snapshot) => {
                 const data = snapshot.val();
-                document.getElementById('contentText').value = data ? data.text : '';
+                document.getElementById('contentText').value = data ? data : '';
             });
         }
 
         // Функция для сохранения данных
         function saveContent() {
             const newContent = document.getElementById('contentText').value;
-            contentRef.set({ text: newContent })
+            contentRef.set(newContent)
                 .then(() => alert('Контент сохранен!'))
                 .catch((error) => alert('Ошибка сохранения: ' + error));
         }
