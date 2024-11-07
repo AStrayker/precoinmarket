@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Редактирование контента</title>
-    <!-- Инициализация Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
@@ -19,44 +18,96 @@
             appId: "1:11819212336:web:0ea96456065f66ecca17f5",
         };
 
-        // Инициализация приложения Firebase
+        // Инициализация Firebase
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        // Функция для загрузки данных
+        // Функция загрузки контента
         async function loadContent() {
             const contentRef = ref(database, 'content');
             const snapshot = await get(contentRef);
             const data = snapshot.val();
-            document.getElementById('contentText').value = data ? data.text : '';
+            document.getElementById('contentDisplay').innerHTML = data ? data.text : '';
         }
 
-        // Функция для сохранения данных
+        // Функция сохранения контента
         async function saveContent() {
-            const newContent = document.getElementById('contentText').value;
+            const newContent = document.getElementById('contentEditable').innerHTML;
             const contentRef = ref(database, 'content');
             await set(contentRef, { text: newContent });
             alert('Контент сохранен!');
+            toggleEdit(false);
         }
 
-        // Делаем функции глобальными
-        window.loadContent = loadContent;
-        window.saveContent = saveContent;
+        // Показать поле редактирования после авторизации
+        function authorizeEdit() {
+            const password = prompt("Введите пароль для редактирования:");
+            if (password === "09101998") {
+                toggleEdit(true);
+            } else {
+                alert("Неверный пароль");
+            }
+        }
 
-        // Загрузить контент при загрузке страницы
+        // Переключение между режимами просмотра и редактирования
+        function toggleEdit(isEditing) {
+            document.getElementById('contentDisplay').style.display = isEditing ? 'none' : 'block';
+            document.getElementById('contentEditable').style.display = isEditing ? 'block' : 'none';
+            document.getElementById('editIcon').style.display = isEditing ? 'none' : 'inline';
+            document.getElementById('saveIcon').style.display = isEditing ? 'inline' : 'none';
+        }
+
+        // Вставка форматирования в текст
+        function applyFormatting(command, value = null) {
+            document.execCommand(command, false, value);
+        }
+
         window.onload = loadContent;
+        window.saveContent = saveContent;
+        window.authorizeEdit = authorizeEdit;
+        window.applyFormatting = applyFormatting;
     </script>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         .content { margin-bottom: 20px; }
-        button { padding: 10px 20px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+        #contentEditable {
+            display: none;
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 200px;
+        }
+        #toolbar button {
+            background: #f0f0f0;
+            border: none;
+            cursor: pointer;
+            margin: 0 5px;
+            padding: 5px;
+        }
+        #toolbar button:hover { background: #ddd; }
+        #editIcon, #saveIcon {
+            cursor: pointer;
+            font-size: 18px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
     <h1>Редактирование контента</h1>
-    <div class="content">
-        <textarea id="contentText" rows="10" cols="50"></textarea><br>
-        <button onclick="saveContent()">Сохранить1</button>
+    <div id="contentDisplay"></div>
+    <div id="contentEditable" contenteditable="true"></div>
+
+    <div id="toolbar">
+        <button onclick="applyFormatting('insertImage', prompt('Введите URL изображения'))">🖼️ Картинка</button>
+        <button onclick="applyFormatting('bold')">B</button>
+        <button onclick="applyFormatting('italic')">I</button>
+        <button onclick="applyFormatting('underline')">U</button>
+        <button onclick="applyFormatting('strikeThrough')">S</button>
+        <button onclick="applyFormatting('createLink', prompt('Введите URL ссылки'))">🔗 Ссылка</button>
+    </div>
+
+    <div>
+        <span id="editIcon" onclick="authorizeEdit()">✏️</span>
+        <span id="saveIcon" onclick="saveContent()" style="display:none;">💾</span>
     </div>
 </body>
 </html>
