@@ -21,10 +21,13 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
+        let isCodeView = false;
+
         async function loadContent() {
             const contentRef = ref(database, 'content');
             const snapshot = await get(contentRef);
             const data = snapshot.val();
+            document.getElementById('contentDisplay').innerHTML = data ? data.text : '';
             document.getElementById('contentEditable').innerHTML = data ? data.text : '';
         }
 
@@ -38,7 +41,7 @@
 
         function authorizeEdit() {
             const password = prompt("Введите пароль для редактирования:");
-            if (password === "1") {
+            if (password === "09101998") {
                 toggleEdit(true);
             } else {
                 alert("Неверный пароль");
@@ -46,7 +49,8 @@
         }
 
         function toggleEdit(isEditing) {
-            document.getElementById('contentEditable').contentEditable = isEditing;
+            document.getElementById('contentDisplay').style.display = isEditing ? 'none' : 'block';
+            document.getElementById('contentEditable').style.display = isEditing ? 'block' : 'none';
             document.getElementById('toolbar').style.display = isEditing ? 'flex' : 'none';
             document.getElementById('editIcon').style.display = isEditing ? 'none' : 'inline';
             document.getElementById('saveIcon').style.display = isEditing ? 'inline' : 'none';
@@ -56,59 +60,60 @@
             document.execCommand(command, false, value);
         }
 
-        function toggleCodeView() {
-            const editor = document.getElementById('contentEditable');
-            if (editor.contentEditable === "true") {
-                editor.textContent = editor.innerHTML;
-                editor.contentEditable = false;
-            } else {
-                editor.innerHTML = editor.textContent;
-                editor.contentEditable = true;
+        function insertImage() {
+            const url = prompt("Введите URL изображения:");
+            if (url) {
+                const width = prompt("Введите ширину изображения (например, 200px):");
+                const height = prompt("Введите высоту изображения (например, 100px):");
+                const imgHtml = `<img src="${url}" style="width:${width}; height:${height};" />`;
+                document.execCommand('insertHTML', false, imgHtml);
             }
         }
 
-        function insertImageWithSize() {
-            const url = prompt("Введите URL изображения:");
-            const width = prompt("Введите ширину изображения (px):");
-            const height = prompt("Введите высоту изображения (px):");
-            if (url) {
-                const imgHTML = `<img src="${url}" style="width:${width}px; height:${height}px;">`;
-                document.execCommand('insertHTML', false, imgHTML);
+        function toggleCodeView() {
+            const contentEditable = document.getElementById('contentEditable');
+            if (isCodeView) {
+                contentEditable.innerHTML = contentEditable.textContent; // Показать как HTML
+            } else {
+                contentEditable.textContent = contentEditable.innerHTML; // Показать как код
             }
+            isCodeView = !isCodeView;
         }
 
         window.onload = loadContent;
         window.saveContent = saveContent;
         window.authorizeEdit = authorizeEdit;
         window.applyFormatting = applyFormatting;
+        window.insertImage = insertImage;
         window.toggleCodeView = toggleCodeView;
-        window.insertImageWithSize = insertImageWithSize;
     </script>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
+        #contentDisplay {
+            padding: 10px;
+            border: 1px solid #ddd;
+            min-height: 200px;
+        }
         #contentEditable {
+            display: none;
             padding: 10px;
             border: 1px solid #ccc;
-            min-height: 300px;
+            min-height: 200px;
             outline: none;
         }
         #toolbar {
             display: none;
-            justify-content: space-between;
-            align-items: center;
             background-color: #f0f0f0;
             border: 1px solid #ccc;
             padding: 5px;
             margin-bottom: 10px;
-        }
-        #toolbar .buttons {
             display: flex;
         }
         #toolbar button {
             background: transparent;
             border: none;
             cursor: pointer;
-            margin: 0 5px;
+            margin: 0 3px;
             padding: 5px;
             font-size: 18px;
         }
@@ -119,31 +124,27 @@
             cursor: pointer;
             font-size: 18px;
             color: #555;
-            margin-left: 5px;
-        }
-        .icon {
-            font-size: 20px;
         }
     </style>
 </head>
 <body>
     <h1>Редактирование контента</h1>
     <div id="toolbar">
-        <div class="buttons">
-            <button onclick="applyFormatting('bold')"><b>B</b></button>
-            <button onclick="applyFormatting('italic')"><i>I</i></button>
-            <button onclick="applyFormatting('underline')"><u>U</u></button>
-            <button onclick="applyFormatting('strikeThrough')"><s>S</s></button>
-            <button onclick="insertImageWithSize()">🖼️</button>
-            <button onclick="applyFormatting('createLink', prompt('Введите URL ссылки'))">🔗</button>
-            <button onclick="toggleCodeView()">💻</button>
-        </div>
-        <div>
-            <span id="editIcon" onclick="authorizeEdit()" style="display:inline;">✏️</span>
-            <span id="saveIcon" onclick="saveContent()" style="display:none;">💾</span>
-        </div>
+        <button onclick="applyFormatting('bold')"><b>B</b></button>
+        <button onclick="applyFormatting('italic')"><i>I</i></button>
+        <button onclick="applyFormatting('underline')"><u>U</u></button>
+        <button onclick="applyFormatting('strikeThrough')"><s>S</s></button>
+        <button onclick="insertImage()">🖼️</button>
+        <button onclick="applyFormatting('createLink', prompt('Введите URL ссылки'))">🔗</button>
+        <button onclick="toggleCodeView()">📄</button>
     </div>
 
-    <div id="contentEditable" contenteditable="false"></div>
+    <div id="contentDisplay"></div>
+    <div id="contentEditable" contenteditable="true"></div>
+
+    <div>
+        <span id="editIcon" onclick="authorizeEdit()">✏️</span>
+        <span id="saveIcon" onclick="saveContent()" style="display:none;">💾</span>
+    </div>
 </body>
 </html>
