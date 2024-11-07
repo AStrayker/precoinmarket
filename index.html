@@ -226,7 +226,7 @@
 
         // Загрузка элементов меню из файла
         function loadMenuItems() {
-            fetch("menu-items.html")
+            fetch("http://premarket.pp.ua/menu-items.html")
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById("menu-list").innerHTML = data;
