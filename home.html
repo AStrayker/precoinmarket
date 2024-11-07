@@ -38,7 +38,7 @@
 
         function authorizeEdit() {
             const password = prompt("Введите пароль для редактирования:");
-            if (password === "1") {
+            if (password === "09101998") {
                 toggleEdit(true);
             } else {
                 alert("Неверный пароль");
@@ -48,8 +48,9 @@
         function toggleEdit(isEditing) {
             document.getElementById('contentEditable').contentEditable = isEditing;
             document.getElementById('toolbar').style.display = isEditing ? 'flex' : 'none';
-            document.getElementById('editIcon').style.display = isEditing ? 'none' : 'inline';
-            document.getElementById('saveIcon').style.display = isEditing ? 'inline' : 'none';
+            document.getElementById('editButton').style.display = isEditing ? 'none' : 'inline-block';
+            document.getElementById('saveButton').style.display = isEditing ? 'inline-block' : 'none';
+            document.getElementById('cancelButton').style.display = isEditing ? 'inline-block' : 'none';
         }
 
         function applyFormatting(command, value = null) {
@@ -115,15 +116,22 @@
         #toolbar button:hover {
             background: #ddd;
         }
-        #editIcon, #saveIcon {
+        .control-buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .control-buttons button {
+            padding: 8px 16px;
+            font-size: 16px;
             cursor: pointer;
-            font-size: 18px;
-            color: #555;
-            margin-left: 5px;
+            border: none;
+            border-radius: 4px;
         }
-        .icon {
-            font-size: 20px;
-        }
+        #editButton { background-color: #007bff; color: white; }
+        #saveButton { background-color: #28a745; color: white; display: none; }
+        #cancelButton { background-color: #dc3545; color: white; display: none; }
     </style>
 </head>
 <body>
@@ -138,12 +146,15 @@
             <button onclick="applyFormatting('createLink', prompt('Введите URL ссылки'))">🔗</button>
             <button onclick="toggleCodeView()">💻</button>
         </div>
-        <div>
-            <span id="editIcon" onclick="authorizeEdit()" style="display:inline;">✏️</span>
-            <span id="saveIcon" onclick="saveContent()" style="display:none;">💾</span>
-        </div>
     </div>
 
     <div id="contentEditable" contenteditable="false"></div>
+
+    <!-- Управляющие кнопки внизу -->
+    <div class="control-buttons">
+        <button id="editButton" onclick="authorizeEdit()">Редактировать</button>
+        <button id="saveButton" onclick="saveContent()">Сохранить</button>
+        <button id="cancelButton" onclick="toggleEdit(false)">Отмена</button>
+    </div>
 </body>
 </html>
