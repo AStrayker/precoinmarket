@@ -22,7 +22,7 @@
         const database = getDatabase(app);
 
         async function loadContent() {
-            const contentRef = ref(database, 'content'); // Измените 'content' для разных страниц
+            const contentRef = ref(database, 'content');
             const snapshot = await get(contentRef);
             const data = snapshot.val();
             document.getElementById('contentEditable').innerHTML = data ? data.text : '';
@@ -30,7 +30,7 @@
 
         async function saveContent() {
             const newContent = document.getElementById('contentEditable').innerHTML;
-            const contentRef = ref(database, 'content'); // Измените 'content' для разных страниц
+            const contentRef = ref(database, 'content');
             await set(contentRef, { text: newContent });
             alert('Контент сохранен!');
             toggleEdit(false);
@@ -70,7 +70,7 @@
         }
 
         function insertImageWithSize() {
-            showModal('Введите URL и размеры изображения:', 'image', ({ url, width, height }) => {
+            showModal('Введите URL изображения и размеры:', 'image', ({ url, width, height }) => {
                 const imgHTML = `<img src="${url}" style="width:${width}; height:${height};">`;
                 document.execCommand('insertHTML', false, imgHTML);
             });
@@ -96,10 +96,13 @@
             const modal = document.getElementById('modal');
             const modalPrompt = document.getElementById('modalPrompt');
             const modalInput = document.getElementById('modalInput');
+            const modalWidth = document.getElementById('modalWidth');
+            const modalHeight = document.getElementById('modalHeight');
             const applyButton = document.getElementById('applyButton');
 
             modalPrompt.textContent = promptText;
-            modalInput.type = type === 'password' ? 'password' : 'text';
+            modalInput.style.display = type === 'image' ? 'none' : 'block';
+            modalWidth.style.display = modalHeight.style.display = type === 'image' ? 'block' : 'none';
             modal.style.display = 'flex';
 
             applyButton.onclick = () => {
@@ -121,13 +124,80 @@
         window.insertSpoilerText = insertSpoilerText;
     </script>
     <style>
-        /* Add your CSS for monospaced text, spoiler text, modal, toolbar, etc. */
+        /* Основные стили */
+        #contentEditable {
+            padding: 10px;
+            border: 1px solid #ccc;
+            min-height: 300px;
+            outline: none;
+        }
+        #toolbar {
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        #toolbar .buttons {
+            display: flex;
+        }
+        #toolbar button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            margin: 0 5px;
+            padding: 5px;
+            font-size: 18px;
+        }
+        .control-buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        #editButton { background-color: #007bff; color: white; }
+        #saveButton { background-color: #28a745; color: white; display: none; }
+        #cancelButton { background-color: #dc3545; color: white; display: none; }
+        
+        /* Модальное окно */
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        #modalContent {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+        }
     </style>
 </head>
 <body>
-    <!-- Toolbar with buttons including new ones for monospaced and spoiler text -->
-    <!-- ContentEditable div with text formatting options -->
-    <!-- Modal HTML for centered prompts -->
+    <h1>Редактирование контента</h1>
+    <div id="toolbar">
+        <div class="buttons">
+            <button onclick="applyFormatting('bold')">Жирный</button>
+            <button onclick="applyFormatting('italic')">Курсив</button>
+            <button onclick="insertImageWithSize()">🖼️</button>
+        </div>
+    </div>
+    <div id="contentEditable" contenteditable="false"></div>
 
+    <div id="modal">
+        <div id="modalContent">
+            <p id="modalPrompt"></p>
+            <input id="modalInput" type="text" placeholder="Введите текст">
+            <input id="modalWidth" type="text" placeholder="Ширина (px)">
+            <input id="modalHeight" type="text" placeholder="Высота (px)">
+            <button id="applyButton">Применить</button>
+        </div>
+    </div>
 </body>
 </html>
