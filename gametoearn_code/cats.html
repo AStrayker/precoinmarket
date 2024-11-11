@@ -3,178 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PreCoinMarket</title>
-    <!-- Иконка для страницы -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <style>
-        /* Основные стили */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-        }
-        .container {
-            display: flex;
-            height: 100vh;
-        }
-        
-        /* Стили бокового меню */
-        .sidebar {
-            width: 200px;
-            background-color: #ffffff; /* Светлый фон для меню */
-            border-right: 1px solid #ddd;
-            display: flex;
-            flex-direction: column;
-            height: 100vh; /* Высота на весь экран */
-            overflow-y: auto;
-            z-index: 1000; /* Поверх затемняющего фона */
-        }
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            padding: 20px;
-            text-align: center;
-            background-color: #F37021;
-            color: white;
-        }
-        .menu {
-            list-style: none;
-            padding: 20px 0;
-        }
-        .menu li {
-            padding: 10px 20px;
-        }
-        .menu li a {
-            text-decoration: none;
-            color: black;
-            font-size: 16px;
-            display: block;
-        }
-        .menu li a:hover {
-            background-color: #e0e0e0;
-        }
-        
-        /* Основной контент */
-        .content {
-            flex: 1;
-            padding: 20px;
-            position: relative;
-            z-index: 1; /* Под затемняющим фоном */
-        }
-        .header {
-            font-size: 24px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .header a {
-            font-size: 16px;
-            color: #333;
-            text-decoration: underline;
-        }
-        
-        /* Поиск */
-        .search-container {
-            display: flex;
-            align-items: center;
-            margin-left: auto; /* Перенос поиска вправо */
-            position: relative;
-        }
-        .search-bar {
-            padding: 8px;
-            font-size: 14px;
-            width: 200px;
-        }
-        .suggestions {
-            border: 1px solid #ddd;
-            max-height: 100px;
-            overflow-y: auto;
-            background: white;
-            position: absolute;
-            width: 200px;
-            top: 38px;
-            display: none;
-        }
-        .suggestions div {
-            padding: 8px;
-            cursor: pointer;
-        }
-        .suggestions div:hover {
-            background-color: #f0f0f0;
-        }
-
-        /* Мобильные стили */
-        @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                left: -200px;
-                width: 200px;
-                transition: all 0.3s;
-            }
-            .sidebar.active {
-                left: 0;
-            }
-            .menu-toggle {
-                position: absolute;
-                left: 10px;
-                top: 10px;
-                cursor: pointer;
-                font-size: 30px;
-                z-index: 1100; /* Поверх затемняющего слоя */
-            }
-            /* Затемняющий фон */
-            .overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
-                display: none;
-                z-index: 999; /* Под меню */
-            }
-            .overlay.active {
-                display: block;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="overlay"></div>
-
-    <div class="container">
-        <!-- Боковое меню -->
-        <nav class="sidebar">
-            <div class="logo">PreCoinMarket</div>
-            <ul class="menu" id="menu-list">
-                <!-- Элементы списка будут загружены из внешнего файла -->
-            </ul>
-        </nav>
-
-        <!-- Основной контент -->
-        <div class="content">
-            <div class="header">
-                My Account
-                <a href="#">/ Категории</a>
-                <div class="search-container">
-                    <input type="text" id="search" class="search-bar" placeholder="Поиск на странице">
-                    <div class="suggestions" id="suggestions"></div>
-                </div>
-            </div>
-            <div class="content-area" id="content-area">
-                <p>Контент загружается...</p>
-            </div>
-        </div>
-    </div>
-
+    <title>Редактирование контента</title>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+        import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCd-Kf5smC-xTCksRRFSOBQmpKsegX6lPQ",
@@ -189,80 +21,198 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        // Функция для загрузки текста без кнопок
-        async function loadTextContent() {
-            const contentRef = ref(database, 'catspage');
+        async function loadContent(identifier = 'content') {
+            const contentRef = ref(database, identifier);
             const snapshot = await get(contentRef);
             const data = snapshot.val();
-            if (data && data.text) {
-                document.getElementById('content-area').innerHTML = data.text;
+            document.getElementById('contentEditable').innerHTML = data ? data.text : '';
+        }
+
+        async function saveContent(identifier = 'content') {
+            const newContent = document.getElementById('contentEditable').innerHTML;
+            const contentRef = ref(database, identifier);
+            await set(contentRef, { text: newContent });
+            alert('Контент сохранен!');
+            toggleEdit(false);
+        }
+
+        function authorizeEdit() {
+            const password = prompt("Введите пароль для редактирования:");
+            if (password === "09101998") {
+                toggleEdit(true);
             } else {
-                document.getElementById('content-area').innerHTML = "<p>Контент недоступен.</p>";
+                alert("Неверный пароль");
             }
         }
 
-        // Открытие/закрытие бокового меню на мобильных устройствах
-        const sidebar = document.querySelector('.sidebar');
-        const overlay = document.querySelector('.overlay');
-        const toggleButton = document.createElement('div');
-        toggleButton.classList.add('menu-toggle');
-        toggleButton.innerHTML = '☰';
-        document.body.appendChild(toggleButton);
-
-        toggleButton.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        });
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-
-        // Загрузка внешнего контента и меню при загрузке страницы
-        document.addEventListener("DOMContentLoaded", () => {
-            loadTextContent();
-            loadMenuItems();
-        });
-
-        // Загрузка элементов меню из файла
-        function loadMenuItems() {
-            fetch("http://premarket.pp.ua/menu-items.html")
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("menu-list").innerHTML = data;
-                })
-                .catch(error => {
-                    document.getElementById("menu-list").innerHTML = `<li>Ошибка загрузки меню: ${error.message}</li>`;
-                });
+        function toggleEdit(isEditing) {
+            document.getElementById('contentEditable').contentEditable = isEditing;
+            document.getElementById('toolbar').style.display = isEditing ? 'flex' : 'none';
+            document.getElementById('editButton').style.display = isEditing ? 'none' : 'inline-block';
+            document.getElementById('saveButton').style.display = isEditing ? 'inline-block' : 'none';
+            document.getElementById('cancelButton').style.display = isEditing ? 'inline-block' : 'none';
         }
 
-        // Поисковая подсказка
-        const search = document.getElementById('search');
-        const suggestions = document.getElementById('suggestions');
-        const contentData = ["Bitcoin", "Ethereum", "Coin", "Wallet", "DeBank"];
+        function applyFormatting(command, value = null) {
+            document.execCommand(command, false, value);
+        }
 
-        search.addEventListener('input', function () {
-            const query = this.value.toLowerCase();
-            const matches = contentData.filter(item => item.toLowerCase().includes(query));
-            suggestions.innerHTML = '';
-            if (matches.length > 0) {
-                matches.forEach(item => {
-                    const suggestionItem = document.createElement('div');
-                    suggestionItem.innerText = item;
-                    suggestionItem.addEventListener('click', () => {
-                        search.value = item;
-                        suggestions.style.display = 'none';
-                    });
-                    suggestions.appendChild(suggestionItem);
-                });
-                suggestions.style.display = 'block';
-            } else {
-                suggestions.style.display = 'none';
+        function openImageModal() {
+            document.getElementById('imageModal').style.display = 'block';
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        function insertImageWithSize() {
+            const url = document.getElementById('imageUrl').value;
+            const width = document.getElementById('imageWidth').value || "auto";
+            const height = document.getElementById('imageHeight').value || "auto";
+            if (url) {
+                const imgHTML = `<img src="${url}" style="width:${width}; height:${height};">`;
+                document.execCommand('insertHTML', false, imgHTML);
             }
-        });
-        search.addEventListener('blur', () => {
-            setTimeout(() => suggestions.style.display = 'none', 100);
-        });
+            closeImageModal();
+        }
+
+        window.onload = () => loadContent();
+        window.saveContent = saveContent;
+        window.authorizeEdit = authorizeEdit;
+        window.applyFormatting = applyFormatting;
+        window.openImageModal = openImageModal;
+        window.closeImageModal = closeImageModal;
+        window.insertImageWithSize = insertImageWithSize;
     </script>
+    <style>
+        /* Общие стили */
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { text-align: center; }
+        
+        /* Стиль обложки */
+        .cover {
+            background-color: #00AEEF;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        /* Аватар */
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background-color: #000;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+
+        /* Название страницы */
+        .page-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Иконки соцсетей */
+        .social-icons {
+            display: flex;
+            gap: 10px;
+        }
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            border: 2px solid red;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .social-icon img {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Редактирование контента */
+        #contentEditable {
+            padding: 10px;
+            border: 1px solid #ccc;
+            min-height: 200px;
+            outline: none;
+            margin-top: 20px;
+        }
+        #toolbar {
+            display: none;
+            justify-content: space-between;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        #toolbar button { margin-right: 5px; }
+        
+        /* Модальное окно */
+        #imageModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 300px;
+            z-index: 1000;
+        }
+        #imageModal label { display: block; margin-top: 10px; }
+        #imageModal input { width: 100%; padding: 5px; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+    <!-- Обложка -->
+    <div class="cover">
+        <div style="display: flex; align-items: center;">
+            <div class="avatar"></div>
+            <div class="page-name">Название страницы</div>
+        </div>
+        <div class="social-icons">
+            <a href="https://www.facebook.com" class="social-icon"><img src="https://www.facebook.com/favicon.ico" alt="Facebook"></a>
+            <a href="https://www.twitter.com" class="social-icon"><img src="https://www.twitter.com/favicon.ico" alt="Twitter"></a>
+        </div>
+    </div>
+
+    <!-- Редактируемая форма -->
+    <h1>Редактирование контента</h1>
+    <div id="toolbar">
+        <button onclick="applyFormatting('bold')">Жирный</button>
+        <button onclick="applyFormatting('italic')">Курсив</button>
+        <button onclick="applyFormatting('underline')">Подчеркнутый</button>
+        <button onclick="openImageModal()">Вставить изображение</button>
+    </div>
+    <div id="contentEditable" contenteditable="false"></div>
+    
+    <!-- Управляющие кнопки -->
+    <div>
+        <button id="editButton" onclick="authorizeEdit()">Редактировать</button>
+        <button id="saveButton" onclick="saveContent()">Сохранить</button>
+        <button id="cancelButton" onclick="toggleEdit(false)">Отмена</button>
+    </div>
+
+    <!-- Модальное окно для вставки изображения -->
+    <div id="imageModal">
+        <h3>Вставка изображения</h3>
+        <label for="imageUrl">URL изображения:</label>
+        <input type="text" id="imageUrl" placeholder="https://example.com/image.jpg">
+        <label for="imageWidth">Ширина (px):</label>
+        <input type="text" id="imageWidth">
+        <label for="imageHeight">Высота (px):</label>
+        <input type="text" id="imageHeight">
+        <button onclick="insertImageWithSize()">Применить</button>
+        <button onclick="closeImageModal()">Закрыть</button>
+    </div>
+
 </body>
 </html>
