@@ -191,7 +191,7 @@
 
         // Функция для загрузки текста без кнопок
         async function loadTextContent() {
-            const contentRef = ref(database, 'content');
+            const contentRef = ref(database, 'catspage');
             const snapshot = await get(contentRef);
             const data = snapshot.val();
             if (data && data.text) {
