@@ -1,0 +1,47 @@
+<!-- Первая страница -->
+<!DOCTYPE html> 
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование контента - Страница 1</title>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCd-Kf5smC-xTCksRRFSOBQmpKsegX6lPQ",
+            authDomain: "precoinmarket-8af8e.firebaseapp.com",
+            databaseURL: "https://precoinmarket-8af8e-default-rtdb.firebaseio.com",
+            projectId: "precoinmarket-8af8e",
+            storageBucket: "precoinmarket-8af8e.appspot.com",
+            messagingSenderId: "11819212336",
+            appId: "1:11819212336:web:0ea96456065f66ecca17f5",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        async function loadContent(identifier = 'content_page1') {
+            const contentRef = ref(database, identifier);
+            const snapshot = await get(contentRef);
+            const data = snapshot.val();
+            document.getElementById('contentEditable').innerHTML = data ? data.text : '';
+        }
+
+        async function saveContent(identifier = 'content_page1') {
+            const newContent = document.getElementById('contentEditable').innerHTML;
+            const contentRef = ref(database, identifier);
+            await set(contentRef, { text: newContent });
+            alert('Контент сохранен!');
+            toggleEdit(false);
+        }
+        /* Остальная часть кода без изменений */
+    </script>
+    <!-- Остальная часть HTML-кода без изменений -->
+</head>
+<body>
+    <h1>Редактирование контента - Страница 1</h1>
+    <!-- Остальная часть тела страницы без изменений -->
+</body>
+</html>
