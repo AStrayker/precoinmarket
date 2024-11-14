@@ -21,7 +21,7 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        async function loadContent(identifier = 'catspage') {
+        async function loadContent(identifier = 'blumpage') {
             const contentRef = ref(database, identifier);
             const snapshot = await get(contentRef);
             const data = snapshot.val();
