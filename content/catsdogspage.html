@@ -28,7 +28,7 @@
             document.getElementById('contentEditable').innerHTML = data ? data.text : '';
         }
 
-        async function saveContent(identifier = 'catspage') {
+        async function saveContent(identifier = 'catsdogspage') {
             const newContent = document.getElementById('contentEditable').innerHTML;
             const contentRef = ref(database, identifier);
             await set(contentRef, { text: newContent });
