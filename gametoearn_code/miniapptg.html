@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Добавление материала</title>
+    <title>Редактирование контента</title>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getDatabase, ref, get, set, remove } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+        import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCd-Kf5smC-xTCksRRFSOBQmpKsegX6lPQ",
@@ -21,217 +21,183 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        async function loadMaterials() {
-            const materialsRef = ref(database, 'materials');
-            const snapshot = await get(materialsRef);
+        async function loadContent(identifier = 'miniapptg') {
+            const contentRef = ref(database, identifier);
+            const snapshot = await get(contentRef);
             const data = snapshot.val();
-            const materialsContainer = document.getElementById('materialsContainer');
-            materialsContainer.innerHTML = '';
-            if (data) {
-                for (const key in data) {
-                    const material = data[key];
-                    createMaterialCard(material, key);
-                }
+            document.getElementById('contentEditable').innerHTML = data ? data.text : '';
+        }
+
+        async function saveContent(identifier = 'miniapptg') {
+            const newContent = document.getElementById('contentEditable').innerHTML;
+            const contentRef = ref(database, identifier);
+            await set(contentRef, { text: newContent });
+            alert('Контент сохранен!');
+            toggleEdit(false);
+        }
+
+        function authorizeEdit() {
+            const password = prompt("Введите пароль для редактирования:");
+            if (password === "09101998") {
+                toggleEdit(true);
+            } else {
+                alert("Неверный пароль");
             }
         }
 
-        function addMaterial() {
-            const title = document.getElementById('materialTitle').value;
-            const link = document.getElementById('materialLink').value;
-            const image = document.getElementById('materialImage').src;
+        function toggleEdit(isEditing) {
+            document.getElementById('contentEditable').contentEditable = isEditing;
+            document.getElementById('toolbar').style.display = isEditing ? 'flex' : 'none';
+            document.getElementById('editButton').style.display = isEditing ? 'none' : 'inline-block';
+            document.getElementById('saveButton').style.display = isEditing ? 'inline-block' : 'none';
+            document.getElementById('cancelButton').style.display = isEditing ? 'inline-block' : 'none';
+        }
 
-            if (!title || !link || !image) {
-                alert("Пожалуйста, заполните все поля.");
-                return;
+        function applyFormatting(command, value = null) {
+            document.execCommand(command, false, value);
+        }
+
+        function openImageModal() {
+            document.getElementById('imageModal').style.display = 'block';
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        function insertImageWithSize() {
+            const url = document.getElementById('imageUrl').value;
+            const width = document.getElementById('imageWidth').value || "auto";
+            const height = document.getElementById('imageHeight').value || "auto";
+            if (url) {
+                const imgHTML = `<img src="${url}" style="width:${width}; height:${height};">`;
+                document.execCommand('insertHTML', false, imgHTML);
             }
-
-            const newMaterialRef = ref(database, 'materials/' + Date.now());
-            set(newMaterialRef, { title, link, image })
-                .then(() => {
-                    alert('Материал добавлен!');
-                    clearForm();
-                    loadMaterials();
-                })
-                .catch(error => {
-                    console.error("Ошибка добавления материала:", error);
-                });
+            closeImageModal();
         }
 
-        function clearForm() {
-            document.getElementById('materialTitle').value = '';
-            document.getElementById('materialLink').value = '';
-            document.getElementById('materialImage').src = '';
-            document.getElementById('materialImage').style.display = 'none';
-        }
-
-        function createMaterialCard(material, key) {
-            const materialsContainer = document.getElementById('materialsContainer');
-            const card = document.createElement('div');
-            card.className = 'material-card';
-            card.innerHTML = `
-                <img src="${material.image}" alt="Фотография материала">
-                <h3>${material.title}</h3>
-                <p><a href="${material.link}" target="_blank">${material.link}</a></p>
-                <div class="buttons">
-                    <button onclick="editMaterial('${key}')">Редактировать</button>
-                    <button onclick="deleteMaterial('${key}')">Удалить</button>
-                </div>
-            `;
-            materialsContainer.appendChild(card);
-        }
-
-        function editMaterial(key) {
-            const title = prompt("Введите новое название материала:");
-            const link = prompt("Введите новую ссылку на материал:");
-            const image = prompt("Введите URL новой фотографии (оставьте пустым для сохранения текущей):");
-
-            if (!title || !link) return;
-
-            const materialRef = ref(database, 'materials/' + key);
-            set(materialRef, {
-                title,
-                link,
-                image: image || document.getElementById('materialImage').src
-            })
-            .then(() => {
-                alert('Материал обновлен!');
-                loadMaterials();
-            })
-            .catch(error => {
-                console.error("Ошибка обновления материала:", error);
-            });
-        }
-
-        function deleteMaterial(key) {
-            const materialRef = ref(database, 'materials/' + key);
-            remove(materialRef)
-                .then(() => {
-                    alert('Материал удален!');
-                    loadMaterials();
-                })
-                .catch(error => {
-                    console.error("Ошибка удаления материала:", error);
-                });
-        }
-
-        function handleFileSelect(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    document.getElementById('materialImage').src = e.target.result;
-                    document.getElementById('materialImage').style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        window.onload = () => loadMaterials();
-        window.addMaterial = addMaterial;
-        window.editMaterial = editMaterial;
-        window.deleteMaterial = deleteMaterial;
+        window.onload = () => loadContent();
+        window.saveContent = () => saveContent();
+        window.authorizeEdit = authorizeEdit;
+        window.applyFormatting = applyFormatting;
+        window.openImageModal = openImageModal;
+        window.closeImageModal = closeImageModal;
+        window.insertImageWithSize = insertImageWithSize;
     </script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        .form-section {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        .form-section input[type="text"], .form-section input[type="file"] {
-            width: 100%;
-            padding: 8px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .form-section button {
-            background-color: #4CAF50;
-            color: white;
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #contentEditable {
             padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            border: 1px solid #ccc;
+            min-height: 300px;
+            outline: none;
         }
-        .form-section button:hover {
-            background-color: #45a049;
-        }
-        .material-card {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 200px;
-        }
-        .material-card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
-        .material-card .buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .material-card button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .material-card button:hover {
-            background-color: #0056b3;
-        }
-        #materialsContainer {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-        #materialImage {
+        #toolbar {
             display: none;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        #toolbar .buttons {
+            display: flex;
+        }
+        #toolbar button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            margin: 0 5px;
+            padding: 5px;
+            font-size: 18px;
+        }
+        #toolbar button:hover {
+            background: #ddd;
+        }
+        .control-buttons {
             margin-top: 10px;
-            width: 100px;
-            height: 100px;
-            border: 1px solid #ddd;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .control-buttons button {
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
             border-radius: 4px;
-            object-fit: cover;
+        }
+        #editButton { background-color: #007bff; color: white; }
+        #saveButton { background-color: #28a745; color: white; display: none; }
+        #cancelButton { background-color: #dc3545; color: white; display: none; }
+        
+        /* Модальное окно */
+        #imageModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 300px;
+            z-index: 1000;
+        }
+        #imageModal label {
+            display: block;
+            margin-top: 10px;
+        }
+        #imageModal input {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+        }
+        #imageModal .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
-    <h1>Добавление материала</h1>
-    <div class="form-section">
-        <label>Название материала:</label>
-        <input type="text" id="materialTitle" placeholder="Введите название">
-        
-        <label>Ссылка на материал:</label>
-        <input type="text" id="materialLink" placeholder="Введите ссылку">
-        
-        <label>Фотография:</label>
-        <input type="file" accept="image/*" onchange="handleFileSelect(event)">
-        <img id="materialImage" alt="Фотография материала">
-
-        <button onclick="addMaterial()">Добавить новый материал</button>
+    <h1>Редактирование контента</h1>
+    <div id="toolbar">
+        <div class="buttons">
+            <button onclick="applyFormatting('bold')"><b>Жирный</b></button>
+            <button onclick="applyFormatting('italic')"><i>Курсив</i></button>
+            <button onclick="applyFormatting('underline')"><u>Подчеркнутый</u></button>
+            <button onclick="applyFormatting('strikeThrough')"><s>Зачеркнутый</s></button>
+            <button onclick="openImageModal()">🖼️ Вставить изображение</button>
+            <button onclick="applyFormatting('createLink', prompt('Введите URL ссылки'))">🔗 Вставить ссылку</button>
+        </div>
     </div>
 
-    <h2>Список добавленных материалов</h2>
-    <div id="materialsContainer"></div>
+    <div id="contentEditable" contenteditable="false"></div>
+
+    <!-- Управляющие кнопки внизу -->
+    <div class="control-buttons">
+        <button id="editButton" onclick="authorizeEdit()">Редактировать</button>
+        <button id="saveButton" onclick="saveContent()">Сохранить</button>
+        <button id="cancelButton" onclick="toggleEdit(false)">Отмена</button>
+    </div>
+
+    <!-- Модальное окно для вставки изображения -->
+    <div id="imageModal">
+        <h3>Вставка изображения</h3>
+        <label for="imageUrl">URL изображения:</label>
+        <input type="text" id="imageUrl" placeholder="https://example.com/image.jpg">
+        <label for="imageWidth">Ширина (px):</label>
+        <input type="text" id="imageWidth" placeholder="Например: 100">
+        <label for="imageHeight">Высота (px):</label>
+        <input type="text" id="imageHeight" placeholder="Например: 100">
+        <div class="modal-buttons">
+            <button onclick="insertImageWithSize()">Применить</button>
+            <button onclick="closeImageModal()">Закрыть</button>
+        </div>
+    </div>
 </body>
 </html>
