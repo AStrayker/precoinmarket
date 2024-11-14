@@ -159,7 +159,7 @@
         <!-- Основной контент -->
         <div class="content">
             <div class="header">
-                Коты к аеб приложениям Telegram
+                Коты к веб приложениям Telegram
                 <a href="/index.html">/ Главная</a>
                 <div class="search-container">
                     <input type="text" id="search" class="search-bar" placeholder="Поиск на странице">
@@ -191,7 +191,7 @@
 
         // Функция для загрузки текста без кнопок
         async function loadTextContent() {
-            const contentRef = ref(database, '/gametoearn_code/miniapptg.html');
+            const contentRef = ref(database, 'miniapptg.html');
             const snapshot = await get(contentRef);
             const data = snapshot.val();
             if (data && data.text) {
