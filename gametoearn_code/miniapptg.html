@@ -21,14 +21,14 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        async function loadContent(identifier = 'blumpage') {
+        async function loadContent(identifier = 'miniapptg') {
             const contentRef = ref(database, identifier);
             const snapshot = await get(contentRef);
             const data = snapshot.val();
             document.getElementById('contentEditable').innerHTML = data ? data.text : '';
         }
 
-        async function saveContent(identifier = 'blumpage') {
+        async function saveContent(identifier = 'miniapptg') {
             const newContent = document.getElementById('contentEditable').innerHTML;
             const contentRef = ref(database, identifier);
             await set(contentRef, { text: newContent });
