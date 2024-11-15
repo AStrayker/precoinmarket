@@ -25,7 +25,7 @@
             const contentRef = ref(database, identifier);
             const snapshot = await get(contentRef);
             const data = snapshot.val();
-            document.getElementById('contentEditable').innerHTML = data ? data.text : '';
+            document.getElementById('contentEditable').innerHTML = data ? renderHTMLContent(data.text) : '';
         }
 
         async function saveContent(identifier = 'miniapptg') {
@@ -34,6 +34,18 @@
             await set(contentRef, { text: newContent });
             alert('Контент сохранен!');
             toggleEdit(false);
+        }
+
+        function renderHTMLContent(content) {
+            const container = document.createElement('div');
+            container.innerHTML = content;
+            // Находим все элементы <code> и преобразуем их в HTML
+            container.querySelectorAll('code').forEach(codeElem => {
+                const htmlContent = document.createElement('div');
+                htmlContent.innerHTML = codeElem.textContent;
+                codeElem.replaceWith(htmlContent);
+            });
+            return container.innerHTML;
         }
 
         function authorizeEdit() {
@@ -89,9 +101,10 @@
             const contentEditable = document.getElementById('contentEditable');
             const isCodeMode = button.classList.toggle('active');
             if (isCodeMode) {
-                contentEditable.textContent = contentEditable.innerHTML;
+                contentEditable.innerHTML = `<code>${contentEditable.innerHTML}</code>`;
             } else {
-                contentEditable.innerHTML = contentEditable.textContent;
+                const codeElem = contentEditable.querySelector('code');
+                if (codeElem) contentEditable.innerHTML = codeElem.textContent;
             }
         }
 
