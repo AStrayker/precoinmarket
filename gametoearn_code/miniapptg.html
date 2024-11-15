@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -38,7 +38,7 @@
 
         function authorizeEdit() {
             const password = prompt("Введите пароль для редактирования:");
-            if (password === "0") {
+            if (password === "1") {
                 toggleEdit(true);
             } else {
                 alert("Неверный пароль");
@@ -55,29 +55,6 @@
 
         function applyFormatting(command, value = null) {
             document.execCommand(command, false, value);
-        }
-
-        function copyText() {
-            const selection = window.getSelection();
-            const selectedText = selection.toString();
-            navigator.clipboard.writeText(selectedText).then(() => {
-                alert("Текст скопирован!");
-            }).catch(err => {
-                console.error("Ошибка копирования: ", err);
-            });
-        }
-
-        function toggleCodeMode() {
-            const contentEditable = document.getElementById('contentEditable');
-            const codeModeButton = document.getElementById('codeModeButton');
-            const isCodeMode = codeModeButton.classList.toggle('active');
-            contentEditable.contentEditable = !isCodeMode;
-            contentEditable.innerText = isCodeMode ? contentEditable.innerHTML : contentEditable.innerText;
-        }
-
-        function clearFormatting() {
-            document.execCommand('removeFormat', false, null);
-            document.execCommand('unlink', false, null);
         }
 
         function openImageModal() {
@@ -99,16 +76,42 @@
             closeImageModal();
         }
 
+        function copyToClipboard() {
+            const selection = window.getSelection().toString();
+            if (selection) {
+                navigator.clipboard.writeText(selection).then(() => alert("Текст скопирован!"));
+            } else {
+                alert("Выделите текст для копирования.");
+            }
+        }
+
+        function toggleCodeMode(button) {
+            const isCodeMode = button.classList.toggle('active');
+            const contentArea = document.getElementById('contentEditable');
+            contentArea.style.fontFamily = isCodeMode ? 'monospace' : 'inherit';
+            contentArea.style.backgroundColor = isCodeMode ? '#f7f7f7' : 'white';
+        }
+
+        function clearFormatting() {
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                const text = range.toString();
+                range.deleteContents();
+                range.insertNode(document.createTextNode(text));
+            }
+        }
+
         window.onload = () => loadContent();
-        window.saveContent = () => saveContent();
+        window.saveContent = saveContent;
         window.authorizeEdit = authorizeEdit;
         window.applyFormatting = applyFormatting;
-        window.copyText = copyText;
-        window.toggleCodeMode = toggleCodeMode;
-        window.clearFormatting = clearFormatting;
         window.openImageModal = openImageModal;
         window.closeImageModal = closeImageModal;
         window.insertImageWithSize = insertImageWithSize;
+        window.copyToClipboard = copyToClipboard;
+        window.toggleCodeMode = toggleCodeMode;
+        window.clearFormatting = clearFormatting;
     </script>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
@@ -141,10 +144,6 @@
         #toolbar button:hover {
             background: #ddd;
         }
-        #codeModeButton.active {
-            background-color: #007bff;
-            color: white;
-        }
         .control-buttons {
             margin-top: 10px;
             display: flex;
@@ -162,34 +161,16 @@
         #saveButton { background-color: #28a745; color: white; display: none; }
         #cancelButton { background-color: #dc3545; color: white; display: none; }
         
-        /* Модальное окно */
-        #imageModal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border: 1px solid #ccc;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            width: 300px;
-            z-index: 1000;
+        /* Light gray highlight for copyable text */
+        #contentEditable span.copyable {
+            background-color: #f7f7f7;
+            cursor: pointer;
         }
-        #imageModal label {
-            display: block;
-            margin-top: 10px;
-        }
-        #imageModal input {
-            width: 100%;
-            padding: 5px;
-            margin-top: 5px;
-        }
-        #imageModal .modal-buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 15px;
+
+        /* Active button styling */
+        .active {
+            background-color: #d0d0d0;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -203,9 +184,9 @@
             <button onclick="applyFormatting('strikeThrough')"><s>Зачеркнутый</s></button>
             <button onclick="openImageModal()">🖼️ Вставить изображение</button>
             <button onclick="applyFormatting('createLink', prompt('Введите URL ссылки'))">🔗 Вставить ссылку</button>
-            <button onclick="copyText()">📋 Копировать текст</button>
-            <button id="codeModeButton" onclick="toggleCodeMode()">💻 Режим кода</button>
-            <button onclick="clearFormatting()">❌ Очистить форматирование</button>
+            <button onclick="copyToClipboard()">📋 Копировать</button>
+            <button onclick="toggleCodeMode(this)">⌨️ Код</button>
+            <button onclick="clearFormatting()">🧹 Очистить</button>
         </div>
     </div>
 
@@ -220,14 +201,14 @@
     <div id="imageModal">
         <h3>Вставка изображения</h3>
         <label for="imageUrl">URL изображения:</label>
-        <input type="text" id="imageUrl">
-        <label for="imageWidth">Ширина:</label>
-        <input type="text" id="imageWidth" placeholder="Например: 300px или auto">
-        <label for="imageHeight">Высота:</label>
-        <input type="text" id="imageHeight" placeholder="Например: 200px или auto">
+        <input type="text" id="imageUrl" placeholder="https://example.com/image.jpg">
+        <label for="imageWidth">Ширина (px):</label>
+        <input type="text" id="imageWidth" placeholder="Например: 100">
+        <label for="imageHeight">Высота (px):</label>
+        <input type="text" id="imageHeight" placeholder="Например: 100">
         <div class="modal-buttons">
-            <button onclick="closeImageModal()">Отмена</button>
-            <button onclick="insertImageWithSize()">Вставить</button>
+            <button onclick="insertImageWithSize()">Применить</button>
+            <button onclick="closeImageModal()">Закрыть</button>
         </div>
     </div>
 </body>
