@@ -21,14 +21,14 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        async function loadContent(identifier = 'miniapptg') {
+        async function loadContent(identifier = 'blumpage') {
             const contentRef = ref(database, identifier);
             const snapshot = await get(contentRef);
             const data = snapshot.val();
             document.getElementById('contentEditable').innerHTML = data ? data.text : '';
         }
 
-        async function saveContent(identifier = 'miniapptg') {
+        async function saveContent(identifier = 'blumpage') {
             const newContent = document.getElementById('contentEditable').innerHTML;
             const contentRef = ref(database, identifier);
             await set(contentRef, { text: newContent });
@@ -38,7 +38,7 @@
 
         function authorizeEdit() {
             const password = prompt("Введите пароль для редактирования:");
-            if (password === "1") {
+            if (password === "09101998") {
                 toggleEdit(true);
             } else {
                 alert("Неверный пароль");
@@ -57,61 +57,56 @@
             document.execCommand(command, false, value);
         }
 
-        function openImageModal() {
-            document.getElementById('imageModal').style.display = 'block';
-        }
-
-        function closeImageModal() {
-            document.getElementById('imageModal').style.display = 'none';
-        }
-
-        function insertImageWithSize() {
-            const url = document.getElementById('imageUrl').value;
-            const width = document.getElementById('imageWidth').value || "auto";
-            const height = document.getElementById('imageHeight').value || "auto";
-            if (url) {
-                const imgHTML = `<img src="${url}" style="width:${width}; height:${height};">`;
-                document.execCommand('insertHTML', false, imgHTML);
-            }
-            closeImageModal();
-        }
-
-        function copyToClipboard() {
-            const selection = window.getSelection().toString();
-            if (selection) {
-                navigator.clipboard.writeText(selection).then(() => alert("Текст скопирован!"));
-            } else {
-                alert("Выделите текст для копирования.");
-            }
-        }
-
         function toggleCodeMode(button) {
-            const isCodeMode = button.classList.toggle('active');
-            const contentArea = document.getElementById('contentEditable');
-            contentArea.style.fontFamily = isCodeMode ? 'monospace' : 'inherit';
-            contentArea.style.backgroundColor = isCodeMode ? '#f7f7f7' : 'white';
+            const contentEditable = document.getElementById('contentEditable');
+            if (contentEditable.getAttribute('contentEditable') === 'true') {
+                const isCodeMode = button.classList.toggle('active');
+                if (isCodeMode) {
+                    contentEditable.textContent = contentEditable.innerHTML;
+                } else {
+                    contentEditable.innerHTML = contentEditable.textContent;
+                }
+            }
         }
 
         function clearFormatting() {
             const selection = window.getSelection();
-            if (selection.rangeCount > 0) {
+            if (!selection.isCollapsed) {
                 const range = selection.getRangeAt(0);
-                const text = range.toString();
+                const span = document.createElement('span');
+                span.textContent = selection.toString();
                 range.deleteContents();
-                range.insertNode(document.createTextNode(text));
+                range.insertNode(span);
+            }
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Текст скопирован в буфер обмена!');
+            });
+        }
+
+        function wrapForCopy() {
+            const selection = window.getSelection();
+            if (!selection.isCollapsed) {
+                const range = selection.getRangeAt(0);
+                const span = document.createElement('span');
+                span.textContent = selection.toString();
+                span.style.backgroundColor = '#f0f0f0';
+                span.style.cursor = 'pointer';
+                span.onclick = () => copyToClipboard(span.textContent);
+                range.deleteContents();
+                range.insertNode(span);
             }
         }
 
         window.onload = () => loadContent();
-        window.saveContent = saveContent;
+        window.saveContent = () => saveContent();
         window.authorizeEdit = authorizeEdit;
         window.applyFormatting = applyFormatting;
-        window.openImageModal = openImageModal;
-        window.closeImageModal = closeImageModal;
-        window.insertImageWithSize = insertImageWithSize;
-        window.copyToClipboard = copyToClipboard;
         window.toggleCodeMode = toggleCodeMode;
         window.clearFormatting = clearFormatting;
+        window.wrapForCopy = wrapForCopy;
     </script>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
@@ -144,6 +139,10 @@
         #toolbar button:hover {
             background: #ddd;
         }
+        #toolbar .active {
+            background-color: #007bff;
+            color: white;
+        }
         .control-buttons {
             margin-top: 10px;
             display: flex;
@@ -160,18 +159,6 @@
         #editButton { background-color: #007bff; color: white; }
         #saveButton { background-color: #28a745; color: white; display: none; }
         #cancelButton { background-color: #dc3545; color: white; display: none; }
-        
-        /* Light gray highlight for copyable text */
-        #contentEditable span.copyable {
-            background-color: #f7f7f7;
-            cursor: pointer;
-        }
-
-        /* Active button styling */
-        .active {
-            background-color: #d0d0d0;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
@@ -182,11 +169,9 @@
             <button onclick="applyFormatting('italic')"><i>Курсив</i></button>
             <button onclick="applyFormatting('underline')"><u>Подчеркнутый</u></button>
             <button onclick="applyFormatting('strikeThrough')"><s>Зачеркнутый</s></button>
-            <button onclick="openImageModal()">🖼️ Вставить изображение</button>
-            <button onclick="applyFormatting('createLink', prompt('Введите URL ссылки'))">🔗 Вставить ссылку</button>
-            <button onclick="copyToClipboard()">📋 Копировать</button>
-            <button onclick="toggleCodeMode(this)">⌨️ Код</button>
-            <button onclick="clearFormatting()">🧹 Очистить</button>
+            <button onclick="wrapForCopy()">📋 Для копирования</button> <!-- Новая кнопка -->
+            <button onclick="toggleCodeMode(this)">💻 Код</button> <!-- Новая кнопка -->
+            <button onclick="clearFormatting()">🧹 Очистить форматирование</button> <!-- Новая кнопка -->
         </div>
     </div>
 
@@ -197,19 +182,191 @@
         <button id="saveButton" onclick="saveContent()">Сохранить</button>
         <button id="cancelButton" onclick="toggleEdit(false)">Отмена</button>
     </div>
+</body>
+</html>
+<!DOCTYPE html> 
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование контента</title>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
-    <div id="imageModal">
-        <h3>Вставка изображения</h3>
-        <label for="imageUrl">URL изображения:</label>
-        <input type="text" id="imageUrl" placeholder="https://example.com/image.jpg">
-        <label for="imageWidth">Ширина (px):</label>
-        <input type="text" id="imageWidth" placeholder="Например: 100">
-        <label for="imageHeight">Высота (px):</label>
-        <input type="text" id="imageHeight" placeholder="Например: 100">
-        <div class="modal-buttons">
-            <button onclick="insertImageWithSize()">Применить</button>
-            <button onclick="closeImageModal()">Закрыть</button>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCd-Kf5smC-xTCksRRFSOBQmpKsegX6lPQ",
+            authDomain: "precoinmarket-8af8e.firebaseapp.com",
+            databaseURL: "https://precoinmarket-8af8e-default-rtdb.firebaseio.com",
+            projectId: "precoinmarket-8af8e",
+            storageBucket: "precoinmarket-8af8e.appspot.com",
+            messagingSenderId: "11819212336",
+            appId: "1:11819212336:web:0ea96456065f66ecca17f5",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        async function loadContent(identifier = 'miniapptg') {
+            const contentRef = ref(database, identifier);
+            const snapshot = await get(contentRef);
+            const data = snapshot.val();
+            document.getElementById('contentEditable').innerHTML = data ? data.text : '';
+        }
+
+        async function saveContent(identifier = 'miniapptg') {
+            const newContent = document.getElementById('contentEditable').innerHTML;
+            const contentRef = ref(database, identifier);
+            await set(contentRef, { text: newContent });
+            alert('Контент сохранен!');
+            toggleEdit(false);
+        }
+
+        function authorizeEdit() {
+            const password = prompt("Введите пароль для редактирования:");
+            if (password === "0") {
+                toggleEdit(true);
+            } else {
+                alert("Неверный пароль");
+            }
+        }
+
+        function toggleEdit(isEditing) {
+            document.getElementById('contentEditable').contentEditable = isEditing;
+            document.getElementById('toolbar').style.display = isEditing ? 'flex' : 'none';
+            document.getElementById('editButton').style.display = isEditing ? 'none' : 'inline-block';
+            document.getElementById('saveButton').style.display = isEditing ? 'inline-block' : 'none';
+            document.getElementById('cancelButton').style.display = isEditing ? 'inline-block' : 'none';
+        }
+
+        function applyFormatting(command, value = null) {
+            document.execCommand(command, false, value);
+        }
+
+        function toggleCodeMode(button) {
+            const contentEditable = document.getElementById('contentEditable');
+            if (contentEditable.getAttribute('contentEditable') === 'true') {
+                const isCodeMode = button.classList.toggle('active');
+                if (isCodeMode) {
+                    contentEditable.textContent = contentEditable.innerHTML;
+                } else {
+                    contentEditable.innerHTML = contentEditable.textContent;
+                }
+            }
+        }
+
+        function clearFormatting() {
+            const selection = window.getSelection();
+            if (!selection.isCollapsed) {
+                const range = selection.getRangeAt(0);
+                const span = document.createElement('span');
+                span.textContent = selection.toString();
+                range.deleteContents();
+                range.insertNode(span);
+            }
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Текст скопирован в буфер обмена!');
+            });
+        }
+
+        function wrapForCopy() {
+            const selection = window.getSelection();
+            if (!selection.isCollapsed) {
+                const range = selection.getRangeAt(0);
+                const span = document.createElement('span');
+                span.textContent = selection.toString();
+                span.style.backgroundColor = '#f0f0f0';
+                span.style.cursor = 'pointer';
+                span.onclick = () => copyToClipboard(span.textContent);
+                range.deleteContents();
+                range.insertNode(span);
+            }
+        }
+
+        window.onload = () => loadContent();
+        window.saveContent = () => saveContent();
+        window.authorizeEdit = authorizeEdit;
+        window.applyFormatting = applyFormatting;
+        window.toggleCodeMode = toggleCodeMode;
+        window.clearFormatting = clearFormatting;
+        window.wrapForCopy = wrapForCopy;
+    </script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #contentEditable {
+            padding: 10px;
+            border: 1px solid #ccc;
+            min-height: 300px;
+            outline: none;
+        }
+        #toolbar {
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        #toolbar .buttons {
+            display: flex;
+        }
+        #toolbar button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            margin: 0 5px;
+            padding: 5px;
+            font-size: 18px;
+        }
+        #toolbar button:hover {
+            background: #ddd;
+        }
+        #toolbar .active {
+            background-color: #007bff;
+            color: white;
+        }
+        .control-buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .control-buttons button {
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+        #editButton { background-color: #007bff; color: white; }
+        #saveButton { background-color: #28a745; color: white; display: none; }
+        #cancelButton { background-color: #dc3545; color: white; display: none; }
+    </style>
+</head>
+<body>
+    <h1>Редактирование контента</h1>
+    <div id="toolbar">
+        <div class="buttons">
+            <button onclick="applyFormatting('bold')"><b>Жирный</b></button>
+            <button onclick="applyFormatting('italic')"><i>Курсив</i></button>
+            <button onclick="applyFormatting('underline')"><u>Подчеркнутый</u></button>
+            <button onclick="applyFormatting('strikeThrough')"><s>Зачеркнутый</s></button>
+            <button onclick="wrapForCopy()">📋 Для копирования</button> <!-- Новая кнопка -->
+            <button onclick="toggleCodeMode(this)">💻 Код</button> <!-- Новая кнопка -->
+            <button onclick="clearFormatting()">🧹 Очистить форматирование</button> <!-- Новая кнопка -->
         </div>
+    </div>
+
+    <div id="contentEditable" contenteditable="false"></div>
+
+    <div class="control-buttons">
+        <button id="editButton" onclick="authorizeEdit()">Редактировать</button>
+        <button id="saveButton" onclick="saveContent()">Сохранить</button>
+        <button id="cancelButton" onclick="toggleEdit(false)">Отмена</button>
     </div>
 </body>
 </html>
