@@ -38,7 +38,7 @@
 
         function authorizeEdit() {
             const password = prompt("Введите пароль для редактирования:");
-            if (password === "09101998") {
+            if (password === "0") {
                 toggleEdit(true);
             } else {
                 alert("Неверный пароль");
@@ -55,6 +55,29 @@
 
         function applyFormatting(command, value = null) {
             document.execCommand(command, false, value);
+        }
+
+        function copyText() {
+            const selection = window.getSelection();
+            const selectedText = selection.toString();
+            navigator.clipboard.writeText(selectedText).then(() => {
+                alert("Текст скопирован!");
+            }).catch(err => {
+                console.error("Ошибка копирования: ", err);
+            });
+        }
+
+        function toggleCodeMode() {
+            const contentEditable = document.getElementById('contentEditable');
+            const codeModeButton = document.getElementById('codeModeButton');
+            const isCodeMode = codeModeButton.classList.toggle('active');
+            contentEditable.contentEditable = !isCodeMode;
+            contentEditable.innerText = isCodeMode ? contentEditable.innerHTML : contentEditable.innerText;
+        }
+
+        function clearFormatting() {
+            document.execCommand('removeFormat', false, null);
+            document.execCommand('unlink', false, null);
         }
 
         function openImageModal() {
@@ -80,6 +103,9 @@
         window.saveContent = () => saveContent();
         window.authorizeEdit = authorizeEdit;
         window.applyFormatting = applyFormatting;
+        window.copyText = copyText;
+        window.toggleCodeMode = toggleCodeMode;
+        window.clearFormatting = clearFormatting;
         window.openImageModal = openImageModal;
         window.closeImageModal = closeImageModal;
         window.insertImageWithSize = insertImageWithSize;
@@ -114,6 +140,10 @@
         }
         #toolbar button:hover {
             background: #ddd;
+        }
+        #codeModeButton.active {
+            background-color: #007bff;
+            color: white;
         }
         .control-buttons {
             margin-top: 10px;
@@ -173,30 +203,31 @@
             <button onclick="applyFormatting('strikeThrough')"><s>Зачеркнутый</s></button>
             <button onclick="openImageModal()">🖼️ Вставить изображение</button>
             <button onclick="applyFormatting('createLink', prompt('Введите URL ссылки'))">🔗 Вставить ссылку</button>
+            <button onclick="copyText()">📋 Копировать текст</button>
+            <button id="codeModeButton" onclick="toggleCodeMode()">💻 Режим кода</button>
+            <button onclick="clearFormatting()">❌ Очистить форматирование</button>
         </div>
     </div>
 
     <div id="contentEditable" contenteditable="false"></div>
 
-    <!-- Управляющие кнопки внизу -->
     <div class="control-buttons">
         <button id="editButton" onclick="authorizeEdit()">Редактировать</button>
         <button id="saveButton" onclick="saveContent()">Сохранить</button>
         <button id="cancelButton" onclick="toggleEdit(false)">Отмена</button>
     </div>
 
-    <!-- Модальное окно для вставки изображения -->
     <div id="imageModal">
         <h3>Вставка изображения</h3>
         <label for="imageUrl">URL изображения:</label>
-        <input type="text" id="imageUrl" placeholder="https://example.com/image.jpg">
-        <label for="imageWidth">Ширина (px):</label>
-        <input type="text" id="imageWidth" placeholder="Например: 100">
-        <label for="imageHeight">Высота (px):</label>
-        <input type="text" id="imageHeight" placeholder="Например: 100">
+        <input type="text" id="imageUrl">
+        <label for="imageWidth">Ширина:</label>
+        <input type="text" id="imageWidth" placeholder="Например: 300px или auto">
+        <label for="imageHeight">Высота:</label>
+        <input type="text" id="imageHeight" placeholder="Например: 200px или auto">
         <div class="modal-buttons">
-            <button onclick="insertImageWithSize()">Применить</button>
-            <button onclick="closeImageModal()">Закрыть</button>
+            <button onclick="closeImageModal()">Отмена</button>
+            <button onclick="insertImageWithSize()">Вставить</button>
         </div>
     </div>
 </body>
