@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PreCoinMarket</title>
-    <!-- Иконка для страницы -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
         /* Основные стили */
@@ -22,16 +21,14 @@
             height: 100vh;
         }
         
-        /* Стили бокового меню */
         .sidebar {
             width: 200px;
-            background-color: #ffffff; /* Светлый фон для меню */
+            background-color: #ffffff;
             border-right: 1px solid #ddd;
             display: flex;
             flex-direction: column;
-            height: 100vh; /* Высота на весь экран */
+            height: 100vh;
             overflow-y: auto;
-            z-index: 1000; /* Поверх затемняющего фона */
         }
         .logo {
             font-size: 24px;
@@ -58,12 +55,9 @@
             background-color: #e0e0e0;
         }
         
-        /* Основной контент */
         .content {
             flex: 1;
             padding: 20px;
-            position: relative;
-            z-index: 1; /* Под затемняющим фоном */
         }
         .header {
             font-size: 24px;
@@ -72,196 +66,105 @@
             align-items: center;
             gap: 10px;
         }
-        .header a {
-            font-size: 16px;
-            color: #333;
-            text-decoration: underline;
-        }
-        
-        /* Поиск */
-        .search-container {
-            display: flex;
-            align-items: center;
-            margin-left: auto; /* Перенос поиска вправо */
-            position: relative;
-        }
-        .search-bar {
-            padding: 8px;
-            font-size: 14px;
-            width: 200px;
-        }
-        .suggestions {
+        .editor-container {
+            margin-top: 20px;
             border: 1px solid #ddd;
-            max-height: 100px;
-            overflow-y: auto;
-            background: white;
-            position: absolute;
-            width: 200px;
-            top: 38px;
-            display: none;
+            padding: 10px;
+            background-color: #fff;
         }
-        .suggestions div {
-            padding: 8px;
+        .editor-toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .editor-toolbar button {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
             cursor: pointer;
         }
-        .suggestions div:hover {
-            background-color: #f0f0f0;
+        .editor-toolbar button.active {
+            background-color: #ddd;
         }
-
-        /* Мобильные стили */
-        @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                left: -200px;
-                width: 200px;
-                transition: all 0.3s;
-            }
-            .sidebar.active {
-                left: 0;
-            }
-            .menu-toggle {
-                position: absolute;
-                left: 10px;
-                top: 10px;
-                cursor: pointer;
-                font-size: 30px;
-                z-index: 1100; /* Поверх затемняющего слоя */
-            }
-            /* Затемняющий фон */
-            .overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
-                display: none;
-                z-index: 999; /* Под меню */
-            }
-            .overlay.active {
-                display: block;
-            }
+        .editor {
+            min-height: 200px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            outline: none;
+        }
+        .editor a {
+            color: blue; /* Ссылки подсвечиваются синим */
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="overlay"></div>
-
     <div class="container">
-        <!-- Боковое меню -->
         <nav class="sidebar">
             <div class="logo">PreCoinMarket</div>
-            <ul class="menu" id="menu-list">
-                <!-- Элементы списка будут загружены из внешнего файла -->
+            <ul class="menu">
+                <li><a href="#">Главная</a></li>
+                <li><a href="#">Категории</a></li>
             </ul>
         </nav>
 
-        <!-- Основной контент -->
         <div class="content">
-            <div class="header">
-                Blum - Коды к видео
-                <a href="gametoearn_code.html">/ Категория</a>
-                <div class="search-container">
-                    <input type="text" id="search" class="search-bar" placeholder="Поиск на странице">
-                    <div class="suggestions" id="suggestions"></div>
+            <div class="header">My Account</div>
+
+            <!-- Поле для редактирования -->
+            <div class="editor-container">
+                <div class="editor-toolbar">
+                    <button id="bold-btn"><b>Ж</b></button>
+                    <button id="italic-btn"><i>К</i></button>
+                    <button id="underline-btn"><u>П</u></button>
+                    <button id="link-btn">Ссылка</button>
+                    <button id="img-btn">Изображение</button>
+                    <button id="code-btn">HTML</button>
                 </div>
-            </div>
-            <div class="content-area" id="content-area">
-                <p>Контент загружается...</p>
+                <div contenteditable="true" id="editor" class="editor"></div>
+                <textarea id="code-editor" class="editor hidden"></textarea>
             </div>
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+    <script>
+        const editor = document.getElementById('editor');
+        const codeEditor = document.getElementById('code-editor');
+        const boldBtn = document.getElementById('bold-btn');
+        const italicBtn = document.getElementById('italic-btn');
+        const underlineBtn = document.getElementById('underline-btn');
+        const linkBtn = document.getElementById('link-btn');
+        const imgBtn = document.getElementById('img-btn');
+        const codeBtn = document.getElementById('code-btn');
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCd-Kf5smC-xTCksRRFSOBQmpKsegX6lPQ",
-            authDomain: "precoinmarket-8af8e.firebaseapp.com",
-            databaseURL: "https://precoinmarket-8af8e-default-rtdb.firebaseio.com",
-            projectId: "precoinmarket-8af8e",
-            storageBucket: "precoinmarket-8af8e.appspot.com",
-            messagingSenderId: "11819212336",
-            appId: "1:11819212336:web:0ea96456065f66ecca17f5",
-        };
+        // Функции для работы с форматированием
+        boldBtn.addEventListener('click', () => document.execCommand('bold'));
+        italicBtn.addEventListener('click', () => document.execCommand('italic'));
+        underlineBtn.addEventListener('click', () => document.execCommand('underline'));
+        linkBtn.addEventListener('click', () => {
+            const url = prompt('Введите URL ссылки:');
+            if (url) document.execCommand('createLink', false, url);
+        });
+        imgBtn.addEventListener('click', () => {
+            const url = prompt('Введите URL изображения:');
+            if (url) document.execCommand('insertImage', false, url);
+        });
 
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        // Функция для загрузки текста без кнопок
-        async function loadTextContent() {
-            const contentRef = ref(database, 'blumpage.html');
-            const snapshot = await get(contentRef);
-            const data = snapshot.val();
-            if (data && data.text) {
-                document.getElementById('content-area').innerHTML = data.text;
+        // Переключение между редактором текста и кода
+        codeBtn.addEventListener('click', () => {
+            if (codeEditor.classList.contains('hidden')) {
+                codeEditor.value = editor.innerHTML;
+                codeEditor.classList.remove('hidden');
+                editor.classList.add('hidden');
+                codeBtn.classList.add('active');
             } else {
-                document.getElementById('content-area').innerHTML = "<p>Контент недоступен.</p>";
+                editor.innerHTML = codeEditor.value;
+                codeEditor.classList.add('hidden');
+                editor.classList.remove('hidden');
+                codeBtn.classList.remove('active');
             }
-        }
-
-        // Открытие/закрытие бокового меню на мобильных устройствах
-        const sidebar = document.querySelector('.sidebar');
-        const overlay = document.querySelector('.overlay');
-        const toggleButton = document.createElement('div');
-        toggleButton.classList.add('menu-toggle');
-        toggleButton.innerHTML = '☰';
-        document.body.appendChild(toggleButton);
-
-        toggleButton.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        });
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-
-        // Загрузка внешнего контента и меню при загрузке страницы
-        document.addEventListener("DOMContentLoaded", () => {
-            loadTextContent();
-            loadMenuItems();
-        });
-
-        // Загрузка элементов меню из файла
-        function loadMenuItems() {
-            fetch("/menu-items.html")
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("menu-list").innerHTML = data;
-                })
-                .catch(error => {
-                    document.getElementById("menu-list").innerHTML = `<li>Ошибка загрузки меню: ${error.message}</li>`;
-                });
-        }
-
-        // Поисковая подсказка
-        const search = document.getElementById('search');
-        const suggestions = document.getElementById('suggestions');
-        const contentData = ["Bitcoin", "Ethereum", "Coin", "Wallet", "DeBank"];
-
-        search.addEventListener('input', function () {
-            const query = this.value.toLowerCase();
-            const matches = contentData.filter(item => item.toLowerCase().includes(query));
-            suggestions.innerHTML = '';
-            if (matches.length > 0) {
-                matches.forEach(item => {
-                    const suggestionItem = document.createElement('div');
-                    suggestionItem.innerText = item;
-                    suggestionItem.addEventListener('click', () => {
-                        search.value = item;
-                        suggestions.style.display = 'none';
-                    });
-                    suggestions.appendChild(suggestionItem);
-                });
-                suggestions.style.display = 'block';
-            } else {
-                suggestions.style.display = 'none';
-            }
-        });
-        search.addEventListener('blur', () => {
-            setTimeout(() => suggestions.style.display = 'none', 100);
         });
     </script>
 </body>
