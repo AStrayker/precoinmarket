@@ -3,201 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редактирование контента</title>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCd-Kf5smC-xTCksRRFSOBQmpKsegX6lPQ",
-            authDomain: "precoinmarket-8af8e.firebaseapp.com",
-            databaseURL: "https://precoinmarket-8af8e-default-rtdb.firebaseio.com",
-            projectId: "precoinmarket-8af8e",
-            storageBucket: "precoinmarket-8af8e.appspot.com",
-            messagingSenderId: "11819212336",
-            appId: "1:11819212336:web:0ea96456065f66ecca17f5",
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        async function loadContent(identifier = 'blumpage') {
-            const contentRef = ref(database, identifier);
-            const snapshot = await get(contentRef);
-            const data = snapshot.val();
-            document.getElementById('contentEditable').innerHTML = data ? data.text : '';
-        }
-
-        async function saveContent(identifier = 'blumpage') {
-            const newContent = document.getElementById('contentEditable').innerHTML;
-            const contentRef = ref(database, identifier);
-            await set(contentRef, { text: newContent });
-            alert('Контент сохранен!');
-            toggleEdit(false);
-        }
-
-        function authorizeEdit() {
-            const password = prompt("Введите пароль для редактирования:");
-            if (password === "09101998") {
-                toggleEdit(true);
-            } else {
-                alert("Неверный пароль");
-            }
-        }
-
-        function toggleEdit(isEditing) {
-            document.getElementById('contentEditable').contentEditable = isEditing;
-            document.getElementById('toolbar').style.display = isEditing ? 'flex' : 'none';
-            document.getElementById('editButton').style.display = isEditing ? 'none' : 'inline-block';
-            document.getElementById('saveButton').style.display = isEditing ? 'inline-block' : 'none';
-            document.getElementById('cancelButton').style.display = isEditing ? 'inline-block' : 'none';
-        }
-
-        function applyFormatting(command, value = null) {
-            document.execCommand(command, false, value);
-        }
-
-        function openImageModal() {
-            document.getElementById('imageModal').style.display = 'block';
-        }
-
-        function closeImageModal() {
-            document.getElementById('imageModal').style.display = 'none';
-        }
-
-        function insertImageWithSize() {
-            const url = document.getElementById('imageUrl').value;
-            const width = document.getElementById('imageWidth').value || "auto";
-            const height = document.getElementById('imageHeight').value || "auto";
-            if (url) {
-                const imgHTML = `<img src="${url}" style="width:${width}; height:${height};">`;
-                document.execCommand('insertHTML', false, imgHTML);
-            }
-            closeImageModal();
-        }
-
-        window.onload = () => loadContent();
-        window.saveContent = () => saveContent();
-        window.authorizeEdit = authorizeEdit;
-        window.applyFormatting = applyFormatting;
-        window.openImageModal = openImageModal;
-        window.closeImageModal = closeImageModal;
-        window.insertImageWithSize = insertImageWithSize;
-    </script>
+    <title>Редактор</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        #contentEditable {
-            padding: 10px;
-            border: 1px solid #ccc;
-            min-height: 300px;
-            outline: none;
+        /* Основные стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        #toolbar {
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-        #toolbar .buttons {
-            display: flex;
-        }
-        #toolbar button {
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            margin: 0 5px;
-            padding: 5px;
-            font-size: 18px;
-        }
-        #toolbar button:hover {
-            background: #ddd;
-        }
-        .control-buttons {
-            margin-top: 10px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-        }
-        .control-buttons button {
-            padding: 8px 16px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 4px;
-        }
-        #editButton { background-color: #007bff; color: white; }
-        #saveButton { background-color: #28a745; color: white; display: none; }
-        #cancelButton { background-color: #dc3545; color: white; display: none; }
-        
-        /* Модальное окно */
-        #imageModal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
             padding: 20px;
-            border: 1px solid #ccc;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            width: 300px;
-            z-index: 1000;
         }
-        #imageModal label {
-            display: block;
-            margin-top: 10px;
+        .editor-container {
+            border: 1px solid #ddd;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        #imageModal input {
-            width: 100%;
-            padding: 5px;
-            margin-top: 5px;
-        }
-        #imageModal .modal-buttons {
+        .editor-toolbar {
             display: flex;
-            justify-content: flex-end;
             gap: 10px;
-            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .editor-toolbar button {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .editor-toolbar button.active {
+            background-color: #ddd;
+        }
+        .editor {
+            min-height: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            outline: none;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .editor a {
+            color: blue; /* Ссылки подсвечиваются синим */
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <h1>Редактирование контента</h1>
-    <div id="toolbar">
-        <div class="buttons">
-            <button onclick="applyFormatting('bold')"><b>Жирный</b></button>
-            <button onclick="applyFormatting('italic')"><i>Курсив</i></button>
-            <button onclick="applyFormatting('underline')"><u>Подчеркнутый</u></button>
-            <button onclick="applyFormatting('strikeThrough')"><s>Зачеркнутый</s></button>
-            <button onclick="openImageModal()">🖼️ Вставить изображение</button>
-            <button onclick="applyFormatting('createLink', prompt('Введите URL ссылки'))">🔗 Вставить ссылку</button>
+    <h1 style="text-align: center;">Редактор контента</h1>
+    <div class="editor-container">
+        <div class="editor-toolbar">
+            <button id="bold-btn"><b>Ж</b></button>
+            <button id="italic-btn"><i>К</i></button>
+            <button id="underline-btn"><u>П</u></button>
+            <button id="link-btn">Ссылка</button>
+            <button id="img-btn">Изображение</button>
+            <button id="code-btn">HTML</button>
         </div>
+        <div contenteditable="true" id="editor" class="editor"></div>
+        <textarea id="code-editor" class="editor hidden"></textarea>
     </div>
 
-    <div id="contentEditable" contenteditable="false"></div>
+    <script>
+        const editor = document.getElementById('editor');
+        const codeEditor = document.getElementById('code-editor');
+        const boldBtn = document.getElementById('bold-btn');
+        const italicBtn = document.getElementById('italic-btn');
+        const underlineBtn = document.getElementById('underline-btn');
+        const linkBtn = document.getElementById('link-btn');
+        const imgBtn = document.getElementById('img-btn');
+        const codeBtn = document.getElementById('code-btn');
 
-    <!-- Управляющие кнопки внизу -->
-    <div class="control-buttons">
-        <button id="editButton" onclick="authorizeEdit()">Редактировать</button>
-        <button id="saveButton" onclick="saveContent()">Сохранить</button>
-        <button id="cancelButton" onclick="toggleEdit(false)">Отмена</button>
-    </div>
+        // Функции для форматирования текста
+        boldBtn.addEventListener('click', () => document.execCommand('bold'));
+        italicBtn.addEventListener('click', () => document.execCommand('italic'));
+        underlineBtn.addEventListener('click', () => document.execCommand('underline'));
+        linkBtn.addEventListener('click', () => {
+            const url = prompt('Введите URL ссылки:');
+            if (url) document.execCommand('createLink', false, url);
+        });
+        imgBtn.addEventListener('click', () => {
+            const url = prompt('Введите URL изображения:');
+            if (url) document.execCommand('insertImage', false, url);
+        });
 
-    <!-- Модальное окно для вставки изображения -->
-    <div id="imageModal">
-        <h3>Вставка изображения</h3>
-        <label for="imageUrl">URL изображения:</label>
-        <input type="text" id="imageUrl" placeholder="https://example.com/image.jpg">
-        <label for="imageWidth">Ширина (px):</label>
-        <input type="text" id="imageWidth" placeholder="Например: 100">
-        <label for="imageHeight">Высота (px):</label>
-        <input type="text" id="imageHeight" placeholder="Например: 100">
-        <div class="modal-buttons">
-            <button onclick="insertImageWithSize()">Применить</button>
-            <button onclick="closeImageModal()">Закрыть</button>
-        </div>
-    </div>
+        // Переключение между редактором текста и HTML-кода
+        codeBtn.addEventListener('click', () => {
+            if (codeEditor.classList.contains('hidden')) {
+                codeEditor.value = editor.innerHTML;
+                codeEditor.classList.remove('hidden');
+                editor.classList.add('hidden');
+                codeBtn.classList.add('active');
+            } else {
+                editor.innerHTML = codeEditor.value;
+                codeEditor.classList.add('hidden');
+                editor.classList.remove('hidden');
+                codeBtn.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
