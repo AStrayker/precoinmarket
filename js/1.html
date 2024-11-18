@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактор полей</title>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, get, set, update } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCd-Kf5smC-xTCksRRFSOBQmpKsegX6lPQ",
+            authDomain: "precoinmarket-8af8e.firebaseapp.com",
+            databaseURL: "https://precoinmarket-8af8e-default-rtdb.firebaseio.com",
+            projectId: "precoinmarket-8af8e",
+            storageBucket: "precoinmarket-8af8e.appspot.com",
+            messagingSenderId: "11819212336",
+            appId: "1:11819212336:web:0ea96456065f66ecca17f5",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Загружаем данные из Firebase
+        async function loadFields() {
+            const fieldsRef = ref(database, 'fields');
+            const snapshot = await get(fieldsRef);
+            const fields = snapshot.val() || [];
+
+            const container = document.getElementById('fieldsContainer');
+            container.innerHTML = '';
+
+            fields.forEach((field, index) => {
+                addFieldToDOM(field.name, field.value, index);
+            });
+        }
+
+        // Сохраняем данные в Firebase
+        async function saveFields() {
+            const fields = Array.from(document.querySelectorAll('.field-row')).map(row => ({
+                name: row.querySelector('.field-name').value,
+                value: row.querySelector('.field-value').value,
+            }));
+
+            await set(ref(database, 'fields'), fields);
+            alert('Данные сохранены!');
+        }
+
+        // Добавляем поле в DOM
+        function addFieldToDOM(name = '', value = '', index = null) {
+            const container = document.getElementById('fieldsContainer');
+            const row = document.createElement('div');
+            row.className = 'field-row';
+
+            row.innerHTML = `
+                <input class="field-name" type="text" value="${name}" placeholder="Название поля">
+                <input class="field-value" type="text" value="${value}" placeholder="Значение">
+                <button class="delete-button" onclick="deleteField(this)">❌</button>
+            `;
+
+            if (index !== null) {
+                row.dataset.index = index;
+            }
+
+            container.appendChild(row);
+        }
+
+        // Удаляем поле
+        function deleteField(button) {
+            button.parentElement.remove();
+        }
+
+        // Добавляем новое поле
+        function addNewField() {
+            addFieldToDOM();
+        }
+
+        window.onload = () => loadFields();
+        window.saveFields = saveFields;
+        window.addNewField = addNewField;
+        window.deleteField = deleteField;
+    </script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .field-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .field-name, .field-value {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #000;
+        }
+        .delete-button {
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            color: red;
+            cursor: pointer;
+        }
+        .delete-button:hover {
+            opacity: 0.7;
+        }
+        #addButton {
+            margin-top: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #addButton:hover {
+            background-color: #0056b3;
+        }
+        #saveButton {
+            margin-top: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #saveButton:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Редактор полей</h1>
+    <div id="fieldsContainer"></div>
+    <button id="addButton" onclick="addNewField()">Добавить поле</button>
+    <button id="saveButton" onclick="saveFields()">Сохранить</button>
+</body>
+</html>
