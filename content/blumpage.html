@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Редактор</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>Главная страница с редактором</title>
     <style>
-        /* Основные стили */
         * {
             margin: 0;
             padding: 0;
@@ -23,7 +21,7 @@
             background-color: #fff;
             border-radius: 5px;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20px auto;
         }
         .editor-toolbar {
             display: flex;
@@ -41,7 +39,7 @@
             background-color: #ddd;
         }
         .editor {
-            min-height: 300px;
+            min-height: 150px;
             border: 1px solid #ccc;
             padding: 10px;
             outline: none;
@@ -50,14 +48,22 @@
         }
         .editor a {
             color: blue; /* Ссылки подсвечиваются синим */
+            text-decoration: underline;
         }
         .hidden {
             display: none;
         }
+        .description-container {
+            margin-top: 20px;
+        }
+        .description-container h2 {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Редактор контента</h1>
+    <h1 style="text-align: center;">Главная страница с редактором</h1>
+
     <div class="editor-container">
         <div class="editor-toolbar">
             <button id="bold-btn"><b>Ж</b></button>
@@ -71,7 +77,24 @@
         <textarea id="code-editor" class="editor hidden"></textarea>
     </div>
 
+    <div class="description-container">
+        <h2>Описание:</h2>
+        <div class="editor-container">
+            <div class="editor-toolbar">
+                <button id="bold-desc-btn"><b>Ж</b></button>
+                <button id="italic-desc-btn"><i>К</i></button>
+                <button id="underline-desc-btn"><u>П</u></button>
+                <button id="link-desc-btn">Ссылка</button>
+                <button id="img-desc-btn">Изображение</button>
+                <button id="code-desc-btn">HTML</button>
+            </div>
+            <div contenteditable="true" id="desc-editor" class="editor"></div>
+            <textarea id="code-desc-editor" class="editor hidden"></textarea>
+        </div>
+    </div>
+
     <script>
+        // Основной редактор
         const editor = document.getElementById('editor');
         const codeEditor = document.getElementById('code-editor');
         const boldBtn = document.getElementById('bold-btn');
@@ -81,20 +104,53 @@
         const imgBtn = document.getElementById('img-btn');
         const codeBtn = document.getElementById('code-btn');
 
+        // Редактор описания
+        const descEditor = document.getElementById('desc-editor');
+        const codeDescEditor = document.getElementById('code-desc-editor');
+        const boldDescBtn = document.getElementById('bold-desc-btn');
+        const italicDescBtn = document.getElementById('italic-desc-btn');
+        const underlineDescBtn = document.getElementById('underline-desc-btn');
+        const linkDescBtn = document.getElementById('link-desc-btn');
+        const imgDescBtn = document.getElementById('img-desc-btn');
+        const codeDescBtn = document.getElementById('code-desc-btn');
+
         // Функции для форматирования текста
-        boldBtn.addEventListener('click', () => document.execCommand('bold'));
-        italicBtn.addEventListener('click', () => document.execCommand('italic'));
-        underlineBtn.addEventListener('click', () => document.execCommand('underline'));
+        function addFormatting(button, command, editorId) {
+            button.addEventListener('click', () => {
+                const editor = document.getElementById(editorId);
+                editor.focus();
+                document.execCommand(command);
+            });
+        }
+
+        addFormatting(boldBtn, 'bold', 'editor');
+        addFormatting(italicBtn, 'italic', 'editor');
+        addFormatting(underlineBtn, 'underline', 'editor');
+        addFormatting(boldDescBtn, 'bold', 'desc-editor');
+        addFormatting(italicDescBtn, 'italic', 'desc-editor');
+        addFormatting(underlineDescBtn, 'underline', 'desc-editor');
+
         linkBtn.addEventListener('click', () => {
             const url = prompt('Введите URL ссылки:');
             if (url) document.execCommand('createLink', false, url);
         });
+
         imgBtn.addEventListener('click', () => {
             const url = prompt('Введите URL изображения:');
             if (url) document.execCommand('insertImage', false, url);
         });
 
-        // Переключение между редактором текста и HTML-кода
+        linkDescBtn.addEventListener('click', () => {
+            const url = prompt('Введите URL ссылки:');
+            if (url) document.execCommand('createLink', false, url);
+        });
+
+        imgDescBtn.addEventListener('click', () => {
+            const url = prompt('Введите URL изображения:');
+            if (url) document.execCommand('insertImage', false, url);
+        });
+
+        // Переключение между режимами HTML и текст
         codeBtn.addEventListener('click', () => {
             if (codeEditor.classList.contains('hidden')) {
                 codeEditor.value = editor.innerHTML;
@@ -106,6 +162,20 @@
                 codeEditor.classList.add('hidden');
                 editor.classList.remove('hidden');
                 codeBtn.classList.remove('active');
+            }
+        });
+
+        codeDescBtn.addEventListener('click', () => {
+            if (codeDescEditor.classList.contains('hidden')) {
+                codeDescEditor.value = descEditor.innerHTML;
+                codeDescEditor.classList.remove('hidden');
+                descEditor.classList.add('hidden');
+                codeDescBtn.classList.add('active');
+            } else {
+                descEditor.innerHTML = codeDescEditor.value;
+                codeDescEditor.classList.add('hidden');
+                descEditor.classList.remove('hidden');
+                codeDescBtn.classList.remove('active');
             }
         });
     </script>
